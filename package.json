@@ -1,0 +1,33 @@
+{
+  "name": "Binary Code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "turbo build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.121.0",
+    "@supabase/supabase-js": "^2.112.4",
+    "db": "workspace:*",
+    "dotenv": "^17.4.2",
+    "shared": "workspace:*",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "turbo": "^2.10.12"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.24.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@11.24.0",
+  "type": "module"
+}

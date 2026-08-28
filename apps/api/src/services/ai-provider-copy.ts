@@ -1,0 +1,143 @@
+import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import Groq from 'groq-sdk';
+import { config } from 'dotenv';
+import { supabase } from '../../../../packages/db/src/supabase';
+
+config();
+
+export class AIProviderService {
+  private anthropic: Anthropic | null = null;
+  private openai: OpenAI | null = null;
+  private gemini: GoogleGenerativeAI | null = null;
+  private groq: Groq | null = null;
+
+  constructor() {
+    this.initClients();
+  }
+
+  private initClients() {
+    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    const openaiKey = process.env.OPENAI_API_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY;
+    const groqKey = process.env.GROQ_API_KEY;
+
+    if (anthropicKey) {
+      this.anthropic = new Anthropic({ apiKey: anthropicKey });
+    }
+    if (openaiKey) {
+      this.openai = new OpenAI({ apiKey: openaiKey });
+    }
+    if (geminiKey) {
+      this.gemini = new GoogleGenerativeAI(geminiKey);
+    }
+    if (groqKey) {
+      this.groq = new Groq({ apiKey: groqKey });
+    }
+  }
+
+  async generateText(systemPrompt: string, userPrompt: string, provider?: string, jsonMode: boolean = false): Promise<string> {
+    // Determine provider sequence (primary first, then fallback list)
+    const primary = (provider || process.env.PRIMARY_PROVIDER || 'anthropic').toLowerCase();
+    const fallbackSequence = [primary];
+    const providers = ['anthropic', 'openai', 'gemini', 'groq', 'nvidia'];
+    for (const p of providers) {
+      if (!fallbackSequence.includes(p)) {
+        fallbackSequence.push(p);
+      }
+    }
+
+    let lastError: any = null;
+    for (const prov of fallbackSequence) {
+      try {
+        if (prov === 'anthropic' && this.anthropic) {
+          return await this.callAnthropic(systemPrompt, userPrompt, jsonMode);
+        }
+        if (prov === 'openai' && this.openai) {
+          return await this.callOpenAI(systemPrompt, userPrompt, jsonMode);
+        }
+        if (prov === 'gemini' && this.gemini) {
+          return await this.callGemini(systemPrompt, userPrompt, jsonMode);
+        }
+        if (prov === 'groq' && this.groq) {
+          return await this.callGroq(systemPrompt, userPrompt, jsonMode);
+        }
+        // Note: NVIDIA NIM is not implemented yet, but we can add it similarly to OpenAI if needed.
+      } catch (error) {
+        console.error(`Provider ${prov} call failed:`, error);
+        lastError = error;
+      }
+    }
+
+    throw new Error(`All LLM providers failed. Last error: ${lastError}`);
+  }
+
+  private async callAnthropic(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
+    if (!this.anthropic) throw new Error('Anthropic client not initialized');
+    const msg = await this.anthropic.messages.create({
+      model: 'claude-3-5-sonnet-20241022',
+      max_tokens: 4000,
+      temperature: jsonMode ? 0.0 : 0.7,
+      system: systemPrompt,
+      messages: [{ role: 'user', content: userPrompt }],
+    });
+    // Assuming the response is an array of content blocks, we take the first text block.
+    if (msg.content.length > 0 && typeof msg.content[0] === 'string') {
+      return msg.content[0];
+    }
+    // If it's a list of blocks, we concatenate the text.
+    return msg.content.filter(block => block.type === 'text').map(block => (block as any).text).join('\n');
+  }
+
+  private async callOpenAI(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
+    if (!this.openai) throw new Error('OpenAI client not initialized');
+    const options: any = {
+      model: 'gpt-4o-mini', // or another model
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+      temperature: jsonMode ? 0.0 : 0.7,
+    };
+
+    if (jsonMode) {
+      options.response_format = { type: 'json_object' };
+    }
+
+    const completion = await this.openai.chat.completions.create(options);
+    return completion.choices[0].message.content ?? '';
+  }
+
+  private async callGemini(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
+    if (!this.gemini) throw new Error('Gemini client not initialized');
+    // For Gemini, we need to set up the model and generation config.
+    const model = this.gemini.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const generationConfig = {
+      temperature: jsonMode ? 0.0 : 0.7,
+      ...(jsonMode ? { responseMimeType: 'application/json' } : {}),
+    };
+    const result = await model.generateContent([
+      systemPrompt,
+      userPrompt,
+    ], generationConfig);
+    return result.response.text();
+  }
+
+  private async callGroq(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
+    if (!this.groq) throw new Error('Groq client not initialized');
+    const completion = await this.groq.chat.completions.create({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+      model: 'llama3-8b-8192', // or another model
+      temperature: jsonMode ? 0.0 : 0.7,
+      ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
+    });
+    return completion.choices[0].message.content ?? '';
+  }
+}
+
+// Single global instance
+export const aiProvider = new AIProviderService();

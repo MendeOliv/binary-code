@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "rootDir": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowJs": false,
+    "noEmit": false,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "paths": {
+      "@db/*": ["../../packages/db/src/*"],
+      "@shared/*": ["../../packages/shared/src/*"],
+      "@core/*": ["../../packages/core/src/*"]
+    }
+  },
+  "include": ["src/**/*", "../../packages/db/src/**/*", "../../packages/shared/src/**/*", "../../packages/core/src/**/*"]
+}

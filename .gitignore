@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.pnp/
+pnpm-lock.yaml
+
+# Environment
+.env
+.env.*
+.env CB.txt
+
+# Legacy reference (do not commit)
+_legacy-reference/
+
+# Build outputs
+dist/
+.next/
+out/
+.build/
+.turbo/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Hermes specific (if any)
+.hermes/
