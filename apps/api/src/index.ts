@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import fastify from 'fastify';
 import { supabase } from '@db/supabase';
-import { orchestrator } from './services/orchestrator';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -11,12 +10,12 @@ const server = fastify({
 });
 
 // Health check route
-server.get('/health', async (request, reply) => {
-  return { status: 'ok' };
+server.get('/health', async (_request, reply) => {
+  return { status: 'ok', version: '1.0.0', name: 'Código Binário API' };
 });
 
 // Test Supabase connection
-server.get('/test-db', async (request, reply) => {
+server.get('/test-db', async (_request, reply) => {
   const { data, error } = await supabase.from('projects').select('count', { count: 'exact', head: true });
   if (error) {
     return reply.status(500).send({ error: error.message });
@@ -34,7 +33,14 @@ import { requirementRoutes } from './routes/requirements';
 import { taskRoutes } from './routes/tasks';
 import { conflictRoutes } from './routes/conflicts';
 import { logRoutes } from './routes/logs';
+import { discoveryRoutes } from './routes/discovery';
+import { leadRoutes } from './routes/leads';
 
+// Discovery pipeline (Binary Diagnostic)
+server.register(discoveryRoutes, { prefix: '/api/discovery' });
+server.register(leadRoutes, { prefix: '/api/leads' });
+
+// Project-scoped routes
 server.register(projectRoutes, { prefix: '/api/projects' });
 server.register(chatRoutes, { prefix: '/api/projects' });
 server.register(memoryRoutes, { prefix: '/api/projects' });

@@ -8,7 +8,11 @@ import {
   TaskBase, TaskCreate, TaskUpdate, TaskResponse,
   MemoryItemBase, MemoryItemCreate, MemoryItemResponse,
   ConflictBase, ConflictCreate, ConflictResponse,
-  RequestLogResponse
+  RequestLogResponse,
+  DiscoverySessionCreate, DiscoverySessionResponse,
+  DiscoveryMessageCreate, DiscoveryMessageResponse,
+  DiagnosticCreate, DiagnosticResponse,
+  LeadCreate, LeadUpdate, LeadResponse
 } from '../../shared/src/models';
 
 export class SupabaseRepository {
@@ -425,6 +429,218 @@ export class SupabaseRepository {
 
     if (error) throw error;
     return data;
+  }
+
+  // ===========================================================================
+  // DISCOVERY PIPELINE OPERATIONS
+  // ===========================================================================
+
+  // --- Discovery Session Operations ---
+  async createDiscoverySession(data: DiscoverySessionCreate): Promise<DiscoverySessionResponse> {
+    const { data: result, error } = await this.client
+      .from('discovery_sessions')
+      .insert([{ initial_problem: data.initialProblem }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return this.mapDiscoverySession(result);
+  }
+
+  async getDiscoverySession(id: string): Promise<DiscoverySessionResponse | null> {
+    const { data, error } = await this.client
+      .from('discovery_sessions')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return data ? this.mapDiscoverySession(data) : null;
+  }
+
+  async updateDiscoverySession(id: string, updates: { status?: string; complexity?: string; extractedFacts?: Record<string, any> }): Promise<DiscoverySessionResponse | null> {
+    const dbUpdates: Record<string, any> = {};
+    if (updates.status !== undefined) dbUpdates.status = updates.status;
+    if (updates.complexity !== undefined) dbUpdates.complexity = updates.complexity;
+    if (updates.extractedFacts !== undefined) dbUpdates.extracted_facts = updates.extractedFacts;
+
+    const { data: result, error } = await this.client
+      .from('discovery_sessions')
+      .update(dbUpdates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return result ? this.mapDiscoverySession(result) : null;
+  }
+
+  // --- Discovery Message Operations ---
+  async createDiscoveryMessage(data: DiscoveryMessageCreate): Promise<DiscoveryMessageResponse> {
+    const { data: result, error } = await this.client
+      .from('discovery_messages')
+      .insert([{
+        session_id: data.sessionId,
+        role: data.role,
+        content: data.content,
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return this.mapDiscoveryMessage(result);
+  }
+
+  async listDiscoveryMessages(sessionId: string): Promise<DiscoveryMessageResponse[]> {
+    const { data, error } = await this.client
+      .from('discovery_messages')
+      .select('*')
+      .eq('session_id', sessionId)
+      .order('created_at', { ascending: true });
+
+    if (error) throw error;
+    return data.map(m => this.mapDiscoveryMessage(m));
+  }
+
+  // --- Diagnostic Operations ---
+  async createDiagnostic(data: DiagnosticCreate): Promise<DiagnosticResponse> {
+    const { data: result, error } = await this.client
+      .from('diagnostics')
+      .insert([{
+        session_id: data.sessionId,
+        problem_identified: data.problemIdentified,
+        process_affected: data.processAffected,
+        impact_estimated: data.impactEstimated,
+        solution_recommended: data.solutionRecommended,
+        technologies_needed: data.technologiesNeeded || [],
+        complexity: data.complexity,
+        next_step: data.nextStep,
+        reasoning: data.reasoning,
+        confidence: data.confidence ?? 0.8,
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return this.mapDiagnostic(result);
+  }
+
+  async getDiagnosticBySession(sessionId: string): Promise<DiagnosticResponse | null> {
+    const { data, error } = await this.client
+      .from('diagnostics')
+      .select('*')
+      .eq('session_id', sessionId)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return data ? this.mapDiagnostic(data) : null;
+  }
+
+  // --- Lead Operations ---
+  async createLead(data: LeadCreate): Promise<LeadResponse> {
+    const { data: result, error } = await this.client
+      .from('leads')
+      .insert([{
+        diagnostic_id: data.diagnosticId,
+        session_id: data.sessionId,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        company: data.company,
+        notes: data.notes,
+      }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return this.mapLead(result);
+  }
+
+  async updateLead(id: string, data: LeadUpdate): Promise<LeadResponse | null> {
+    const dbUpdates: Record<string, any> = {};
+    if (data.name !== undefined) dbUpdates.name = data.name;
+    if (data.email !== undefined) dbUpdates.email = data.email;
+    if (data.phone !== undefined) dbUpdates.phone = data.phone;
+    if (data.company !== undefined) dbUpdates.company = data.company;
+    if (data.status !== undefined) dbUpdates.status = data.status;
+    if (data.notes !== undefined) dbUpdates.notes = data.notes;
+
+    const { data: result, error } = await this.client
+      .from('leads')
+      .update(dbUpdates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return result ? this.mapLead(result) : null;
+  }
+
+  async listLeads(status?: string): Promise<LeadResponse[]> {
+    let query = this.client.from('leads').select('*');
+    if (status) query = query.eq('status', status);
+    query = query.order('created_at', { ascending: false });
+    const { data, error } = await query;
+    if (error) throw error;
+    return data.map(l => this.mapLead(l));
+  }
+
+  // --- Mappers (snake_case DB -> camelCase) ---
+  private mapDiscoverySession(row: any): DiscoverySessionResponse {
+    return {
+      id: row.id,
+      status: row.status,
+      initialProblem: row.initial_problem,
+      extractedFacts: row.extracted_facts || {},
+      complexity: row.complexity,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+    };
+  }
+
+  private mapDiscoveryMessage(row: any): DiscoveryMessageResponse {
+    return {
+      id: row.id,
+      sessionId: row.session_id,
+      role: row.role,
+      content: row.content,
+      createdAt: row.created_at,
+    };
+  }
+
+  private mapDiagnostic(row: any): DiagnosticResponse {
+    return {
+      id: row.id,
+      sessionId: row.session_id,
+      problemIdentified: row.problem_identified,
+      processAffected: row.process_affected,
+      impactEstimated: row.impact_estimated,
+      solutionRecommended: row.solution_recommended,
+      technologiesNeeded: row.technologies_needed || [],
+      complexity: row.complexity,
+      nextStep: row.next_step,
+      reasoning: row.reasoning,
+      confidence: row.confidence,
+      createdAt: row.created_at,
+    };
+  }
+
+  private mapLead(row: any): LeadResponse {
+    return {
+      id: row.id,
+      diagnosticId: row.diagnostic_id,
+      sessionId: row.session_id,
+      name: row.name,
+      email: row.email,
+      phone: row.phone,
+      company: row.company,
+      status: row.status,
+      notes: row.notes,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+    };
   }
 }
 

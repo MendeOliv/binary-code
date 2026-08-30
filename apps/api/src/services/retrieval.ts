@@ -1,11 +1,10 @@
-import { repo } from '../../db/src/repository';
+import { repo } from '@db/repository';
 import type { 
   DecisionResponse,
   RequirementResponse,
   TaskResponse,
-  MemoryItemResponse,
-  StateResponse
-} from '../../shared/src/models';
+  MemoryItemResponse
+} from '@shared/models';
 
 export class RetrievalService {
   /**

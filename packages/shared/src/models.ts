@@ -43,6 +43,8 @@ export interface DecisionBase {
 
 export interface DecisionCreate extends DecisionBase {
   id: string; // Custom decision ID, e.g. DEC-001
+  projectId: string;
+  replacedBy?: string;
 }
 
 export interface DecisionUpdate {
@@ -53,6 +55,7 @@ export interface DecisionUpdate {
   confidence?: number;
   status?: string;
   replacedBy?: string;
+  replaced_by?: string; // DB column name
 }
 
 export interface DecisionResponse extends DecisionBase {
@@ -71,6 +74,7 @@ export interface RequirementBase {
 
 export interface RequirementCreate extends RequirementBase {
   id: string; // Custom requirement ID, e.g. REQ-001
+  projectId: string;
 }
 
 export interface RequirementResponse extends RequirementBase {
@@ -88,6 +92,7 @@ export interface TaskBase {
 
 export interface TaskCreate extends TaskBase {
   id: string; // Custom task ID, e.g. TASK-001
+  projectId: string;
 }
 
 export interface TaskUpdate {
@@ -113,7 +118,9 @@ export interface MemoryItemBase {
   status?: string;
 }
 
-export interface MemoryItemCreate extends MemoryItemBase {}
+export interface MemoryItemCreate extends MemoryItemBase {
+  projectId: string;
+}
 
 export interface MemoryItemResponse extends MemoryItemBase {
   id: string;
@@ -131,7 +138,9 @@ export interface ConflictBase {
   resolution?: string;
 }
 
-export interface ConflictCreate extends ConflictBase {}
+export interface ConflictCreate extends ConflictBase {
+  projectId: string;
+}
 
 export interface ConflictResponse extends ConflictBase {
   id: string;
@@ -170,4 +179,111 @@ export interface RequestLogResponse {
   reason?: string;
   modelUsed?: string;
   createdAt: string; // ISO string
+}
+
+// --- Discovery Session Schemas ---
+export interface DiscoverySessionCreate {
+  initialProblem: string;
+}
+
+export interface DiscoverySessionResponse {
+  id: string;
+  status: string;
+  initialProblem: string;
+  extractedFacts: Record<string, any>;
+  complexity: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// --- Discovery Message Schemas ---
+export interface DiscoveryMessageCreate {
+  sessionId: string;
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface DiscoveryMessageResponse {
+  id: string;
+  sessionId: string;
+  role: string;
+  content: string;
+  createdAt: string;
+}
+
+// --- Diagnostic Brief Schemas ---
+export interface DiagnosticCreate {
+  sessionId: string;
+  problemIdentified: string;
+  processAffected?: string;
+  impactEstimated?: string;
+  solutionRecommended?: string;
+  technologiesNeeded?: string[];
+  complexity: string; // low, medium, high
+  nextStep: string; // budget, consultation, analysis
+  reasoning?: string;
+  confidence?: number;
+}
+
+export interface DiagnosticResponse {
+  id: string;
+  sessionId: string;
+  problemIdentified: string;
+  processAffected: string | null;
+  impactEstimated: string | null;
+  solutionRecommended: string | null;
+  technologiesNeeded: string[];
+  complexity: string;
+  nextStep: string;
+  reasoning: string | null;
+  confidence: number;
+  createdAt: string;
+}
+
+// --- Lead Schemas ---
+export interface LeadCreate {
+  diagnosticId?: string;
+  sessionId?: string;
+  name: string;
+  email?: string;
+  phone?: string;
+  company?: string;
+  notes?: string;
+}
+
+export interface LeadUpdate {
+  name?: string;
+  email?: string;
+  phone?: string;
+  company?: string;
+  status?: string;
+  notes?: string;
+}
+
+export interface LeadResponse {
+  id: string;
+  diagnosticId: string | null;
+  sessionId: string | null;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  company: string | null;
+  status: string;
+  notes: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// --- Discovery Chat Schemas ---
+export interface DiscoveryChatRequest {
+  message: string;
+  sessionId?: string; // if continuing an existing session
+}
+
+export interface DiscoveryChatResponse {
+  response: string;
+  sessionId: string;
+  phase: 'interview' | 'diagnosis';
+  diagnostic?: DiagnosticResponse;
+  extractedFacts?: Record<string, any>;
 }

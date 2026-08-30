@@ -1,5 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
-import type { MemoryItemResponse } from '../../shared/src/models';
+import type { MemoryItemResponse } from '@shared/models';
 
 export class ContextBuilder {
   private encoding: any; // placeholder for tiktoken if we want to add later

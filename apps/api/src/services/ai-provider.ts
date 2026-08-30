@@ -3,7 +3,6 @@ import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Groq from 'groq-sdk';
 import { config } from 'dotenv';
-import { supabase } from '../../../../packages/db/src/supabase';
 
 config();
 
@@ -111,16 +110,14 @@ export class AIProviderService {
 
   private async callGemini(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     if (!this.gemini) throw new Error('Gemini client not initialized');
-    // For Gemini, we need to set up the model and generation config.
-    const model = this.gemini.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const generationConfig = {
-      temperature: jsonMode ? 0.0 : 0.7,
-      ...(jsonMode ? { responseMimeType: 'application/json' } : {}),
-    };
-    const result = await model.generateContent([
-      systemPrompt,
-      userPrompt,
-    ], generationConfig);
+    const model = this.gemini.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        temperature: jsonMode ? 0.0 : 0.7,
+        ...(jsonMode ? { responseMimeType: 'application/json' } : {}),
+      },
+    });
+    const result = await model.generateContent([systemPrompt, userPrompt]);
     return result.response.text();
   }
 

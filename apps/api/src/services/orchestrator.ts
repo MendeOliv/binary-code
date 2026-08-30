@@ -1,17 +1,11 @@
-import { repo } from '../../packages/db/src/repository';
+import { repo } from '@db/repository';
 import { aiProvider } from './ai-provider';
-import { contextBuilder } from '../../packages/core/src/services/context-builder';
+import { contextBuilder } from '@core/services/context-builder';
 import { retrievalService } from './retrieval';
 import type { 
-  ProjectResponse,
-  StateResponse,
-  DecisionResponse,
-  RequirementResponse,
-  TaskResponse,
-  MemoryItemResponse,
   ChatResponse,
   ExtractedMemory
-} from '../../shared/src/models';
+} from '@shared/models';
 
 export class OrchestratorService {
   /**
@@ -104,13 +98,13 @@ export class OrchestratorService {
     // 4. If not sufficient, bypass LLM logic and return clarification
     if (!isSufficient) {
       // Log the insufficient retrieval query
-      await repo.createRequestLog({
+      await repo.createRequestLog(
         projectId,
-        question: query,
+        query,
         retrievedIds,
-        reason: reasoning,
-        modelUsed: forcedProvider || process.env.PRIMARY_PROVIDER || 'anthropic',
-      });
+        reasoning,
+        forcedProvider || process.env.PRIMARY_PROVIDER || 'anthropic',
+      );
 
       return {
         response: clarificationQuestion || "Preciso de mais informações para responder.",
@@ -160,13 +154,13 @@ export class OrchestratorService {
     };
 
     // 8. Register request logs for observability
-    await repo.createRequestLog({
+    await repo.createRequestLog(
       projectId,
-      question: query,
+      query,
       retrievedIds,
-      reason: `Sufficiency check: ${reasoning}. Extracted: ${JSON.stringify(extractionResult.persistedSummary)}`,
-      modelUsed: modelName,
-    });
+      `Sufficiency check: ${reasoning}. Extracted: ${JSON.stringify(extractionResult.persistedSummary)}`,
+      modelName,
+    );
 
     // Build response payload
     return {
