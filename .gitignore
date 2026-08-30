@@ -27,3 +27,5 @@ Thumbs.db
 
 # Hermes specific (if any)
 .hermes/
+tsconfig.tsbuildinfo
+apps/frontend/tsconfig.tsbuildinfo
