@@ -1,7 +1,8 @@
 {
-  "name": "@binary-code/frontend",
+  "name": "@binary-code/web",
   "version": "1.0.0",
   "private": true,
+  "description": "Código Binário — Web Frontend",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
@@ -11,7 +12,8 @@
   "dependencies": {
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -13,7 +13,7 @@ import {
   DiscoveryMessageCreate, DiscoveryMessageResponse,
   DiagnosticCreate, DiagnosticResponse,
   LeadCreate, LeadUpdate, LeadResponse
-} from '../../shared/src/models';
+} from '@shared/models';
 
 export class SupabaseRepository {
   private client: SupabaseClient;

@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "baseUrl": "../..",
+    "baseUrl": ".",
     "outDir": "dist",
     "sourceMap": true,
     "declaration": true,
@@ -16,15 +16,13 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "paths": {
-      "@db/*": ["packages/db/src/*"],
-      "@shared/*": ["packages/shared/src/*"],
-      "@core/*": ["packages/core/src/*"]
+      "@db/*": ["./src/lib/db/*"],
+      "@core/*": ["./src/services/*"],
+      "@shared/*": ["../../packages/shared/src/*"]
     }
   },
   "include": [
     "src/**/*",
-    "../packages/db/src/**/*",
-    "../packages/shared/src/**/*",
-    "../packages/core/src/**/*"
+    "../../packages/shared/src/**/*"
   ]
 }

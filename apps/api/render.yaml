@@ -1,0 +1,41 @@
+# Render Web Service — Código Binário API
+# Docs: https://render.com/docs/render.yaml
+#
+# DEPLOYMENT SETUP:
+# 1. Connect your GitHub repo to Render
+# 2. Create a new "Web Service"
+# 3. Set Root Directory to: apps/api
+# 4. Render will auto-detect this render.yaml from the root
+# 5. Set environment variables in Render dashboard (see envVars below)
+
+services:
+  - type: web
+    name: codigo-binario-api
+    runtime: node
+    plan: free
+    buildCommand: cd ../.. && pnpm install --filter=@binary-code/api... && cd apps/api && pnpm build
+    startCommand: pnpm start
+    envVars:
+      # ── Supabase (required) ──
+      - key: SUPABASE_URL
+        sync: false  # Set in Render dashboard
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false  # Set in Render dashboard
+
+      # ── AI Providers (at least one required) ──
+      - key: ANTHROPIC_API_KEY
+        sync: false  # Set in Render dashboard
+      - key: OPENAI_API_KEY
+        sync: false  # Set in Render dashboard
+      - key: GEMINI_API_KEY
+        sync: false  # Set in Render dashboard
+      - key: GROQ_API_KEY
+        sync: false  # Set in Render dashboard
+
+      # ── Config ──
+      - key: PRIMARY_PROVIDER
+        value: anthropic
+      - key: CORS_ORIGINS
+        sync: false  # Set to your Vercel URL, e.g. https://your-app.vercel.app
+      - key: NODE_ENV
+        value: production

@@ -41,19 +41,19 @@
 
   .btn-primary {
     @apply bg-primary-container text-on-primary-container border border-primary
-           font-label-md py-2 px-6 rounded transition-all duration-200 font-bold
+           text-label-md py-2 px-6 rounded transition-all duration-200 font-bold
            hover:bg-surface-container-high hover:shadow-glow;
   }
 
   .btn-ghost {
     @apply bg-transparent text-on-surface-variant border border-outline-variant
-           font-label-md py-2 px-6 rounded transition-all duration-200
+           text-label-md py-2 px-6 rounded transition-all duration-200
            hover:text-on-surface hover:border-primary-container;
   }
 
   .input-field {
     @apply bg-surface-container-lowest border border-outline-variant rounded-lg
-           px-4 py-3 font-body-sm text-on-surface placeholder-outline
+           px-4 py-3 text-body-sm text-on-surface placeholder-outline
            focus:border-primary-container focus:shadow-glow focus:outline-none
            transition-all duration-200;
   }

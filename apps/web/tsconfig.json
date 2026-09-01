@@ -3,14 +3,18 @@
   "compilerOptions": {
     "baseUrl": "../..",
     "paths": {
-      "@shared/*": ["packages/shared/src/*"],
-      "@db/*": ["packages/db/src/*"],
-      "@core/*": ["packages/core/src/*"]
-    }
+      "@shared/*": [
+        "packages/shared/src/*"
+      ]
+    },
+    "noEmit": true
   },
   "include": [
     "pages/**/*",
     "components/**/*",
     "../../packages/shared/src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
