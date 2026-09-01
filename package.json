@@ -1,22 +1,13 @@
 {
-  "name": "Binary Code",
+  "name": "binary-code",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Código Binário — AI-powered diagnostic platform",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "turbo build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@anthropic-ai/sdk": "^0.121.0",
-    "@supabase/supabase-js": "^2.112.4",
-    "db": "workspace:*",
-    "dotenv": "^17.4.2",
-    "shared": "workspace:*",
-    "zod": "^4.4.3"
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "clean": "turbo clean"
   },
   "devDependencies": {
     "turbo": "^2.10.12"
@@ -28,6 +19,5 @@
       "onFail": "download"
     }
   },
-  "packageManager": "pnpm@11.24.0",
-  "type": "module"
+  "packageManager": "pnpm@11.24.0"
 }

@@ -1,6 +1,6 @@
 import { repo } from '@db/repository';
 import { aiProvider } from './ai-provider';
-import { contextBuilder } from '@core/services/context-builder';
+import { contextBuilder } from './context-builder';
 import { retrievalService } from './retrieval';
 import type { 
   ChatResponse,
