@@ -37,3 +37,4 @@ packages/shared/src/*.js.map
 # IDE
 .vscode/
 .idea/
+.env.backup
