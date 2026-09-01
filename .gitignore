@@ -1,7 +1,6 @@
 # Dependencies
 node_modules/
 .pnp/
-pnpm-lock.yaml
 
 # Environment
 .env
@@ -27,5 +26,22 @@ Thumbs.db
 
 # Hermes specific (if any)
 .hermes/
+
+# TypeScript build info
 tsconfig.tsbuildinfo
 apps/frontend/tsconfig.tsbuildinfo
+
+# Compiled JS in source directories (monorepo packages)
+packages/db/src/*.js
+packages/db/src/*.d.ts
+packages/db/src/*.d.ts.map
+packages/db/src/*.js.map
+packages/shared/src/*.js
+packages/shared/src/*.d.ts
+packages/shared/src/*.d.ts.map
+packages/shared/src/*.js.map
+
+# Temp files
+*.tmp
+*.bak
+package.json.tmp

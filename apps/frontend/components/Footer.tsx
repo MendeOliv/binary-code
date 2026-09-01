@@ -1,4 +1,8 @@
+import { useRouter } from 'next/router';
+
 export default function Footer() {
+  const router = useRouter();
+
   return (
     <footer className="border-t border-outline-variant py-12 px-6">
       <div className="max-w-6xl mx-auto">
@@ -24,11 +28,20 @@ export default function Footer() {
             <div>
               <h4 className="font-mono text-label-md text-primary mb-4">SERVIÇOS</h4>
               <ul className="space-y-2">
-                {['IA & Agentes', 'Automação', 'Software', 'Presença Digital', 'Consultoria'].map((item) => (
-                  <li key={item}>
-                    <span className="font-mono text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
-                      {item}
-                    </span>
+                {[
+                  { label: 'IA & Agentes', href: '#servicos' },
+                  { label: 'Automação', href: '#servicos' },
+                  { label: 'Software', href: '#servicos' },
+                  { label: 'Presença Digital', href: '#servicos' },
+                  { label: 'Consultoria', href: '#servicos' },
+                ].map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="font-mono text-body-sm text-on-surface-variant hover:text-primary transition-colors"
+                    >
+                      {item.label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -36,11 +49,28 @@ export default function Footer() {
             <div>
               <h4 className="font-mono text-label-md text-primary mb-4">EMPRESA</h4>
               <ul className="space-y-2">
-                {['Sobre Nós', 'Diagnóstico', 'Contacto', 'Blog'].map((item) => (
-                  <li key={item}>
-                    <span className="font-mono text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
-                      {item}
-                    </span>
+                {[
+                  { label: 'Sobre Nós', href: '#como-funciona' },
+                  { label: 'Diagnóstico', action: () => router.push('/diagnostic') },
+                  { label: 'Contacto', href: '#' },
+                  { label: 'Blog', href: '#' },
+                ].map((item) => (
+                  <li key={item.label}>
+                    {'action' in item && item.action ? (
+                      <button
+                        onClick={item.action}
+                        className="font-mono text-body-sm text-on-surface-variant hover:text-primary transition-colors text-left"
+                      >
+                        {item.label}
+                      </button>
+                    ) : (
+                      <a
+                        href={'href' in item ? item.href : '#'}
+                        className="font-mono text-body-sm text-on-surface-variant hover:text-primary transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -51,7 +81,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-outline-variant mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="font-mono text-label-sm text-outline">
-            © 2024 Código Binário. Todos os direitos reservados.
+            © 2025 Código Binário. Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />

@@ -31,7 +31,7 @@ export default function HowItWorks() {
   const router = useRouter();
 
   return (
-    <section className="py-24 px-6 bg-surface-dim">
+    <section id="como-funciona" className="py-24 px-6 bg-surface-dim">
       <div className="max-w-5xl mx-auto">
         <div className="text-center mb-16">
           <span className="font-mono text-label-md text-primary tracking-widest">

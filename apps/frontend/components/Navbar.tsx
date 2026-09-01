@@ -21,12 +21,18 @@ export default function Navbar() {
 
         {/* Nav links */}
         <div className="flex items-center gap-6">
-          <span className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block">
+          <a
+            href="#servicos"
+            className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block"
+          >
             Serviços
-          </span>
-          <span className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block">
+          </a>
+          <a
+            href="#como-funciona"
+            className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block"
+          >
             Sobre
-          </span>
+          </a>
           <button
             onClick={() => router.push('/diagnostic')}
             className="btn-primary text-label-sm"

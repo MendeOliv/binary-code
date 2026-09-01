@@ -1,12 +1,30 @@
 import dotenv from 'dotenv';
 import fastify from 'fastify';
+import cors from '@fastify/cors';
 import { supabase } from '@db/supabase';
 
-// Load environment variables from .env file
+// Load environment variables from .env file (only in development)
 dotenv.config();
 
 const server = fastify({
   logger: true,
+});
+
+// CORS — allow frontend origin
+const allowedOrigins = process.env.CORS_ORIGINS
+  ? process.env.CORS_ORIGINS.split(',').map((s) => s.trim())
+  : ['http://localhost:3000', 'http://localhost:3001'];
+
+server.register(cors, {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'), false);
+    }
+  },
+  credentials: true,
 });
 
 // Health check route
