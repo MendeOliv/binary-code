@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import Services from '../components/Services';
 import HowItWorks from '../components/HowItWorks';
 import Footer from '../components/Footer';
+import DigitalRain from '../components/DigitalRain';
 
 export default function Home() {
   return (
@@ -29,12 +30,15 @@ export default function Home() {
         />
       </Head>
 
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <Hero />
-        <Services />
-        <HowItWorks />
-        <Footer />
+      <div className="min-h-screen bg-background relative overflow-hidden">
+        <DigitalRain />
+        <div className="relative z-10">
+          <Navbar />
+          <Hero />
+          <Services />
+          <HowItWorks />
+          <Footer />
+        </div>
       </div>
     </>
   );

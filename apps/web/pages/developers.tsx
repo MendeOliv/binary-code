@@ -1,0 +1,228 @@
+'use client';
+
+import { useRouter } from 'next/router';
+import DigitalRain from '../components/DigitalRain';
+import Footer from '../components/Footer';
+
+interface Developer {
+  id: string;
+  name: string;
+  role: string;
+  skills: string[];
+  image: string;
+  stats: {
+    uptime: string;
+    lastCommit: string;
+  };
+}
+
+export default function DevelopersPage() {
+  const router = useRouter();
+
+  // Developer data from Stitch export - preserving exact information
+  const developers: Developer[] = [
+    {
+      id: 'mbumba',
+      name: 'Mbumba Guilherme',
+      role: 'Senior Systems Architect',
+      skills: ['AI', 'Systems Architecture'],
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCp9uC5iHZypFcHqXh32H1i-Cqb7fDU-oZnBfO9aMBEIOoxethaJbYOdRnqf2fXN7X90QEQiyVaRxCesiBB2tTvtcfWSIcl3Egr_WUEZKkV99o2XOuHmjvN1sqNdGYbqHB0wcv3bFpGcGsgsPfLLvyxzE2lsBXjhOVto0_bTgudtDhrvQXbhRzSz8M_vEpMw-WiFuixWTlv9EcyzqE-EDb-aMxlLncUJ2A1cu1-v8WOK2uf1GtbqeKjaSpHK26scM4daA',
+      stats: {
+        uptime: '99.9%',
+        lastCommit: '-1H',
+      },
+    },
+    {
+      id: 'mendes',
+      name: 'Mendes Bessa',
+      role: 'Lead Backend Engineer',
+      skills: ['Cloud', 'Automation', 'Data'],
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAod2bM7IxNyKFmPOvybBMhCLNqAojIvG2wlia_FQi5IrvtPvS8X_ZfcJPIwBc6Ps_d__kndwKkWITW42Kxu2_vFYTSQqioilckWtLhTXjqdoEAURMGS6CiZomEeeSF_fE1A0LqgiiEHiQr4o__MCf1U3NLmxAIdG6lSX_pgWDwe-BnDJjbMCUYzDFlxfnzbtVW1LEXDE6c_lQFvATXm0W0DHo_uyGUPCZlagTRP8G-4PEEaLOpUFE-wBku8l9fkc8ydg',
+      stats: {
+        uptime: '99.7%',
+        lastCommit: '-4H',
+      },
+    },
+    {
+      id: 'elisio',
+      name: 'Elisio Nascimento',
+      role: 'Product Engineering Lead',
+      skills: ['Frontend', 'Product Eng'],
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDwDe8alX86E9XvGYUDcOML8ijr3U1MhvlrO8KUcA50OCkKCwYU-vYAmITFl6jeIpVC8Wb12lq_xi9jjpmJRcVqz391s7XxWDjwzQy2e6uO1iFMeiGuloikKeRQszUh2-LJgKXpaFJJ8fVcDCI-h5UVowOC4sYMvp8I-bzxiw9tBjQvqvgzczH09aOMt1r8cXn-2VJfxU7fPPsSXrnVDPWDD8-WwfL27-ihniBLoziKHtk_IkW6u1P1sq-p0ubxxj8GhQ',
+      stats: {
+        uptime: '99.8%',
+        lastCommit: '-2H',
+      },
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      <DigitalRain />
+
+      <main className="relative z-10 pt-20">
+        <div className="px-6 md:px-margin-desktop py-24 max-w-2xl mx-auto">
+
+          {/* Section Header */}
+          <div className="mb-20">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-[1px] bg-primary"></span>
+              <span className="font-micro-metadata text-micro-metadata text-primary uppercase tracking-widest">// SYSTEM.ARCHITECTURE.HUMANS</span>
+            </div>
+            <h1 className="font-headline-xl text-headline-xl text-text-high-contrast mb-6">
+              THE MINDS BEHIND<br/> THE CODE
+            </h1>
+            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-2 border-border-glass pl-4 py-1">
+              Os engenheiros que arquitetam o futuro. Uma convergência de lógica abstrata, design de sistemas estruturados e execução de precisão.
+            </p>
+          </div>
+
+          {/* Symmetric 3-Column Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+            {/* Dev 1: Mbumba (Sapphire Blue) */}
+            <div className="bg-surface-charcoal/80 backdrop-blur-[12px] border border-border-glass rounded-DEFAULT overflow-hidden inner-highlight tech-card-hover hover-sapphire group flex flex-col h-full">
+              <div className="relative h-[350px] overflow-hidden border-b border-border-glass group-hover:border-[#3b82f6]/50 transition-colors duration-400">
+                <img
+                  alt=""
+                  className="w-full h-full object-cover object-top img-zoom grayscale group-hover:grayscale-0 transition-all duration-700 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:mix-blend-normal"
+                  src={developers[0].image}
+                />
+                <div className="absolute top-4 right-4 flex items-center gap-2 bg-surface/80 backdrop-blur px-3 py-1.5 rounded-sm border border-border-glass group-hover:border-[#3b82f6]/30 transition-colors">
+                  <span className="w-2 h-2 rounded-full bg-[#3b82f6] animate-pulse shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+                  <span className="font-micro-metadata text-micro-metadata text-[#3b82f6]">SYS.ARCHITECT</span>
+                </div>
+                <div className="absolute bottom-4 left-4 font-micro-metadata text-micro-metadata text-text-high-contrast/50">
+                  {developers[0].name.split(' ')[0]} // Mbumba_G
+                </div>
+              </div>
+              <div className="p-6 flex-grow flex flex-col justify-between">
+                <div>
+                  <h2 className="font-editorial-h1 text-editorial-h1 text-text-high-contrast mb-2 group-hover:text-[#3b82f6] transition-colors duration-300">
+                    {developers[0].name}
+                  </h2>
+                  <div className="font-body-md text-body-md text-[#3b82f6] mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">account_tree</span>
+                                    Senior Systems Architect
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    <span className="border border-border-glass group-hover:border-[#3b82f6]/30 px-2 py-1 font-label-sm text-label-sm text-on-surface-variant rounded-sm transition-colors">AI</span>
+                    <span className="border border-border-glass group-hover:border-[#3b82f6]/30 px-2 py-1 font-label-sm text-label-sm text-on-surface-variant rounded-sm transition-colors">Systems Architecture</span>
+                  </div>
+                </div>
+                <button
+                  className="w-full bg-transparent border border-border-glass text-text-high-contrast hover:bg-[#3b82f6]/10 hover:border-[#3b82f6] hover:text-[#3b82f6] transition-all duration-300 font-label-sm text-label-sm py-3 px-4 rounded-sm flex items-center justify-center gap-2"
+                >
+                  VIEW PROFILE
+                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+              </div>
+              <div className="h-[1px] bg-border-glass w-full group-hover:bg-[#3b82f6]/30 transition-colors"></div>
+              <div className="p-3 bg-surface-container-low flex justify-between font-micro-metadata text-micro-metadata text-on-surface-variant">
+                <span>UPTIME: {developers[0].stats.uptime}</span>
+                <span>LAST_COMMIT: {developers[0].stats.lastCommit}</span>
+              </div>
+            </div>
+
+            {/* Dev 2: Mendes (Amethyst Purple) */}
+            <div className="bg-surface-charcoal/80 backdrop-blur-[12px] border border-border-glass rounded-DEFAULT overflow-hidden inner-highlight tech-card-hover hover-amethyst group flex flex-col h-full">
+              <div className="relative h-[350px] overflow-hidden border-b border-border-glass group-hover:border-[#a855f7]/50 transition-colors duration-400">
+                <img
+                  alt=""
+                  className="w-full h-full object-cover object-top img-zoom grayscale group-hover:grayscale-0 transition-all duration-700 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:mix-blend-normal"
+                  src={developers[1].image}
+                />
+                <div className="absolute top-4 right-4 flex items-center gap-2 bg-surface/80 backdrop-blur px-3 py-1.5 rounded-sm border border-border-glass group-hover:border-[#a855f7]/30 transition-colors">
+                  <span className="w-2 h-2 rounded-full bg-[#a855f7] animate-pulse shadow-[0_0_8px_rgba(168,85,247,0.8)]"></span>
+                  <span className="font-micro-metadata text-micro-metadata text-[#a855f7]">BACKEND.LEAD</span>
+                </div>
+                <div className="absolute bottom-4 left-4 font-micro-metadata text-micro-metadata text-text-high-contrast/50">
+                  {developers[1].name.split(' ')[0]} // Mendes_B
+                </div>
+              </div>
+              <div className="p-6 flex-grow flex flex-col justify-between">
+                <div>
+                  <h2 className="font-editorial-h1 text-editorial-h1 text-text-high-contrast mb-2 group-hover:text-[#a855f7] transition-colors duration-300">
+                    {developers[1].name}
+                  </h2>
+                  <div className="font-body-md text-body-md text-[#a855f7] mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">dns</span>
+                                    Lead Backend Engineer
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    <span className="border border-border-glass group-hover:border-[#a855f7]/30 px-2 py-1 font-label-sm text-label-sm text-on-surface-variant rounded-sm transition-colors">Cloud</span>
+                    <span className="border border-border-glass group-hover:border-[#a855f7]/30 px-2 py-1 font-label-sm text-label-sm text-on-surface-variant rounded-sm transition-colors">Automation</span>
+                    <span className="border border-border-glass group-hover:border-[#a855f7]/30 px-2 py-1 font-label-sm text-label-sm text-on-surface-variant rounded-sm transition-colors">Data</span>
+                  </div>
+                </div>
+                <button
+                  className="w-full bg-transparent border border-border-glass text-text-high-contrast hover:bg-[#a855f7]/10 hover:border-[#a855f7] hover:text-[#a855f7] transition-all duration-300 font-label-sm text-label-sm py-3 px-4 rounded-sm flex items-center justify-center gap-2"
+                >
+                  VIEW PROFILE
+                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+              </div>
+              <div className="h-[1px] bg-border-glass w-full group-hover:bg-[#a855f7]/30 transition-colors"></div>
+              <div className="p-3 bg-surface-container-low flex justify-between font-micro-metadata text-micro-metadata text-on-surface-variant">
+                <span>UPTIME: {developers[1].stats.uptime}</span>
+                <span>LAST_COMMIT: {developers[1].stats.lastCommit}</span>
+              </div>
+            </div>
+
+            {/* Dev 3: Elisio (Slate Teal / Cyan) */}
+            <div className="bg-surface-charcoal/80 backdrop-blur-[12px] border border-border-glass rounded-DEFAULT overflow-hidden inner-highlight tech-card-hover hover-slate-cyan group flex flex-col h-full">
+              <div className="relative h-[350px] overflow-hidden border-b border-border-glass group-hover:border-[#06b6d4]/50 transition-colors duration-400">
+                <img
+                  alt=""
+                  className="w-full h-full object-cover object-top img-zoom grayscale group-hover:grayscale-0 transition-all duration-700 mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:mix-blend-normal"
+                  src={developers[2].image}
+                />
+                <div className="absolute top-4 right-4 flex items-center gap-2 bg-surface/80 backdrop-blur px-3 py-1.5 rounded-sm border border-border-glass group-hover:border-[#06b6d4]/30 transition-colors">
+                  <span className="w-2 h-2 rounded-full bg-[#06b6d4] animate-pulse shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+                  <span className="font-micro-metadata text-micro-metadata text-[#06b6d4]">PROD.ENG</span>
+                </div>
+                <div className="absolute bottom-4 left-4 font-micro-metadata text-micro-metadata text-text-high-contrast/50">
+                  {developers[2].name.split(' ')[0]} // Elisio_N
+                </div>
+              </div>
+              <div className="p-6 flex-grow flex flex-col justify-between">
+                <div>
+                  <h2 className="font-editorial-h1 text-editorial-h1 text-text-high-contrast mb-2 group-hover:text-[#06b6d4] transition-colors duration-300">
+                    {developers[2].name}
+                  </h2>
+                  <div className="font-body-md text-body-md text-[#06b6d4] mb-4 flex items-center gap-2">
+                    <span className="material-symbols-outlined text-[18px]">developer_board</span>
+                                    Product Engineering Lead
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    <span className="border border-border-glass group-hover:border-[#06b6d4]/30 px-2 py-1 font-label-sm text-label-sm text-on-surface-variant rounded-sm transition-colors">Frontend</span>
+                    <span className="border border-border-glass group-hover:border-[#06b6d4]/30 px-2 py-1 font-label-sm text-label-sm text-on-surface-variant rounded-sm transition-colors">Product Eng</span>
+                  </div>
+                </div>
+                <button
+                  className="w-full bg-transparent border border-border-glass text-text-high-contrast hover:bg-[#06b6d4]/10 hover:border-[#06b6d4] hover:text-[#06b6d4] transition-all duration-300 font-label-sm text-label-sm py-3 px-4 rounded-sm flex items-center justify-center gap-2"
+                >
+                  VIEW PROFILE
+                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+              </div>
+              <div className="h-[1px] bg-border-glass w-full group-hover:bg-[#06b6d4]/30 transition-colors"></div>
+              <div className="p-3 bg-surface-container-low flex justify-between font-micro-metadata text-micro-metadata text-on-surface-variant">
+                <span>UPTIME: {developers[2].stats.uptime}</span>
+                <span>LAST_COMMIT: {developers[2].stats.lastCommit}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Terminal Decorator */}
+          <div className="mt-20 border-t border-border-glass pt-4 flex justify-between items-center opacity-60">
+            <span className="font-micro-metadata text-micro-metadata text-primary">EOF_REACHED</span>
+            <span className="font-micro-metadata text-micro-metadata text-on-surface-variant tracking-[0.2em]">01000011 01000010</span>
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}

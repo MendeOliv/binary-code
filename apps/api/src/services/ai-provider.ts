@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk';
 import OpenAI from 'openai';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 import Groq from 'groq-sdk';
 import { config } from 'dotenv';
 
@@ -9,7 +9,7 @@ config();
 export class AIProviderService {
   private anthropic: Anthropic | null = null;
   private openai: OpenAI | null = null;
-  private gemini: GoogleGenerativeAI | null = null;
+  private gemini: GoogleGenAI | null = null;
   private groq: Groq | null = null;
 
   constructor() {
@@ -22,6 +22,13 @@ export class AIProviderService {
     const geminiKey = process.env.GEMINI_API_KEY;
     const groqKey = process.env.GROQ_API_KEY;
 
+    // Log key presence without revealing values
+    console.log('[AIProvider] Initializing clients...');
+    if (anthropicKey) console.log('[AIProvider] Anthropic key detected.');
+    if (openaiKey) console.log('[AIProvider] OpenAI key detected.');
+    if (geminiKey) console.log('[AIProvider] Gemini key detected.');
+    if (groqKey) console.log('[AIProvider] Groq key detected.');
+
     if (anthropicKey) {
       this.anthropic = new Anthropic({ apiKey: anthropicKey });
     }
@@ -29,7 +36,7 @@ export class AIProviderService {
       this.openai = new OpenAI({ apiKey: openaiKey });
     }
     if (geminiKey) {
-      this.gemini = new GoogleGenerativeAI(geminiKey);
+      this.gemini = new GoogleGenAI({ apiKey: geminiKey });
     }
     if (groqKey) {
       this.groq = new Groq({ apiKey: groqKey });
@@ -37,10 +44,15 @@ export class AIProviderService {
   }
 
   async generateText(systemPrompt: string, userPrompt: string, provider?: string, jsonMode: boolean = false): Promise<string> {
-    // Determine provider sequence (primary first, then fallback list)
-    const primary = (provider || process.env.PRIMARY_PROVIDER || 'anthropic').toLowerCase();
+    const primary = (provider || process.env.PRIMARY_PROVIDER || 'gemini').toLowerCase();
+    
+    // Explicit check for Gemini if it's the primary or forced
+    if (primary === 'gemini' && !process.env.GEMINI_API_KEY) {
+      throw new Error("Gemini provider is not configured: GEMINI_API_KEY is missing");
+    }
+
     const fallbackSequence = [primary];
-    const providers = ['anthropic', 'openai', 'gemini', 'groq', 'nvidia'];
+    const providers = ['gemini', 'anthropic', 'openai', 'groq'];
     for (const p of providers) {
       if (!fallbackSequence.includes(p)) {
         fallbackSequence.push(p);
@@ -50,6 +62,8 @@ export class AIProviderService {
     let lastError: any = null;
     for (const prov of fallbackSequence) {
       try {
+        console.log(`[AIProvider] Attempting generation with provider: ${prov}${jsonMode ? ' (JSON Mode)' : ''}`);
+        
         if (prov === 'anthropic' && this.anthropic) {
           return await this.callAnthropic(systemPrompt, userPrompt, jsonMode);
         }
@@ -62,14 +76,19 @@ export class AIProviderService {
         if (prov === 'groq' && this.groq) {
           return await this.callGroq(systemPrompt, userPrompt, jsonMode);
         }
-        // Note: NVIDIA NIM is not implemented yet, but we can add it similarly to OpenAI if needed.
-      } catch (error) {
-        console.error(`Provider ${prov} call failed:`, error);
+        
+        if (['gemini', 'anthropic', 'openai', 'groq'].includes(prov)) {
+           console.warn(`[AIProvider] Provider ${prov} not initialized (missing API key).`);
+        } else {
+           console.warn(`[AIProvider] Provider ${prov} is not implemented.`);
+        }
+      } catch (error: any) {
+        console.error(`[AIProvider] Provider ${prov} call failed:`, error.message || error);
         lastError = error;
       }
     }
 
-    throw new Error(`All LLM providers failed. Last error: ${lastError}`);
+    throw new Error(`All LLM providers failed. Last error: ${lastError?.message || lastError}`);
   }
 
   private async callAnthropic(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
@@ -81,18 +100,17 @@ export class AIProviderService {
       system: systemPrompt,
       messages: [{ role: 'user', content: userPrompt }],
     });
-    // Assuming the response is an array of content blocks, we take the first text block.
-    if (msg.content.length > 0 && typeof msg.content[0] === 'string') {
-      return msg.content[0];
-    }
-    // If it's a list of blocks, we concatenate the text.
-    return msg.content.filter(block => block.type === 'text').map(block => (block as any).text).join('\n');
+    
+    return msg.content
+      .filter(block => block.type === 'text')
+      .map(block => (block as any).text)
+      .join('\n');
   }
 
   private async callOpenAI(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     if (!this.openai) throw new Error('OpenAI client not initialized');
     const options: any = {
-      model: 'gpt-4o-mini', // or another model
+      model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
@@ -110,15 +128,18 @@ export class AIProviderService {
 
   private async callGemini(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     if (!this.gemini) throw new Error('Gemini client not initialized');
-    const model = this.gemini.getGenerativeModel({
-      model: 'gemini-1.5-flash',
-      generationConfig: {
+    
+    const response = await this.gemini.models.generateContent({
+      model: 'gemini-2.0-flash',
+      systemInstruction: systemPrompt,
+      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+      config: {
         temperature: jsonMode ? 0.0 : 0.7,
         ...(jsonMode ? { responseMimeType: 'application/json' } : {}),
       },
     });
-    const result = await model.generateContent([systemPrompt, userPrompt]);
-    return result.response.text();
+
+    return response.text || '';
   }
 
   private async callGroq(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
@@ -128,7 +149,7 @@ export class AIProviderService {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
       ],
-      model: 'llama3-8b-8192', // or another model
+      model: 'llama3-8b-8192',
       temperature: jsonMode ? 0.0 : 0.7,
       ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
     });
@@ -136,5 +157,4 @@ export class AIProviderService {
   }
 }
 
-// Single global instance
 export const aiProvider = new AIProviderService();
