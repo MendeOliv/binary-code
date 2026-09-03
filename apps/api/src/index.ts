@@ -1,10 +1,10 @@
 import dotenv from 'dotenv';
+
+dotenv.config();
+
 import fastify from 'fastify';
 import cors from '@fastify/cors';
 import { supabase } from '@db/supabase';
-
-// Load environment variables from .env file (only in development)
-dotenv.config();
 
 const server = fastify({
   logger: true,

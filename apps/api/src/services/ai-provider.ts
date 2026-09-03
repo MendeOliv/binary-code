@@ -127,20 +127,16 @@ export class AIProviderService {
   }
 
   private async callGemini(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
-    if (!this.gemini) throw new Error('Gemini client not initialized');
-    
-    const response = await this.gemini.models.generateContent({
-      model: 'gemini-2.0-flash',
-      systemInstruction: systemPrompt,
-      contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
-      config: {
-        temperature: jsonMode ? 0.0 : 0.7,
-        ...(jsonMode ? { responseMimeType: 'application/json' } : {}),
-      },
-    });
+      if (!this.gemini) throw new Error('Gemini client not initialized');
 
-    return response.text || '';
-  }
+      const response = await this.gemini.models.generateContent({
+        model: 'gemini-3.7-flash',
+        systemInstruction: systemPrompt,
+        contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
+      });
+
+      return response.text || '';
+    }
 
   private async callGroq(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     if (!this.groq) throw new Error('Groq client not initialized');
