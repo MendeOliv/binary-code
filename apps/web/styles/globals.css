@@ -7,54 +7,49 @@
     @apply bg-background text-on-background font-mono antialiased;
   }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #0b1326;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #171f33;
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #10b981;
-  }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0b1326; }
+  ::-webkit-scrollbar-thumb { background: #171f33; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #10b981; }
 }
 
 @layer components {
   .card-surface {
     @apply bg-surface border border-outline-variant rounded-lg;
   }
-
   .card-elevated {
     @apply bg-surface-container border border-outline-variant rounded-lg;
   }
-
-  .glow-hover {
-    @apply transition-all duration-200;
-  }
-  .glow-hover:hover {
-    @apply border-primary-container shadow-glow;
-  }
-
+  .glow-hover { @apply transition-all duration-200; }
+  .glow-hover:hover { @apply border-primary-container shadow-glow; }
   .btn-primary {
-    @apply bg-primary-container text-on-primary-container border border-primary
-           text-label-md py-2 px-6 rounded transition-all duration-200 font-bold
-           hover:bg-surface-container-high hover:shadow-glow;
+    @apply bg-primary-container text-on-primary-container border border-primary text-label-md py-2 px-6 rounded transition-all duration-200 font-bold hover:bg-surface-container-high hover:shadow-glow;
   }
-
   .btn-ghost {
-    @apply bg-transparent text-on-surface-variant border border-outline-variant
-           text-label-md py-2 px-6 rounded transition-all duration-200
-           hover:text-on-surface hover:border-primary-container;
+    @apply bg-transparent text-on-surface-variant border border-outline-variant text-label-md py-2 px-6 rounded transition-all duration-200 hover:text-on-surface hover:border-primary-container;
+  }
+  .input-field {
+    @apply bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-sm text-on-surface placeholder-outline focus:border-primary-container focus:shadow-glow focus:outline-none transition-all duration-200;
   }
 
-  .input-field {
-    @apply bg-surface-container-lowest border border-outline-variant rounded-lg
-           px-4 py-3 text-body-sm text-on-surface placeholder-outline
-           focus:border-primary-container focus:shadow-glow focus:outline-none
-           transition-all duration-200;
+  /* Stitch / Terminal Noir developers page */
+  .tech-card-hover { transition: all 0.4s ease; }
+  .img-zoom { transition: transform 0.6s ease; }
+  .tech-card-hover:hover .img-zoom { transform: scale(1.05); }
+  .inner-highlight { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1); }
+  .hover-sapphire:hover {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-4px);
+  }
+  .hover-amethyst:hover {
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.5);
+    transform: translateY(-4px);
+  }
+  .hover-slate-cyan:hover {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+    border-color: rgba(6, 182, 212, 0.5);
+    transform: translateY(-4px);
   }
 }
