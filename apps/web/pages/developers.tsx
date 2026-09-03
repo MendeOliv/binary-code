@@ -242,8 +242,7 @@ export default function DevelopersPage() {
             </div>
           </div>
 
-          {
-        {/* Footer */}
+          {/* Footer */}
         <footer className="border-t border-border-glass pt-8 mt-12">
           <div className="px-6 py-6 max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-start gap-6">
