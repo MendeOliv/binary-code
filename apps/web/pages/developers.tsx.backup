@@ -1,5 +1,6 @@
 // use client
 
+import { useRouter } from 'next/router'
 import DigitalRain from '../components/DigitalRain'
 import Footer from '../components/Footer'
 
@@ -16,6 +17,8 @@ interface Developer {
 }
 
 export default function DevelopersPage() {
+  const router = useRouter()
+
   // Developer data from Stitch export - preserving exact information
   const developers: Developer[] = [
     {
@@ -92,7 +95,7 @@ export default function DevelopersPage() {
           <div className='mb-20'>
             <div className='flex items-center gap-3 mb-4'>
               <span className='w-8 h-[1px] bg-primary'></span>
-              <span className='font-micro-metadata text-micro-metadata text-primary uppercase tracking-widest'>{/* SYSTEM.ARCHITECTURE.HUMANS */}</span>
+              <span className='font-micro-metadata text-micro-metadata text-primary uppercase tracking-widest'>// SYSTEM.ARCHITECTURE.HUMANS</span>
             </div>
             <h1 className='font-headline-xl text-headline-xl text-text-high-contrast mb-6'>
               THE MINDS BEHIND<br/> THE CODE
@@ -118,7 +121,7 @@ export default function DevelopersPage() {
                   <span className='font-micro-metadata text-micro-metadata text-[#3b82f6]'>SYS.ARCHITECT</span>
                 </div>
                 <div className='absolute bottom-4 left-4 font-micro-metadata text-micro-metadata text-text-high-contrast/50'>
-                  {developers[0].name.split(' ')[0] /* Mbumba_G */}
+                  {developers[0].name.split(' ')[0]} // Mbumba_G
                 </div>
               </div>
               <div className='p-6 flex-grow flex flex-col justify-between'>
@@ -162,7 +165,7 @@ export default function DevelopersPage() {
                   <span className='font-micro-metadata text-micro-metadata text-[#a855f7]'>BACKEND.LEAD</span>
                 </div>
                 <div className='absolute bottom-4 left-4 font-micro-metadata text-micro-metadata text-text-high-contrast/50'>
-                  {developers[1].name.split(' ')[0] /* Mendes_B */}
+                  {developers[1].name.split(' ')[0]} // Mendes_B
                 </div>
               </div>
               <div className='p-6 flex-grow flex flex-col justify-between'>
@@ -207,7 +210,7 @@ export default function DevelopersPage() {
                   <span className='font-micro-metadata text-micro-metadata text-[#06b6d4]'>PROD.ENG</span>
                 </div>
                 <div className='absolute bottom-4 left-4 font-micro-metadata text-micro-metadata text-text-high-contrast/50'>
-                  {developers[2].name.split(' ')[0] /* Elisio_N */}
+                  {developers[2].name.split(' ')[0]} // Elisio_N
                 </div>
               </div>
               <div className='p-6 flex-grow flex flex-col justify-between'>

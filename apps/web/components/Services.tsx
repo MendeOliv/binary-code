@@ -70,7 +70,7 @@ export default function Services() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, idx) => (
+          {services.map((service) => (
             <div
               key={service.title}
               className="bg-surface border border-outline-variant rounded-lg p-6 glow-hover group"

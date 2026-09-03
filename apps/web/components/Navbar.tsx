@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useRouter } from 'next/router';
 
 export default function Navbar() {
@@ -33,13 +34,14 @@ export default function Navbar() {
           >
             Sobre
           </a>
-          <a
-            href="/developers"
-            className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block"
-          >
-            Developers
-          </a>
-          <button
+                    <Link href="/developers">
+                      <a
+                        className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block"
+                      >
+                        Developers
+                      </a>
+                    </Link>
+                    <button
             onClick={() => router.push('/diagnostic')}
             className="btn-primary text-label-sm"
           >
