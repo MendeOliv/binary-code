@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-container":"#005f40","surface-tint":"#4edea3","surface-dim":"#0b1326","outline":"#86948a","on-secondary-container":"#00424e","on-tertiary-container":"#7715c5","surface-container-lowest":"#060d20","on-background":"#dbe2fd","tertiary":"#f0daff","primary-container":"#4edea3","tertiary-fixed":"#f0dbff","secondary-fixed-dim":"#4cd7f6","primary-fixed-dim":"#4edea3","on-secondary-fixed-variant":"#004e5c","secondary-container":"#03b5d3","on-primary":"#003824","tertiary-container":"#ddb7ff","secondary-fixed":"#acedff","primary":"#6ffbbe","primary-fixed":"#6ffbbe","surface-bright":"#31394e","inverse-on-surface":"#283044","on-primary-fixed":"#002114","on-secondary":"#003640","surface-container":"#171f33","on-error":"#690005","on-secondary-fixed":"#001f26","surface-container-high":"#222a3e","on-tertiary-fixed-variant":"#6900b3","inverse-primary":"#006c4a","on-tertiary-fixed":"#2c0051","surface":"#0b1326","error-container":"#93000a","tertiary-fixed-dim":"#ddb7ff","on-error-container":"#ffdad6","background":"#0b1326","on-tertiary":"#490080","secondary":"#4cd7f6","on-surface-variant":"#bbcac0","surface-container-highest":"#2d3449","error":"#ffb4ab","on-primary-fixed-variant":"#005236","surface-container-low":"#131b2e","outline-variant":"#3c4a42","on-surface":"#dbe2fd","inverse-surface":"#dbe2fd","surface-variant":"#2d3449"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-base":"1rem","space-md":"0.75rem","gutter-mobile":"0.75rem","sidebar-width":"17.5rem","space-2xs":"0.125rem","space-lg":"1.5rem","space-xl":"2rem","gutter-desktop":"1.25rem","space-3xl":"4rem","space-2xl":"3rem","header-height":"3.25rem","space-xs":"0.25rem","space-sm":"0.5rem"},"fontFamily":{"code-telemetry":["JetBrains Mono"],"body-lg":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"label-sm":["JetBrains Mono"],"headline-xl":["JetBrains Mono"],"label-md":["JetBrains Mono"],"headline-lg":["JetBrains Mono"],"body-sm":["JetBrains Mono"],"headline-xl-mobile":["JetBrains Mono"],"body-md":["JetBrains Mono"],"headline-lg-mobile":["JetBrains Mono"]},"fontSize":{"code-telemetry":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"500"}],"body-lg":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.12em","fontWeight":"600"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.04em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"500"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-md":["13px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"400"}],"headline-lg-mobile":["20px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl border-b border-surface-container-high"><div class="w-full bg-surface-container-lowest px-gutter-desktop py-space-2xs border-b border-surface-container-high/60 flex items-center justify-between overflow-hidden"><div class="flex items-center gap-space-md font-code-telemetry text-code-telemetry text-on-surface-variant"><span class="flex items-center gap-space-xs text-primary"><span class="w-1.5 h-1.5 bg-primary animate-pulse"></span>LIVE_TELEMETRY</span><span class="hidden md:inline text-outline-variant">|</span><span class="hidden md:inline tracking-wider">CÓDIGO BINÁRIO // AI SYSTEMS LAB // AUTONOMOUS ARCHITECTURE // HUMAN + MACHINE // 01000011 01000010</span></div><div class="flex items-center gap-space-base font-code-telemetry text-code-telemetry text-on-surface-variant"><span class="hidden lg:inline text-secondary">NODE_REF: CB_ALPHA_01</span><span class="text-primary font-semibold">[SYS:OK]</span></div></div><div class="h-header-height w-full px-gutter-desktop flex items-center justify-between gap-space-base"><div class="flex items-center gap-space-base shrink-0"><img alt="Logo horizontal.jpg" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VFsqugbkWLJhZbupJRH74bc9GHTY1-j_k5nr9al72QM4lav21wBalPHd0cqUr_OKZq7FGWcliXTf1o_DhZ1Lz05bnvW4NL93ZY9NJkwK_JiELVZerWrLHljgIJ3bEJBEUOt-YDkGxUlVJpm-mzT5FIoyHkneF-pL-SSwufnM_ohpw8pKbQ_sgeRd8SALTsUqo_PLU2XV8dJ6D3_wKKKC1kpiG2hV_9kadAdes6tfQZpPFoXWdRutHuW0ExFkZFx1FRajvHb-U4xSw"/><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container-low border border-surface-container-high font-label-sm text-label-sm text-primary"><span class="w-2 h-2 bg-primary inline-block"></span><span>SYSTEM.ONLINE // LATENCY: 12ms // MODE: LAB</span></div></div><nav class="hidden lg:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-primary border border-primary/40"><a aria-current="page" class="px-space-md py-space-xs font-label-md uppercase tracking-wider transition-colors bg-surface-container-high text-primary border border-primary/40" data-path="home" href="#">[HOME]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="binary-diagnostic" href="#">[BINARY DIAGNOSTIC]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="solutions" href="#">[SOLUTIONS]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="systems-and-work" href="#">[SYSTEMS &amp; WORK]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="minds-behind" href="#">[MINDS BEHIND]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="philosophy" href="#">[PHILOSOPHY]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="transmit" href="#">[TRANSMIT]</a></nav><div class="flex items-center gap-space-sm shrink-0"><button class="hidden sm:flex items-center gap-space-xs px-space-sm py-space-xs font-code-telemetry text-code-telemetry bg-surface-container-lowest text-on-surface-variant border border-surface-container-high hover:border-primary hover:text-primary transition-colors" type="button"><span>⌘K</span><span class="text-outline-variant">//</span><span>TERM</span></button><a class="flex items-center gap-space-xs px-space-md py-space-xs bg-primary-container text-on-primary font-label-sm text-label-sm font-bold tracking-wider hover:bg-primary transition-all shadow-[0_0_12px_0px_rgba(78,222,163,0.35)]" data-path="binary-diagnostic" href="#"><span>&gt; RUN DIAGNOSTIC →</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-[calc(3.25rem+1.5rem)] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- SYSTEM TOP TELEMETRY STRIP -->
+<section class="w-full bg-surface-container-lowest border-b border-surface-container-high px-gutter-desktop py-space-xs">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-y-space-xs text-code-telemetry font-code-telemetry">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-space-2xs text-primary font-bold">
+<span class="w-2 h-2 bg-primary inline-block animate-pulse"></span>
+          BINARY // DIAGNOSTIC ENGINE
+        </span>
+<span class="text-outline-variant">::</span>
+<span class="text-secondary flex items-center gap-space-2xs">
+<span class="w-1.5 h-1.5 bg-secondary inline-block"></span>
+          STATUS: SYSTEM ONLINE
+        </span>
+<span class="hidden sm:inline text-outline-variant">::</span>
+<span class="hidden sm:inline text-on-surface-variant">SESSION: CB_DIAG_9942</span>
+</div>
+<div class="flex items-center gap-space-base text-on-surface-variant">
+<span>LATENCY: <strong class="text-primary font-normal">11ms</strong></span>
+<span class="text-outline-variant">|</span>
+<span class="font-mono">COORDS: -23.5505, -46.6333</span>
+<span class="text-outline-variant">|</span>
+<span class="text-tertiary hidden md:inline">KERNEL: PROD_v4.8</span>
+</div>
+</div>
+</section>
+<!-- DIAGNOSTIC HEADER INTRO -->
+<section class="w-full px-gutter-desktop pt-space-xl pb-space-lg bg-surface-container-low border-b border-surface-container-high">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-primary uppercase tracking-widest">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span>// DISCOVERY &amp; PROBLEM MAPPING SUBSYSTEM</span>
+<span class="text-outline-variant ml-space-xs">REF: ARCH_EVAL_PIPELINE</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-end">
+<div class="lg:col-span-8 flex flex-col gap-space-xs">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight uppercase">
+            DESCREVA O SEU PROBLEMA OPERACIONAL OU GARGALO TÉCNICO.
+          </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl">
+            O motor proprietário investiga assimetrias de informação, processos analógicos e ineficiências para arquitetar a topologia ideal de IA e automação.
+          </p>
+</div>
+<div class="lg:col-span-4 flex lg:justify-end items-center gap-space-sm font-code-telemetry text-code-telemetry">
+<div class="bg-surface-container-lowest px-space-md py-space-sm border border-surface-container-high w-full lg:w-auto">
+<div class="text-outline-variant uppercase">// COMPUTE_PIPELINE</div>
+<div class="text-primary font-bold flex items-center justify-between gap-space-base mt-space-2xs">
+<span>ACTIVE_REASONING: MULTI-AGENT</span>
+<span class="text-secondary">[OPTIMAL]</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN CONSOLE WORKSPACE (12 COLUMNS) -->
+<section class="w-full px-gutter-desktop py-space-xl">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- LEFT / CENTER COLUMN: THE INTERACTIVE DIAGNOSTIC STREAM (8 COLUMNS) -->
+<div class="lg:col-span-8 flex flex-col gap-space-xl">
+<!-- TERMINAL INPUT PANEL -->
+<div class="bg-surface-container border border-surface-container-high shadow-lg">
+<!-- PANEL HEADER -->
+<div class="bg-surface-container-lowest px-space-md py-space-xs border-b border-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-space-xs font-code-telemetry text-code-telemetry text-on-surface-variant">
+<span class="text-primary font-bold">TERMINAL // INPUT_PROMPT</span>
+<span class="text-outline-variant">::</span>
+<span>DEV_STDIN</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="inline-block w-2 h-2 bg-primary"></span>
+<span class="font-code-telemetry text-code-telemetry text-primary">LIVE_STREAM</span>
+</div>
+</div>
+<!-- INPUT PAYLOAD CONTAINER -->
+<div class="p-space-base flex flex-col gap-space-base">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-on-surface-variant">
+<label class="uppercase text-primary font-bold flex items-center gap-space-xs" for="problem-input">
+<span>&gt;</span>
+<span>DESCREVA O QUE ESTÁ TRAVANDO NA SUA OPERAÇÃO:</span>
+</label>
+<span class="text-outline-variant font-code-telemetry">UTF-8 // MAX: 2048 Chars</span>
+</div>
+<div class="relative bg-surface-container-lowest border border-surface-container-high focus-within:border-primary transition-colors">
+<div class="absolute left-space-md top-space-md font-code-telemetry text-primary select-none">&gt;&gt;</div>
+<textarea class="w-full bg-transparent pl-10 pr-space-md py-space-md font-code-telemetry text-body-md text-on-surface focus:outline-none resize-none" id="problem-input" placeholder="Tell us what isn't working / Descreva gargalos manuais, integrações que falham ou sobrecarga da equipe..." rows="4">Nossa equipe gasta 42 horas semanais conciliando relatórios fiscais em PDF e inserindo manualmente dados no ERP legado, gerando erros e atrasos críticos.</textarea>
+</div>
+<!-- CONTROLS & TRIGGERS -->
+<div class="flex flex-wrap items-center justify-between gap-space-base pt-space-xs">
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-lg py-space-xs bg-primary-container text-on-primary font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary transition-all shadow-[0_0_14px_0px_rgba(78,222,163,0.35)]" id="run-analysis-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>[ START ANALYSIS → ]</span>
+</button>
+<button class="px-space-md py-space-xs bg-surface-container-low text-on-surface-variant border border-surface-container-high font-label-md text-label-md hover:text-on-surface hover:border-outline transition-colors uppercase tracking-wider" id="clear-btn" type="button">
+                  [ CLEAR TERMINAL ]
+                </button>
+</div>
+<span class="font-code-telemetry text-code-telemetry text-outline">
+                ESTIMATED LATENCY: ~1.2s // ORCHESTRATION: v4.8
+              </span>
+</div>
+</div>
+</div>
+<!-- DIAGNOSTIC EXECUTION TIMELINE / CONVERSATIONAL LOG -->
+<div class="flex flex-col gap-space-base">
+<!-- 1. USER MESSAGE BLOCK -->
+<div class="bg-surface-container-low border border-surface-container-high">
+<div class="bg-surface-container-lowest px-space-md py-space-2xs border-b border-surface-container-high flex items-center justify-between font-code-telemetry text-code-telemetry">
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<span class="text-primary font-bold">OPERATOR // INPUT_PAYLOAD</span>
+<span class="text-outline-variant">|</span>
+<span>ORIGIN: TERMINAL_SESSION</span>
+</div>
+<div class="text-outline">14:02:18 UTC</div>
+</div>
+<div class="p-space-md font-body-md text-body-md text-on-surface flex items-start gap-space-md">
+<span class="text-primary font-bold select-none">•</span>
+<p class="leading-relaxed">
+                “Nossa equipe gasta 42 horas semanais conciliando relatórios fiscais em PDF e inserindo manualmente dados no ERP legado, gerando erros e atrasos críticos.”
+              </p>
+</div>
+</div>
+<!-- 2. SYSTEM PROCESSING BLOCK -->
+<div class="bg-surface-container border border-surface-container-high p-space-md">
+<div class="flex items-center justify-between pb-space-xs border-b border-surface-container-high mb-space-sm font-code-telemetry text-code-telemetry">
+<span class="text-secondary font-bold flex items-center gap-space-xs">
+<span class="w-2 h-2 bg-secondary inline-block animate-ping"></span>
+                ACTIVE_INFERENCE_TRACE // HEURISTIC ENGINE
+              </span>
+<span class="text-primary">100% COMPLETE</span>
+</div>
+<!-- STEP INDICATORS -->
+<div class="grid grid-cols-1 sm:grid-cols-5 gap-space-xs font-code-telemetry text-code-telemetry">
+<div class="p-space-xs bg-surface-container-lowest border border-primary/40 text-primary">
+<div class="text-outline-variant text-[9px]">STEP_01</div>
+<div class="font-bold">&gt; PARSING INPUT</div>
+<div class="text-[9px] text-primary/70">DONE (38ms)</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest border border-primary/40 text-primary">
+<div class="text-outline-variant text-[9px]">STEP_02</div>
+<div class="font-bold">&gt; CONTEXT MAP</div>
+<div class="text-[9px] text-primary/70">DONE (112ms)</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest border border-primary/40 text-primary">
+<div class="text-outline-variant text-[9px]">STEP_03</div>
+<div class="font-bold">&gt; BOTTLENECKS</div>
+<div class="text-[9px] text-primary/70">OCR + ERP SYNC</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest border border-primary/40 text-primary">
+<div class="text-outline-variant text-[9px]">STEP_04</div>
+<div class="font-bold">&gt; TOPOLOGY GEN</div>
+<div class="text-[9px] text-primary/70">DETERMINISTIC</div>
+</div>
+<div class="p-space-xs bg-surface-container-lowest border border-secondary text-secondary shadow-[0_0_8px_rgba(76,215,246,0.2)]">
+<div class="text-secondary/60 text-[9px]">STEP_05</div>
+<div class="font-bold">&gt; ARCHITECTED</div>
+<div class="text-[9px] text-secondary">READY_FOR_SPEC</div>
+</div>
+</div>
+</div>
+<!-- 3. AI ANALYSIS / ARCHITECTURE RESPONSE BLOCK -->
+<div class="bg-surface-container-low border border-primary/40 shadow-[0_0_18px_rgba(78,222,163,0.1)]">
+<!-- HEADER -->
+<div class="bg-surface-container-lowest px-space-md py-space-sm border-b border-primary/30 flex flex-wrap items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-xs font-label-md text-label-md text-primary font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>DIAGNOSTIC_VERDICT // CONFIDENCE: 98.4%</span>
+</div>
+<div class="flex items-center gap-space-xs font-code-telemetry text-code-telemetry">
+<span class="bg-primary/10 text-primary px-space-xs py-space-2xs border border-primary/30">TOPOLOGY: LEVEL_3_AUTONOMOUS</span>
+<span class="text-outline-variant">|</span>
+<span class="text-on-surface-variant">HASH: 9a7b...4e1</span>
+</div>
+</div>
+<!-- CONTENT BODY -->
+<div class="p-space-lg flex flex-col gap-space-md">
+<div>
+<div class="font-label-sm text-label-sm text-primary uppercase tracking-widest">// OPORTUNIDADE DETECTADA</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mt-space-2xs">
+                  Pipeline Autônomo de Extração VLM + Conector Bidirecional Fastify/Postgres para ERP Legado
+                </h2>
+</div>
+<!-- METRICS STRIP -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm bg-surface-container-lowest p-space-md border border-surface-container-high">
+<div class="flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">ECONOMIA PROJETADA</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">~85% TEMPO</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">Libera ~35h/semana da equipe fiscal</span>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">LATÊNCIA DE INGESTÃO</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold">&lt; 3.2s / DOC</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">Processamento concorrente em lote</span>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">RISCO DE ALUCINAÇÃO</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">0.00% DETERMINÍSTICO</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">Validação de Schema via Pydantic/Zod</span>
+</div>
+</div>
+<!-- SYSTEM TOPOLOGY DIAGRAM (BESPOKE DATAFLOW) -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="flex items-center justify-between font-label-sm text-label-sm text-outline uppercase">
+<span>// TOPOLOGIA RECOMENDADA DO SISTEMA</span>
+<span class="text-secondary font-code-telemetry">[REALTIME_PIPELINE]</span>
+</div>
+<div class="bg-surface-container-lowest p-space-md border border-surface-container-high font-code-telemetry text-code-telemetry overflow-x-auto">
+<div class="min-w-[580px] flex items-center justify-between gap-space-sm">
+<!-- NODE 1 -->
+<div class="flex-1 bg-surface-container p-space-sm border border-surface-container-high text-center">
+<div class="text-outline text-[9px] uppercase">INGESTION_SRC</div>
+<div class="text-on-surface font-bold mt-space-2xs">[RAW_PDF_DROP]</div>
+<div class="text-outline-variant text-[10px] mt-space-2xs">S3 / SMB Storage</div>
+</div>
+<div class="text-primary font-bold">→</div>
+<!-- NODE 2 -->
+<div class="flex-1 bg-surface-container p-space-sm border border-primary text-center shadow-[0_0_8px_rgba(78,222,163,0.2)]">
+<div class="text-primary text-[9px] uppercase">AI_ENGINE</div>
+<div class="text-primary font-bold mt-space-2xs">[OCR_VLM_AGENT]</div>
+<div class="text-on-surface-variant text-[10px] mt-space-2xs">Claude 3.5 Sonnet / VLM</div>
+</div>
+<div class="text-primary font-bold">→</div>
+<!-- NODE 3 -->
+<div class="flex-1 bg-surface-container p-space-sm border border-secondary text-center">
+<div class="text-secondary text-[9px] uppercase">GUARDRAILS</div>
+<div class="text-secondary font-bold mt-space-2xs">[PYDANTIC_VALIDATOR]</div>
+<div class="text-on-surface-variant text-[10px] mt-space-2xs">Schema Strict Enforcement</div>
+</div>
+<div class="text-primary font-bold">→</div>
+<!-- NODE 4 -->
+<div class="flex-1 bg-surface-container p-space-sm border border-surface-container-high text-center">
+<div class="text-outline text-[9px] uppercase">PERSISTENCE</div>
+<div class="text-on-surface font-bold mt-space-2xs">[ERP_BRIDGE]</div>
+<div class="text-outline-variant text-[10px] mt-space-2xs">Fastify + SQL Adapter</div>
+</div>
+</div>
+</div>
+</div>
+<!-- DIAGNOSTIC ANNOTATION -->
+<div class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container p-space-sm border-l-2 border-primary">
+<span class="text-primary font-bold">NOTA DO ARQUITETO:</span> Este fluxo elimina a fricção humana mantendo a rastreabilidade total de auditoria. Caso o parser detecte anomalias numéricas no imposto, aciona um canal de exceção humana isolada via Telegram/Slack em vez de travar o lote completo.
+              </div>
+</div>
+</div>
+<!-- 4. EMBEDDED CONVERSION / LEAD CAPTURE SECTION -->
+<div class="bg-surface-container border border-surface-container-high p-space-xl">
+<div class="flex flex-col gap-space-xs pb-space-md border-b border-surface-container-high">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-primary uppercase tracking-widest">
+<span class="w-2 h-2 bg-primary"></span>
+<span>// STEP 02: FORMALIZAÇÃO DA ARQUITETURA</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface tracking-tight uppercase">
+                CONVERTER ARQUITETURA EM SISTEMA REAL
+              </h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Receba a especificação técnica formal e converse diretamente com nossos arquitetos de sistemas para implementar este pipeline em até 14 dias úteis.
+              </p>
+</div>
+<!-- CONTRACT COMPLIANT FORM -->
+<form class="flex flex-col gap-space-base pt-space-lg" id="lead-capture-form">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-base">
+<!-- FULL NAME -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider flex items-center gap-space-xs" for="lead-name">
+<span>NAME // NOME COMPLETO</span>
+<span class="text-primary">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest px-space-md py-space-sm font-code-telemetry text-body-md text-on-surface border border-surface-container-high focus:border-primary focus:outline-none transition-colors" id="lead-name" placeholder="Ex: Roberto Albuquerque" required="" type="text"/>
+</div>
+</div>
+<!-- WORK EMAIL -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider flex items-center gap-space-xs" for="lead-email">
+<span>WORK EMAIL // EMAIL CORPORATIVO</span>
+<span class="text-primary">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest px-space-md py-space-sm font-code-telemetry text-body-md text-on-surface border border-surface-container-high focus:border-primary focus:outline-none transition-colors" id="lead-email" placeholder="roberto@empresa.com.br" required="" type="email"/>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-base">
+<!-- PHONE / WHATSAPP -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider flex items-center gap-space-xs" for="lead-phone">
+<span>PHONE // WHATSAPP OPERACIONAL</span>
+<span class="text-primary">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest px-space-md py-space-sm font-code-telemetry text-body-md text-on-surface border border-surface-container-high focus:border-primary focus:outline-none transition-colors" id="lead-phone" placeholder="+55 (11) 98765-4321" required="" type="tel"/>
+</div>
+</div>
+<!-- COMPANY NAME -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider flex items-center gap-space-xs" for="lead-company">
+<span>COMPANY // EMPRESA OU PROJETO</span>
+<span class="text-primary">*</span>
+</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest px-space-md py-space-sm font-code-telemetry text-body-md text-on-surface border border-surface-container-high focus:border-primary focus:outline-none transition-colors" id="lead-company" placeholder="Ex: Atlas Logística S/A" required="" type="text"/>
+</div>
+</div>
+</div>
+<!-- TECHNICAL NOTES / DETAILS -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider flex items-center justify-between" for="lead-details">
+<span>TECHNICAL NOTES // OBSERVAÇÕES TÉCNICAS / ERP UTILIZADO</span>
+<span class="text-outline font-code-telemetry">[OPCIONAL]</span>
+</label>
+<textarea class="w-full bg-surface-container-lowest px-space-md py-space-sm font-code-telemetry text-body-md text-on-surface border border-surface-container-high focus:border-primary focus:outline-none resize-none transition-colors" id="lead-details" placeholder="Ex: ERP Totvs Protheus v12 local, PostgreSQL on-premise, restrição de compliance LGPD..." rows="3"></textarea>
+</div>
+<!-- ACTION & SUBMISSION FEEDBACK -->
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-md pt-space-xs">
+<button class="flex items-center justify-center gap-space-xs px-space-xl py-space-sm bg-primary-container text-on-primary font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary transition-all shadow-[0_0_16px_0px_rgba(78,222,163,0.4)]" id="submit-lead-btn" type="submit">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span>[ ENVIAR DIAGNÓSTICO &amp; AGENDAR BRIEFING TÉCNICO → ]</span>
+</button>
+<!-- SECURITY BADGE -->
+<div class="flex items-center gap-space-xs font-code-telemetry text-code-telemetry text-outline-variant">
+<span class="material-symbols-outlined text-secondary text-[16px]">lock</span>
+<span class="text-secondary">[NULL_SECURED // ZERO_DATA_LEAK]</span>
+<span class="hidden xl:inline text-outline">Fastify + Supabase Encrypted</span>
+</div>
+</div>
+<!-- STATUS NOTIFICATION (JS Controlled) -->
+<div class="hidden p-space-sm font-code-telemetry text-body-sm" id="form-feedback"></div>
+</form>
+</div>
+</div>
+</div>
+<!-- RIGHT TELEMETRY & CONSOLE SIDEBAR (4 COLUMNS) -->
+<aside class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- BRAND AVATAR & SYSTEM BADGE CARD -->
+<div class="bg-surface-container border border-surface-container-high p-space-base flex items-center gap-space-md shadow-md">
+<div class="w-16 h-16 shrink-0 bg-surface-container-lowest border border-primary/40 flex items-center justify-center p-1 shadow-[0_0_12px_rgba(78,222,163,0.2)]">
+<img alt="Código Binário Emblem" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7x3yD-HC58HlzTr05Vsnc2rGpN9RGY6OkcDNRcABjs973cHlf6B0fgm7vrEisLFZEjaYfrEbMoKiQRo-s3yIcbQOVwKQVmRewbQQ6Z3jWIOiRbB0l04XIWDzCa9RRGKUtX5u_SwbUMUddQ5dD_WwexIA4WT-2ptlzJW-BDl4UMPt3pHkOErAXhyDxCc__rAh4eJEE2h6NYGPUeLcnTiBVcVuMcGUhYRxaSIs7jnhsmeQLrfaTCUoCQOmC5UOGUBlw0Us"/>
+</div>
+<div class="flex flex-col gap-space-2xs">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">// COGNITIVE_NODE</span>
+<span class="font-headline-md text-headline-md text-on-surface font-bold uppercase">CÓDIGO BINÁRIO</span>
+<span class="font-code-telemetry text-code-telemetry text-outline-variant">AUTONOMOUS ARCHITECTURE LAB</span>
+</div>
+</div>
+<!-- TELEMETRY METRICS PANEL -->
+<div class="bg-surface-container border border-surface-container-high">
+<div class="bg-surface-container-lowest px-space-md py-space-xs border-b border-surface-container-high flex items-center justify-between font-code-telemetry text-code-telemetry">
+<span class="text-primary font-bold">// SYSTEM_METRICS</span>
+<span class="text-outline">POLLING: 1000ms</span>
+</div>
+<div class="p-space-base flex flex-col gap-space-md">
+<!-- CPU / CORE ALLOCATION -->
+<div class="flex flex-col gap-space-2xs">
+<div class="flex justify-between font-code-telemetry text-code-telemetry">
+<span class="text-on-surface-variant">CPU ALLOCATION [CLUSTER_01]</span>
+<span class="text-primary font-bold">14.2% GFLOPS</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 border border-surface-container-high overflow-hidden">
+<div class="bg-primary h-full w-[14.2%]"></div>
+</div>
+</div>
+<!-- MULTI-PROVIDER MODEL ORCHESTRATION -->
+<div class="flex flex-col gap-space-2xs font-code-telemetry text-code-telemetry">
+<span class="text-outline uppercase text-[10px]">MODEL ORCHESTRATION STACK:</span>
+<div class="bg-surface-container-lowest p-space-xs border border-surface-container-high flex flex-col gap-space-2xs">
+<div class="flex items-center justify-between text-on-surface">
+<span class="flex items-center gap-space-2xs">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span>PRIMARY: Claude 3.5 Sonnet</span>
+</span>
+<span class="text-primary font-bold">ACTIVE</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-space-2xs">
+<span class="w-1.5 h-1.5 bg-outline"></span>
+<span>FALLBACK: DeepSeek R1 Distill</span>
+</span>
+<span class="text-outline">HOT_STANDBY</span>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="flex items-center gap-space-2xs">
+<span class="w-1.5 h-1.5 bg-secondary"></span>
+<span>EMBEDDINGS: text-embed-3-large</span>
+</span>
+<span class="text-secondary">READY</span>
+</div>
+</div>
+</div>
+<!-- TELEMETRY COUNTERS -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs font-code-telemetry text-code-telemetry">
+<div class="bg-surface-container-lowest p-space-xs border border-surface-container-high">
+<div class="text-outline text-[9px]">SYSTEM UPTIME</div>
+<div class="text-primary font-bold text-headline-md mt-space-2xs">99.98%</div>
+<div class="text-on-surface-variant text-[9px]">SLA STRICT</div>
+</div>
+<div class="bg-surface-container-lowest p-space-xs border border-surface-container-high">
+<div class="text-outline text-[9px]">INGESTION TOKENS</div>
+<div class="text-secondary font-bold text-headline-md mt-space-2xs">1.84M</div>
+<div class="text-on-surface-variant text-[9px]">PAST 24H</div>
+</div>
+</div>
+</div>
+</div>
+<!-- QUICK DIAGNOSTIC PRESET TEMPLATES -->
+<div class="bg-surface-container border border-surface-container-high">
+<div class="bg-surface-container-lowest px-space-md py-space-xs border-b border-surface-container-high font-code-telemetry text-code-telemetry text-on-surface-variant flex items-center justify-between">
+<span class="text-primary font-bold">// QUICK_PRESETS</span>
+<span class="text-outline">SELECT TO LOAD</span>
+</div>
+<div class="divide-y divide-surface-container-high">
+<button class="w-full text-left p-space-md hover:bg-surface-container-high/60 transition-colors group flex items-start justify-between" onclick="loadPreset('Automação de Backoffice: Conciliação diária de 300 comprovantes bancários em extratos PDF com conciliação automática no SAP.')" type="button">
+<div>
+<div class="font-code-telemetry text-code-telemetry text-primary font-bold group-hover:text-primary-container">
+                  01. AUTOMAÇÃO DE BACKOFFICE
+                </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">
+                  Conciliação de comprovantes, notas e faturas sem toque manual.
+                </div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full text-left p-space-md hover:bg-surface-container-high/60 transition-colors group flex items-start justify-between" onclick="loadPreset('Agentes de Atendimento Técnico: Triagem autônoma de chamados de suporte L1 e L2 com integração à documentação de APIs e banco de tickets.')" type="button">
+<div>
+<div class="font-code-telemetry text-code-telemetry text-primary font-bold group-hover:text-primary-container">
+                  02. AGENTES DE SUPORTE TÉCNICO
+                </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">
+                  Resolução contextual de Nível 1 e 2 com RAG determinístico.
+                </div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full text-left p-space-md hover:bg-surface-container-high/60 transition-colors group flex items-start justify-between" onclick="loadPreset('OCR &amp; Extração Documental: Leitura de contratos jurídicos escaneados de 50+ páginas com validação de cláusulas de risco e multas.')" type="button">
+<div>
+<div class="font-code-telemetry text-code-telemetry text-primary font-bold group-hover:text-primary-container">
+                  03. OCR &amp; EXTRAÇÃO DOCUMENTAL
+                </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">
+                  Visão computacional multimodal para documentos não estruturados.
+                </div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[18px]">arrow_forward</span>
+</button>
+<button class="w-full text-left p-space-md hover:bg-surface-container-high/60 transition-colors group flex items-start justify-between" onclick="loadPreset('Refatoração de Software Legado: Criação de wrappers modernos em TypeScript e Fastify em volta de rotinas em Delphi / COBOL.')" type="button">
+<div>
+<div class="font-code-telemetry text-code-telemetry text-primary font-bold group-hover:text-primary-container">
+                  04. REFATORAÇÃO LEGADO
+                </div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-space-2xs">
+                  Isolamento e modernização sem paralisar operações core.
+                </div>
+</div>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- INFRASTRUCTURE INTEGRITY LOG -->
+<div class="bg-surface-container-lowest p-space-md border border-surface-container-high flex flex-col gap-space-xs font-code-telemetry text-code-telemetry">
+<div class="flex items-center justify-between text-outline">
+<span>// COMPLIANCE_FRAMEWORK</span>
+<span class="text-primary font-bold">[CERTIFIED]</span>
+</div>
+<div class="text-on-surface-variant">
+            • ED25519 END-TO-END PAYLOAD SIGNING<br/>
+            • SOC-2 ALIGNED WORKLOAD PARTITIONING<br/>
+            • EPHEMERAL INFERENCE STORAGE POLICIES
+          </div>
+<div class="pt-space-xs border-t border-surface-container-high text-outline-variant flex items-center justify-between">
+<span>TERMINATION MARKER:</span>
+<span class="text-primary font-bold">EOF_REACHED</span>
+</div>
+</div>
+</aside>
+</div>
+</section>
+<!-- BOTTOM TERMINATION BANNER -->
+<section class="w-full bg-surface-container-lowest border-t border-surface-container-high px-gutter-desktop py-space-sm mt-space-xl">
+<div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-xs font-code-telemetry text-code-telemetry text-outline">
+<div class="flex items-center gap-space-sm">
+<span class="text-primary font-bold">&gt;&gt; TELEMETRY_STREAM</span>
+<span>NODE: CB_ALPHA_01_BR</span>
+<span class="text-outline-variant">|</span>
+<span>LATENCY: 11ms</span>
+</div>
+<div class="text-primary tracking-widest font-mono">
+        EOF_REACHED // 01000011 01000010
+      </div>
+</div>
+</section>
+<!-- INTERACTIVE CLIENT-SIDE ENGINE SCRIPT -->
+<script>
+    function loadPreset(presetText) {
+      const textarea = document.getElementById('problem-input');
+      if (textarea) {
+        textarea.value = presetText;
+        textarea.focus();
+        textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    document.getElementById('clear-btn')?.addEventListener('click', function() {
+      const textarea = document.getElementById('problem-input');
+      if (textarea) {
+        textarea.value = '';
+        textarea.focus();
+      }
+    });
+
+    document.getElementById('run-analysis-btn')?.addEventListener('click', function() {
+      const btn = this;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>[ RE-COMPILING TOPOLOGY... ]</span>';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        const target = document.querySelector('.bg-surface-container-low.border-primary\\/40');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 950);
+    });
+
+    // Form Submission mock connected to POST /api/leads schema
+    document.getElementById('lead-capture-form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const submitBtn = document.getElementById('submit-lead-btn');
+      const feedback = document.getElementById('form-feedback');
+      
+      const payload = {
+        name: document.getElementById('lead-name').value,
+        email: document.getElementById('lead-email').value,
+        phone: document.getElementById('lead-phone').value,
+        company: document.getElementById('lead-company').value,
+        technical_notes: document.getElementById('lead-details').value,
+        diagnostic_source: 'CB_DIAG_9942',
+        timestamp: new Date().toISOString()
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>[ TRANSMITTING TO SECURE CLUSTER... ]</span>';
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px]">done_all</span><span>[ TRANSMISSÃO CONCLUÍDA ]</span>';
+        
+        feedback.classList.remove('hidden');
+        feedback.className = 'p-space-sm font-code-telemetry text-body-sm bg-surface-container-lowest border border-primary text-primary flex items-center gap-space-xs';
+        feedback.innerHTML = '<span class="material-symbols-outlined text-[18px]">verified_user</span><span>DIAGN&Oacute;STICO ENVIADO COM SUCESSO. NOSSA EQUIPE T&Eacute;CNICA ENTRAR&Aacute; EM CONTATO EM AT&Eacute; 4 HORAS &Uacute;TEIS.</span>';
+      }, 1200);
+    });
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container-high mt-space-3xl"><div class="w-full px-gutter-desktop py-space-2xl grid grid-cols-1 md:grid-cols-12 gap-space-xl"><div class="md:col-span-5 flex flex-col gap-space-md"><img alt="Logo horizontal.jpg" class="h-8 w-auto object-contain self-start" src="https://lh3.googleusercontent.com/aida/AEtjO1VFsqugbkWLJhZbupJRH74bc9GHTY1-j_k5nr9al72QM4lav21wBalPHd0cqUr_OKZq7FGWcliXTf1o_DhZ1Lz05bnvW4NL93ZY9NJkwK_JiELVZerWrLHljgIJ3bEJBEUOt-YDkGxUlVJpm-mzT5FIoyHkneF-pL-SSwufnM_ohpw8pKbQ_sgeRd8SALTsUqo_PLU2XV8dJ6D3_wKKKC1kpiG2hV_9kadAdes6tfQZpPFoXWdRutHuW0ExFkZFx1FRajvHb-U4xSw"/><p class="font-code-telemetry text-body-sm text-on-surface-variant max-w-md uppercase tracking-widest text-primary">// A PROBLEM ENTERS. AN ARCHITECTURE EMERGES. A SYSTEM LEAVES.</p><div class="flex flex-col gap-space-2xs pt-space-sm font-code-telemetry text-code-telemetry text-outline"><p>TELEMETRY: AUTONOMOUS PRODUCTION ENGINE v4.8</p><p>KERNEL: SECURE LAB DISTRO // CLUSTER_ONLINE</p></div></div><div class="md:col-span-4 flex flex-col gap-space-sm"><div class="font-label-sm text-label-sm text-primary uppercase tracking-widest pb-space-xs border-b border-surface-container-high">// DIRECTORY_INDEX</div><div class="grid grid-cols-2 gap-y-space-xs gap-x-space-md font-label-md text-label-md"><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="binary-diagnostic" href="#">/diagnostic</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="solutions" href="#">/solutions</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="systems-and-work" href="#">/work</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="minds-behind" href="#">/developers</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="philosophy" href="#">/about</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="transmit" href="#">/contact</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="security-and-privacy" href="#">/privacy</a></div></div><div class="md:col-span-3 flex flex-col gap-space-sm font-code-telemetry text-code-telemetry"><div class="font-label-sm text-label-sm text-secondary uppercase tracking-widest pb-space-xs border-b border-surface-container-high">// NODE_STATUS</div><div class="flex flex-col gap-space-xs text-on-surface-variant"><div>STATUS: <span class="text-primary font-bold">SYSTEM.ONLINE</span></div><div>SECURITY: <span class="text-secondary">API_BASE: SECURED [ENV_CONFIG]</span></div><div>ENCRYPTION: <span class="text-on-surface">ED25519 // ACTIVE</span></div><div class="pt-space-xs text-outline">ROOT: CÓDIGO_BINÁRIO_LABS</div></div></div></div><div class="w-full px-gutter-desktop py-space-md border-t border-surface-container-high flex flex-col sm:flex-row items-center justify-between gap-space-sm font-code-telemetry text-code-telemetry text-outline"><div class="tracking-wider">© 2024 CÓDIGO BINÁRIO // [NULL_SECURED]</div><div class="text-primary tracking-widest">EOF_REACHED // 01000011 01000010</div></div></footer></body></html>

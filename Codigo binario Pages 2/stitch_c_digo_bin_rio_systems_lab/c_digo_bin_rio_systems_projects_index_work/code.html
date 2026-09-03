@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-primary-container":"#005f40","surface-tint":"#4edea3","surface-dim":"#0b1326","outline":"#86948a","on-secondary-container":"#00424e","on-tertiary-container":"#7715c5","surface-container-lowest":"#060d20","on-background":"#dbe2fd","tertiary":"#f0daff","primary-container":"#4edea3","tertiary-fixed":"#f0dbff","secondary-fixed-dim":"#4cd7f6","primary-fixed-dim":"#4edea3","on-secondary-fixed-variant":"#004e5c","secondary-container":"#03b5d3","on-primary":"#003824","tertiary-container":"#ddb7ff","secondary-fixed":"#acedff","primary":"#6ffbbe","primary-fixed":"#6ffbbe","surface-bright":"#31394e","inverse-on-surface":"#283044","on-primary-fixed":"#002114","on-secondary":"#003640","surface-container":"#171f33","on-error":"#690005","on-secondary-fixed":"#001f26","surface-container-high":"#222a3e","on-tertiary-fixed-variant":"#6900b3","inverse-primary":"#006c4a","on-tertiary-fixed":"#2c0051","surface":"#0b1326","error-container":"#93000a","tertiary-fixed-dim":"#ddb7ff","on-error-container":"#ffdad6","background":"#0b1326","on-tertiary":"#490080","secondary":"#4cd7f6","on-surface-variant":"#bbcac0","surface-container-highest":"#2d3449","error":"#ffb4ab","on-primary-fixed-variant":"#005236","surface-container-low":"#131b2e","outline-variant":"#3c4a42","on-surface":"#dbe2fd","inverse-surface":"#dbe2fd","surface-variant":"#2d3449"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-base":"1rem","space-md":"0.75rem","gutter-mobile":"0.75rem","sidebar-width":"17.5rem","space-2xs":"0.125rem","space-lg":"1.5rem","space-xl":"2rem","gutter-desktop":"1.25rem","space-3xl":"4rem","space-2xl":"3rem","header-height":"3.25rem","space-xs":"0.25rem","space-sm":"0.5rem"},"fontFamily":{"code-telemetry":["JetBrains Mono"],"body-lg":["JetBrains Mono"],"headline-md":["JetBrains Mono"],"label-sm":["JetBrains Mono"],"headline-xl":["JetBrains Mono"],"label-md":["JetBrains Mono"],"headline-lg":["JetBrains Mono"],"body-sm":["JetBrains Mono"],"headline-xl-mobile":["JetBrains Mono"],"body-md":["JetBrains Mono"],"headline-lg-mobile":["JetBrains Mono"]},"fontSize":{"code-telemetry":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"500"}],"body-lg":["15px",{"lineHeight":"24px","letterSpacing":"0em","fontWeight":"400"}],"headline-md":["18px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"600"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.12em","fontWeight":"600"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.04em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.08em","fontWeight":"500"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-sm":["11px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"400"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.03em","fontWeight":"700"}],"body-md":["13px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"400"}],"headline-lg-mobile":["20px",{"lineHeight":"28px","letterSpacing":"-0.02em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/90 backdrop-blur-xl border-b border-surface-container-high"><div class="w-full bg-surface-container-lowest px-gutter-desktop py-space-2xs border-b border-surface-container-high/60 flex items-center justify-between overflow-hidden"><div class="flex items-center gap-space-md font-code-telemetry text-code-telemetry text-on-surface-variant"><span class="flex items-center gap-space-xs text-primary"><span class="w-1.5 h-1.5 bg-primary animate-pulse"></span>LIVE_TELEMETRY</span><span class="hidden md:inline text-outline-variant">|</span><span class="hidden md:inline tracking-wider">CÓDIGO BINÁRIO // AI SYSTEMS LAB // AUTONOMOUS ARCHITECTURE // HUMAN + MACHINE // 01000011 01000010</span></div><div class="flex items-center gap-space-base font-code-telemetry text-code-telemetry text-on-surface-variant"><span class="hidden lg:inline text-secondary">NODE_REF: CB_ALPHA_01</span><span class="text-primary font-semibold">[SYS:OK]</span></div></div><div class="h-header-height w-full px-gutter-desktop flex items-center justify-between gap-space-base"><div class="flex items-center gap-space-base shrink-0"><img alt="Logo horizontal.jpg" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VFsqugbkWLJhZbupJRH74bc9GHTY1-j_k5nr9al72QM4lav21wBalPHd0cqUr_OKZq7FGWcliXTf1o_DhZ1Lz05bnvW4NL93ZY9NJkwK_JiELVZerWrLHljgIJ3bEJBEUOt-YDkGxUlVJpm-mzT5FIoyHkneF-pL-SSwufnM_ohpw8pKbQ_sgeRd8SALTsUqo_PLU2XV8dJ6D3_wKKKC1kpiG2hV_9kadAdes6tfQZpPFoXWdRutHuW0ExFkZFx1FRajvHb-U4xSw"/><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-2xs bg-surface-container-low border border-surface-container-high font-label-sm text-label-sm text-primary"><span class="w-2 h-2 bg-primary inline-block"></span><span>SYSTEM.ONLINE // LATENCY: 12ms // MODE: LAB</span></div></div><nav class="hidden lg:flex items-center gap-space-xs" data-active-classes="bg-surface-container-high text-primary border border-primary/40"><a aria-current="page" class="px-space-md py-space-xs font-label-md uppercase tracking-wider transition-colors bg-surface-container-high text-primary border border-primary/40" data-path="home" href="#">[HOME]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="binary-diagnostic" href="#">[BINARY DIAGNOSTIC]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="solutions" href="#">[SOLUTIONS]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="systems-and-work" href="#">[SYSTEMS &amp; WORK]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="minds-behind" href="#">[MINDS BEHIND]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="philosophy" href="#">[PHILOSOPHY]</a><a class="px-space-md py-space-xs font-label-md text-label-md uppercase tracking-wider text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors" data-path="transmit" href="#">[TRANSMIT]</a></nav><div class="flex items-center gap-space-sm shrink-0"><button class="hidden sm:flex items-center gap-space-xs px-space-sm py-space-xs font-code-telemetry text-code-telemetry bg-surface-container-lowest text-on-surface-variant border border-surface-container-high hover:border-primary hover:text-primary transition-colors" type="button"><span>⌘K</span><span class="text-outline-variant">//</span><span>TERM</span></button><a class="flex items-center gap-space-xs px-space-md py-space-xs bg-primary-container text-on-primary font-label-sm text-label-sm font-bold tracking-wider hover:bg-primary transition-all shadow-[0_0_12px_0px_rgba(78,222,163,0.35)]" data-path="binary-diagnostic" href="#"><span>&gt; RUN DIAGNOSTIC →</span></a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-[calc(3.25rem+1.5rem)] bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- TOP TELEMETRY STRIP // CONTEXT ANCHOR -->
+<section class="w-full px-gutter-desktop py-space-sm bg-surface-container-lowest flex flex-wrap items-center justify-between gap-space-sm text-on-surface-variant font-code-telemetry text-code-telemetry">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-space-xs text-primary">
+<span class="w-2 h-2 bg-primary"></span>
+        ENDPOINT: /api/projects
+      </span>
+<span class="text-outline-variant">//</span>
+<span class="text-on-surface">SCHEMA_VERSION: 2.4.0-FASTIFY</span>
+<span class="hidden md:inline text-outline-variant">//</span>
+<span class="hidden md:inline text-secondary">SECURITY_POLICY: ZERO_EXPOSURE_AIRGAP</span>
+</div>
+<div class="flex items-center gap-space-base">
+<span>INDEX_SLOTS: [02_REGISTERED]</span>
+<span class="text-outline-variant">|</span>
+<span class="text-primary font-bold">SOVEREIGNTY_CHECK: ENFORCED</span>
+</div>
+</section>
+<!-- WORK HUB INTRO & ARCHITECTURAL GRID HEADER -->
+<section class="w-full px-gutter-desktop pt-space-xl pb-space-lg bg-surface flex flex-col gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm uppercase tracking-widest">
+<span>// LAB_ARCHIVES_V4</span>
+<span>::</span>
+<span>SYSTEMS_INDEX</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight uppercase">
+          SYSTEMS &amp; PROJECTS INDEX
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+          Catálogo determinístico de infraestruturas autônomas, orquestradores multiagentes e motores de inteligência soberana operando sob o kernel CÓDIGO BINÁRIO.
+        </p>
+</div>
+<!-- FILTER / PROTOCOL STATUS BAR -->
+<div class="flex items-center gap-space-xs bg-surface-container-lowest p-space-xs shrink-0 font-label-sm text-label-sm">
+<button class="px-space-md py-space-xs bg-primary text-on-primary font-bold" type="button">
+          [ALL_ACTIVE]
+        </button>
+<button class="px-space-md py-space-xs bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+          [PROD_STABLE: 01]
+        </button>
+<button class="px-space-md py-space-xs bg-surface-container-high text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+          [BENCHMARKING: 01]
+        </button>
+<button class="px-space-md py-space-xs bg-surface-container-high text-secondary hover:text-on-surface transition-colors" type="button">
+          [NDA_ENCLAVES]
+        </button>
+</div>
+</div>
+</section>
+<!-- MAIN DUAL COLUMN: ARCHITECTURAL ROSTER & NDA ENCLAVE SUMMARY -->
+<section class="w-full px-gutter-desktop py-space-lg bg-surface-dim grid grid-cols-1 lg:grid-cols-12 gap-space-base">
+<!-- LEFT PANEL: PROJECT 001 // SYNAPSE_VLM -->
+<article class="lg:col-span-6 bg-surface-container-low flex flex-col justify-between shadow-xl transition-all">
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Top bar of the card -->
+<div class="flex items-center justify-between gap-space-sm pb-space-sm bg-surface-container-lowest p-space-sm">
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm">
+<span class="w-2.5 h-2.5 bg-primary"></span>
+<span class="text-primary font-bold tracking-wider">PROJECT_001 // SYNAPSE_VLM</span>
+</div>
+<span class="px-space-sm py-space-2xs bg-primary/10 text-primary font-code-telemetry text-code-telemetry">
+            [PRODUCTION // STABLE]
+          </span>
+</div>
+<!-- System Identification -->
+<div class="flex flex-col gap-space-2xs">
+<span class="font-code-telemetry text-code-telemetry text-secondary uppercase tracking-widest">
+            SYSTEM TYPE
+          </span>
+<span class="font-headline-md text-headline-md text-on-surface">
+            Autonomous Document &amp; ERP Ingestion Engine
+          </span>
+</div>
+<!-- Description -->
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Sistema autônomo de extração de faturas e reconciliação fiscal para integração determinística com ERP corporativo. Elimina redundância operacional via processamento vetorial assíncrono com inferência multimodal.
+        </p>
+<!-- Technical Telemetry Matrix -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs pt-space-xs">
+<div class="bg-surface-container-lowest p-space-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">LATENCY THRESHOLD</span>
+<span class="font-headline-md text-headline-md text-primary">&lt; 2.8s</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">End-to-end parsed</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">BOTTLENECK</span>
+<span class="font-headline-md text-headline-md text-secondary">0.00%</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">Zero Human Dependency</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">VERIFICATION</span>
+<span class="font-headline-md text-headline-md text-on-surface">STRICT</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">Pydantic Type Safe</span>
+</div>
+</div>
+<!-- Stack Blueprint Chips -->
+<div class="flex flex-col gap-space-2xs">
+<span class="font-code-telemetry text-code-telemetry text-outline uppercase">CORE STACK ARCHITECTURE:</span>
+<div class="flex flex-wrap gap-space-xs font-code-telemetry text-code-telemetry">
+<span class="px-space-sm py-space-2xs bg-surface-container text-on-surface">Fastify v4</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-on-surface">TypeScript Strict</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-primary">pgvector (HNSW)</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-secondary">Python 3.12 Engine</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-on-surface">Docker Sandbox</span>
+</div>
+</div>
+</div>
+<!-- Action Panel -->
+<div class="p-space-md bg-surface-container-lowest flex items-center justify-between gap-space-sm">
+<span class="font-code-telemetry text-code-telemetry text-outline">ENDPOINT: GET /api/projects/PROJECT_001</span>
+<button class="px-space-md py-space-xs bg-primary text-on-primary font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-primary-container transition-all" type="button">
+          &gt; INSPECT CONTROL PANEL ↓
+        </button>
+</div>
+</article>
+<!-- RIGHT PANEL: PROJECT 002 // KERNEL_OBSERVER -->
+<article class="lg:col-span-6 bg-surface-container-low flex flex-col justify-between shadow-xl transition-all">
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Top bar of the card -->
+<div class="flex items-center justify-between gap-space-sm pb-space-sm bg-surface-container-lowest p-space-sm">
+<div class="flex items-center gap-space-sm font-label-sm text-label-sm">
+<span class="w-2.5 h-2.5 bg-secondary animate-pulse"></span>
+<span class="text-secondary font-bold tracking-wider">PROJECT_002 // KERNEL_OBSERVER</span>
+</div>
+<span class="px-space-sm py-space-2xs bg-secondary/10 text-secondary font-code-telemetry text-code-telemetry">
+            [STAGING // BENCHMARKING]
+          </span>
+</div>
+<!-- System Identification -->
+<div class="flex flex-col gap-space-2xs">
+<span class="font-code-telemetry text-code-telemetry text-secondary uppercase tracking-widest">
+            SYSTEM TYPE
+          </span>
+<span class="font-headline-md text-headline-md text-on-surface">
+            Telemetry &amp; Multi-Agent Network Orchestrator
+          </span>
+</div>
+<!-- Description -->
+<p class="font-body-md text-body-md text-on-surface-variant">
+          Orquestrador de nós de inferência distribuída para auditoria contínua de contratos e conformidade de dados. Topologia de grafos cíclicos supervisionados com verificação de segurança em tempo real.
+        </p>
+<!-- Technical Telemetry Matrix -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs pt-space-xs">
+<div class="bg-surface-container-lowest p-space-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">CONCURRENCY</span>
+<span class="font-headline-md text-headline-md text-secondary">64k NODES</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">Async Tokio Runtime</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">SYNC OVERHEAD</span>
+<span class="font-headline-md text-headline-md text-primary">&lt; 14ms</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">Redis Pub/Sub Bus</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm flex flex-col">
+<span class="font-label-sm text-label-sm text-outline uppercase">AUDIT CONVERGENCE</span>
+<span class="font-headline-md text-headline-md text-on-surface">99.998%</span>
+<span class="font-code-telemetry text-code-telemetry text-on-surface-variant">LangGraph States</span>
+</div>
+</div>
+<!-- Stack Blueprint Chips -->
+<div class="flex flex-col gap-space-2xs">
+<span class="font-code-telemetry text-code-telemetry text-outline uppercase">CORE STACK ARCHITECTURE:</span>
+<div class="flex flex-wrap gap-space-xs font-code-telemetry text-code-telemetry">
+<span class="px-space-sm py-space-2xs bg-surface-container text-secondary">Rust (Core Agent)</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-on-surface">LangGraph Nodes</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-on-surface">Supabase Auth/WAL</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-primary">Redis Streams</span>
+<span class="px-space-sm py-space-2xs bg-surface-container text-on-surface">gRPC Protobuf</span>
+</div>
+</div>
+</div>
+<!-- Action Panel -->
+<div class="p-space-md bg-surface-container-lowest flex items-center justify-between gap-space-sm">
+<span class="font-code-telemetry text-code-telemetry text-outline">ENDPOINT: GET /api/projects/PROJECT_002</span>
+<button class="px-space-md py-space-xs bg-surface-container-high text-secondary hover:text-on-surface font-label-sm text-label-sm uppercase tracking-wider transition-colors" type="button">
+          [BENCHMARK_STREAM]
+        </button>
+</div>
+</article>
+</section>
+<!-- AIRGAP PROPRIETARY PROTOCOL / ELEGANT EMPTY STATE CALLOUT -->
+<section class="w-full px-gutter-desktop py-space-xl bg-surface-container-lowest flex flex-col gap-space-base">
+<div class="bg-surface-container-low p-space-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs max-w-4xl">
+<div class="flex flex-wrap items-center gap-space-sm font-label-sm text-label-sm text-secondary">
+<span class="px-space-sm py-space-2xs bg-secondary/10 text-secondary uppercase font-code-telemetry">
+            API_ROUTER // GET /api/projects
+          </span>
+<span class="text-outline-variant">::</span>
+<span class="text-primary flex items-center gap-space-2xs">
+<span class="w-2 h-2 bg-primary"></span>
+            SOVEREIGN ENCLAVE ENFORCED
+          </span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">
+          NO PUBLIC PROPRIETARY CLIENT SYSTEMS EXPOSED
+        </h2>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+          Projetos sob termo de confidencialidade e soberania de dados <span class="text-secondary font-semibold">[NDA_PROTECTED]</span> operam exclusivamente em clusters isolados e redes locais on-premises dos contratantes. Apenas protótipos de laboratório autorizados são exibidos publicamente nesta console.
+        </p>
+</div>
+<!-- Protocol Security Pill -->
+<div class="flex flex-col gap-space-2xs bg-surface-container-lowest p-space-md shrink-0 font-code-telemetry text-code-telemetry">
+<div class="flex items-center justify-between gap-space-base text-outline">
+<span>AIRGAP_ISOLATION:</span>
+<span class="text-primary font-bold">100% OK</span>
+</div>
+<div class="flex items-center justify-between gap-space-base text-outline">
+<span>TELEMETRY_EXPORT:</span>
+<span class="text-on-surface">RESTRICTED</span>
+</div>
+<div class="flex items-center justify-between gap-space-base text-outline">
+<span>HOST_JURISDICTION:</span>
+<span class="text-secondary">SOVEREIGN_NODE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- INTERACTIVE ARCHITECTURAL AI CONSOLE PREVIEW -->
+<!-- Target Route: POST /api/projects/:projectId/chat & Telemetry Stream -->
+<section class="w-full px-gutter-desktop py-space-2xl bg-surface flex flex-col gap-space-lg">
+<!-- Console Section Header -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm pb-space-sm">
+<div class="flex flex-col gap-space-2xs">
+<div class="flex items-center gap-space-xs font-label-sm text-label-sm text-primary uppercase">
+<span class="w-2 h-2 bg-primary"></span>
+<span>TELEMETRY &amp; INTERACTIVE INFERENCE CONSOLE</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface uppercase">
+          PROJECT_001 // AI CONSOLE &amp; CONTROL PANEL
+        </h2>
+<p class="font-code-telemetry text-code-telemetry text-on-surface-variant">
+          INTERACTIVE AGENT INTERFACE // FASTIFY PROTOCOL POST /api/projects/PROJECT_001/chat
+        </p>
+</div>
+<div class="flex items-center gap-space-sm font-code-telemetry text-code-telemetry text-on-surface-variant">
+<span>SESSION: <span class="text-primary">ACTIVE_LAB_SANDBOX</span></span>
+<span class="text-outline-variant">|</span>
+<span>LATENCY: <span class="text-secondary">1.8ms</span></span>
+</div>
+</div>
+<!-- The Architectural Master Panel -->
+<div class="w-full bg-surface-container-lowest flex flex-col shadow-2xl">
+<!-- Window Control & Nav Tabs Strip -->
+<div class="bg-surface-container-high px-space-md py-space-xs flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-2xs">
+<span class="w-3 h-3 bg-surface-bright"></span>
+<span class="w-3 h-3 bg-surface-bright"></span>
+<span class="w-3 h-3 bg-surface-bright"></span>
+<span class="ml-space-sm font-code-telemetry text-code-telemetry text-on-surface font-bold uppercase">
+            CONSOLE://CB_PROJECT_001_SUPERVISOR
+          </span>
+</div>
+<!-- Structural Navigation Tabs -->
+<div class="flex flex-wrap items-center gap-space-2xs font-label-sm text-label-sm uppercase">
+<button class="tab-btn px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" data-target="panel-overview" type="button">
+            [SYSTEM OVERVIEW]
+          </button>
+<button class="tab-btn px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" data-target="panel-arch" type="button">
+            [ARCHITECTURE]
+          </button>
+<button class="tab-btn px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" data-target="panel-state" type="button">
+            [CURRENT STATE]
+          </button>
+<button class="tab-btn px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" data-target="panel-reqs" type="button">
+            [REQUIREMENTS]
+          </button>
+<button class="tab-btn px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" data-target="panel-decisions" type="button">
+            [DECISIONS]
+          </button>
+<button class="tab-btn px-space-sm py-space-2xs bg-surface-container-lowest text-on-surface-variant hover:text-on-surface transition-colors" data-target="panel-logs" type="button">
+            [LOGS]
+          </button>
+<button class="tab-btn active px-space-sm py-space-2xs bg-primary text-on-primary font-bold" data-target="panel-ai" type="button">
+            [AI CONSOLE]
+          </button>
+</div>
+</div>
+<!-- Multi-pane Content Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 min-h-[520px]">
+<!-- Left Sub-Pane: Live Decision Tree & Metric Trace (4 Cols) -->
+<div class="xl:col-span-4 bg-surface-container-low p-space-md flex flex-col justify-between gap-space-md">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-xs bg-surface-container-lowest p-space-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold">// INFERENCE TRACE &amp; FLOW</span>
+<span class="font-code-telemetry text-code-telemetry text-secondary">VLM_FLOW_v2.8</span>
+</div>
+<!-- Visual Flow SVG -->
+<div class="bg-surface-container-lowest p-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-code-telemetry font-code-telemetry text-outline">
+<span>GRAPH_EXECUTION_TOPOLOGY</span>
+<span class="text-primary">SYNCHRONOUS</span>
+</div>
+<svg class="w-full text-outline-variant h-28 my-space-xs" fill="none" viewbox="0 0 320 110">
+<!-- Nodes -->
+<rect fill="#171f33" height="36" width="70" x="10" y="35"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="middle" x="45" y="57">INGEST_VEC</text>
+<rect fill="#171f33" height="36" width="70" x="125" y="10"></rect>
+<text fill="#dbe2fd" font-family="JetBrains Mono" font-size="9" text-anchor="middle" x="160" y="32">PYDANTIC</text>
+<rect fill="#171f33" height="36" width="70" x="125" y="60"></rect>
+<text fill="#4cd7f6" font-family="JetBrains Mono" font-size="9" text-anchor="middle" x="160" y="82">RECONCILE</text>
+<rect fill="#005f40" height="36" width="70" x="240" y="35"></rect>
+<text fill="#6ffbbe" font-family="JetBrains Mono" font-size="9" font-weight="bold" text-anchor="middle" x="275" y="57">ERP_WRITE</text>
+<!-- Connectors -->
+<path d="M80 53 L125 28" stroke="#3c4a42" stroke-dasharray="3 3" stroke-width="1.5"></path>
+<path d="M80 53 L125 78" stroke="#3c4a42" stroke-width="1.5"></path>
+<path d="M195 28 L240 53" stroke="#6ffbbe" stroke-width="1.5"></path>
+<path d="M195 78 L240 53" stroke="#4cd7f6" stroke-width="1.5"></path>
+</svg>
+<div class="flex items-center justify-between text-code-telemetry font-code-telemetry text-on-surface-variant">
+<span>RECONCILIATION: <strong class="text-primary">100%</strong></span>
+<span>ERROR_RATE: <strong class="text-secondary">0.00%</strong></span>
+</div>
+</div>
+<!-- Decisions List -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">// RECENT ENGINE DECISIONS</span>
+<div class="p-space-xs bg-surface-container-lowest flex flex-col gap-space-2xs text-code-telemetry font-code-telemetry">
+<div class="flex items-center justify-between">
+<span class="text-primary">[D-9941] INVOICE_HASH_OK</span>
+<span class="text-outline">T-34s</span>
+</div>
+<p class="text-on-surface-variant">Verified zero tampering via SHA-256 ledger checksum.</p>
+</div>
+<div class="p-space-xs bg-surface-container-lowest flex flex-col gap-space-2xs text-code-telemetry font-code-telemetry">
+<div class="flex items-center justify-between">
+<span class="text-secondary">[D-9940] ASYNC_DISPATCH</span>
+<span class="text-outline">T-1m</span>
+</div>
+<p class="text-on-surface-variant">Pushed 142 batch items to pgvector HNSW pipeline.</p>
+</div>
+<div class="p-space-xs bg-surface-container-lowest flex flex-col gap-space-2xs text-code-telemetry font-code-telemetry">
+<div class="flex items-center justify-between">
+<span class="text-primary">[D-9939] TYPE_ENFORCEMENT</span>
+<span class="text-outline">T-4m</span>
+</div>
+<p class="text-on-surface-variant">Coerced Brazilian BRL currency decimals to strict float64.</p>
+</div>
+</div>
+</div>
+<!-- Bottom Status of the Left Pane -->
+<div class="p-space-xs bg-surface-container-lowest flex items-center justify-between font-code-telemetry text-code-telemetry">
+<span class="text-outline">SANDBOX_STATE:</span>
+<span class="text-primary font-bold">READY_FOR_EVALUATION</span>
+</div>
+</div>
+<!-- Right Sub-Pane: AI Prompt Console & Real-time Session Log (8 Cols) -->
+<div class="xl:col-span-8 bg-surface-container flex flex-col justify-between">
+<!-- Terminal / Chat Transcript Area -->
+<div class="p-space-md flex flex-col gap-space-md overflow-y-auto max-h-[380px] font-code-telemetry text-code-telemetry" id="chat-transcript">
+<!-- System Welcome Message -->
+<div class="p-space-sm bg-surface-container-lowest flex flex-col gap-space-xs">
+<div class="flex items-center justify-between text-secondary">
+<span>[AGENT_SUPERVISOR // SYNAPSE_VLM]</span>
+<span class="text-outline">TIMESTAMP: 2024-11-20T14:02:11Z</span>
+</div>
+<p class="text-on-surface">
+                Terminal conectado ao nó de inspeção do <span class="text-primary">PROJECT_001 (SYNAPSE_VLM)</span>. O motor Fastify está ouvindo em <code class="text-secondary">POST /api/projects/PROJECT_001/chat</code>. 
+                Envie parâmetros de teste, solicite verificação de regras fiscais ou analise a topologia dos buffers vetoriais.
+              </p>
+</div>
+<!-- Simulated Exchange: User -->
+<div class="flex flex-col gap-space-2xs items-end ml-space-xl">
+<div class="flex items-center gap-space-xs text-outline font-label-sm text-label-sm">
+<span>ENGINEER_ROOT</span>
+<span>::</span>
+<span class="text-primary">INPUT_PROMPT</span>
+</div>
+<div class="bg-surface-container-highest p-space-sm text-on-surface text-right">
+                inspect_invariants --check=erp_reconciliation --sample=50
+              </div>
+</div>
+<!-- Simulated Exchange: Agent Response -->
+<div class="flex flex-col gap-space-2xs items-start mr-space-xl">
+<div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 bg-secondary"></span>
+<span>SYNAPSE_CORE // TELEMETRY_EVAL</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm text-on-surface-variant flex flex-col gap-space-xs">
+<p class="text-primary font-bold">
+                  [EVALUATION_PASS: 50/50 INVARIANTS SATISFIED]
+                </p>
+<p>
+                  - Latência média nos 50 lotes: <span class="text-on-surface font-semibold">1,842ms</span><br/>
+                  - Erros de arredondamento de ICMS/PIS/COFINS: <span class="text-on-surface font-semibold">0</span><br/>
+                  - Conformidade de schema Pydantic: <span class="text-primary font-semibold">100.0%</span><br/>
+                  - Despacho determinístico para base relacional: <span class="text-secondary font-semibold">CONFIRMADO</span>
+</p>
+<div class="pt-space-2xs text-outline text-body-sm">
+                  MEM_USAGE: 412MB // WORKERS: 8_ACTIVE // STATUS: READY
+                </div>
+</div>
+</div>
+</div>
+<!-- Prompt Command Input Field & Telemetry Bar -->
+<div class="p-space-md bg-surface-container-lowest flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-code-telemetry font-code-telemetry text-outline">
+<div class="flex items-center gap-space-sm">
+<span class="text-primary">&gt; PROTOCOL: HTTP/2 JSON-RPC</span>
+<span>AUTH: TOKEN_BEARER_VALIDATED</span>
+</div>
+<span class="text-secondary">READY_FOR_TRANSMIT</span>
+</div>
+<!-- Terminal Form -->
+<form class="flex flex-col sm:flex-row items-stretch gap-space-xs" id="console-form" onsubmit="event.preventDefault(); window.appendSimulatedCommand();">
+<div class="flex-1 bg-surface flex items-center px-space-sm">
+<span class="text-primary font-code-telemetry text-body-md mr-space-xs select-none">&gt;</span>
+<input autocomplete="off" class="w-full bg-transparent py-space-sm text-on-surface font-code-telemetry text-code-telemetry placeholder:text-outline focus:outline-none" id="console-input" placeholder="execute --cmd [inspect | reconcile | query_vector | stress_test]..." type="text"/>
+</div>
+<button class="px-space-lg py-space-sm bg-primary text-on-primary font-label-sm text-label-sm font-bold uppercase tracking-wider hover:bg-primary-container transition-all flex items-center justify-center gap-space-xs shrink-0 shadow-[0_0_12px_0px_rgba(78,222,163,0.35)]" type="submit">
+<span>&gt; TRANSMIT</span>
+</button>
+</form>
+<div class="flex flex-wrap items-center justify-between gap-space-xs text-code-telemetry font-code-telemetry text-outline">
+<span>HINT: TYPE <span class="text-primary font-bold">query_vector</span> OR <span class="text-secondary font-bold">benchmark</span> TO SIMULATE TELEMETRY DISPATCH</span>
+<span>REST: /api/projects/:projectId/chat</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ENGINEERING SPECIFICATION & DEPLOYMENT METRICS OVERVIEW -->
+<section class="w-full px-gutter-desktop py-space-xl bg-surface-container-lowest grid grid-cols-1 md:grid-cols-3 gap-space-base">
+<!-- Spec Card 1 -->
+<div class="bg-surface-container-low p-space-lg flex flex-col gap-space-sm">
+<div class="font-label-sm text-label-sm text-primary uppercase tracking-widest">// LATENCY ARCHITECTURE</div>
+<div class="font-headline-md text-headline-md text-on-surface uppercase">
+        DETERMINISTIC TIMINGS
+      </div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Nossos sistemas garantem tempo de resposta computacional delimitado por SLOs estritos. Se um nó excede o orçamento de inferência, ocorre failover automático para processamento concorrente particionado.
+      </p>
+<div class="mt-auto pt-space-md font-code-telemetry text-code-telemetry text-secondary">
+        BOUND: P99 &lt; 3.2s // P50 &lt; 1.4s
+      </div>
+</div>
+<!-- Spec Card 2 -->
+<div class="bg-surface-container-low p-space-lg flex flex-col gap-space-sm">
+<div class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">// ZERO EXPOSURE NDA</div>
+<div class="font-headline-md text-headline-md text-on-surface uppercase">
+        AIRGAPPED ENTERPRISE
+      </div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Empresas de saúde, bancos e indústrias operam seus nós de IA em data centers privados ou nuvens soberanas. Nenhuma inferência ou dado trafega em APIs de terceiros não auditadas.
+      </p>
+<div class="mt-auto pt-space-md font-code-telemetry text-code-telemetry text-primary">
+        COMPLIANCE: SOC2 // LGPD // HIPAA COMPLIANT
+      </div>
+</div>
+<!-- Spec Card 3 -->
+<div class="bg-surface-container-low p-space-lg flex flex-col gap-space-sm">
+<div class="font-label-sm text-label-sm text-outline uppercase tracking-widest">// CONTRACT VERIFICATION</div>
+<div class="font-headline-md text-headline-md text-on-surface uppercase">
+        TYPE-SAFE MULTI-AGENT
+      </div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+        Toda transmissão de agente a agente é validada contra contratos de tipos estritos gerados automaticamente em tempo de compilação. Redução absoluta de alucinações funcionais.
+      </p>
+<div class="mt-auto pt-space-md font-code-telemetry text-code-telemetry text-on-surface">
+        ENGINE: RUST TOKIO + FASTIFY RPC
+      </div>
+</div>
+</section>
+<!-- EOF_REACHED TECHNICAL TERMINATION MARKER -->
+<section class="w-full px-gutter-desktop py-space-lg bg-surface flex flex-col sm:flex-row items-center justify-between gap-space-md font-code-telemetry text-code-telemetry text-outline">
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 bg-primary"></span>
+<span class="text-on-surface">STREAM_STATE: [TERMINAL_BUFFER_LOADED]</span>
+<span class="text-outline-variant">//</span>
+<span>PROJECTS_QUERY_SERVED_IN: 0.8ms</span>
+</div>
+<div class="flex items-center gap-space-sm text-primary">
+<span class="tracking-widest">EOF_REACHED // 01000011 01000010</span>
+<span class="px-space-xs py-space-2xs bg-primary/10 font-bold">[SYS:VALID]</span>
+</div>
+</section>
+<!-- CLIENT-SIDE SIMULATOR SCRIPT FOR THE INTERACTIVE AI CONSOLE -->
+<script>
+    (function() {
+      // Tab switching emulation
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tabButtons.forEach(b => {
+            b.classList.remove('bg-primary', 'text-on-primary', 'font-bold');
+            b.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+          });
+          btn.classList.add('bg-primary', 'text-on-primary', 'font-bold');
+          btn.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+        });
+      });
+
+      // Terminal command emulation
+      window.appendSimulatedCommand = function() {
+        const input = document.getElementById('console-input');
+        const transcript = document.getElementById('chat-transcript');
+        if (!input || !transcript || !input.value.trim()) return;
+
+        const val = input.value.trim();
+        input.value = '';
+
+        // Append user prompt
+        const userNode = document.createElement('div');
+        userNode.className = 'flex flex-col gap-space-2xs items-end ml-space-xl';
+        userNode.innerHTML = `
+          <div class="flex items-center gap-space-xs text-outline font-label-sm text-label-sm">
+            <span>ENGINEER_ROOT</span>
+            <span>::</span>
+            <span class="text-primary">TRANSMISSION</span>
+          </div>
+          <div class="bg-surface-container-highest p-space-sm text-on-surface text-right">
+            ${val.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+          </div>
+        `;
+        transcript.appendChild(userNode);
+
+        // Append simulated agent response
+        setTimeout(() => {
+          const agentNode = document.createElement('div');
+          agentNode.className = 'flex flex-col gap-space-2xs items-start mr-space-xl';
+          let responseHtml = '';
+
+          if (val.toLowerCase().includes('query_vector')) {
+            responseHtml = `
+              <p class="text-primary font-bold">[VECTOR_RETRIEVAL_SUCCESS]</p>
+              <p>Top-3 neighbors matched via cosine metric (HNSW layer 4):<br>
+              - DOC_ITEM_#84920 (confidence: 0.994)<br>
+              - DOC_ITEM_#84918 (confidence: 0.982)<br>
+              - DOC_ITEM_#83011 (confidence: 0.941)</p>
+            `;
+          } else if (val.toLowerCase().includes('benchmark')) {
+            responseHtml = `
+              <p class="text-secondary font-bold">[BENCHMARK_EXECUTION_COMPLETE]</p>
+              <p>Ran 1000 simulated payload extractions.<br>
+              Mean Latency: <strong>1.82s</strong> | Memory Footprint: <strong>388MB</strong> | Pydantic Failures: <strong>0</strong></p>
+            `;
+          } else {
+            responseHtml = `
+              <p class="text-primary font-bold">[FASTIFY_RPC: ACK_RECEIVED]</p>
+              <p>Payload processado pelo supervisor do PROJECT_001. Estado de invariante fiscal verificado e preservado no cluster de teste.</p>
+            `;
+          }
+
+          agentNode.innerHTML = `
+            <div class="flex items-center gap-space-xs text-secondary font-label-sm text-label-sm">
+              <span class="w-1.5 h-1.5 bg-primary"></span>
+              <span>SYNAPSE_SUPERVISOR // ECHO_RESPONSE</span>
+            </div>
+            <div class="bg-surface-container-lowest p-space-sm text-on-surface-variant flex flex-col gap-space-xs">
+              ${responseHtml}
+              <div class="pt-space-2xs text-outline text-body-sm">
+                NATIVE FASTIFY DISPATCH // STATUS: 200 OK
+              </div>
+            </div>
+          `;
+          transcript.appendChild(agentNode);
+          transcript.scrollTop = transcript.scrollHeight;
+        }, 400);
+
+        transcript.scrollTop = transcript.scrollHeight;
+      };
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-surface-container-high mt-space-3xl"><div class="w-full px-gutter-desktop py-space-2xl grid grid-cols-1 md:grid-cols-12 gap-space-xl"><div class="md:col-span-5 flex flex-col gap-space-md"><img alt="Logo horizontal.jpg" class="h-8 w-auto object-contain self-start" src="https://lh3.googleusercontent.com/aida/AEtjO1VFsqugbkWLJhZbupJRH74bc9GHTY1-j_k5nr9al72QM4lav21wBalPHd0cqUr_OKZq7FGWcliXTf1o_DhZ1Lz05bnvW4NL93ZY9NJkwK_JiELVZerWrLHljgIJ3bEJBEUOt-YDkGxUlVJpm-mzT5FIoyHkneF-pL-SSwufnM_ohpw8pKbQ_sgeRd8SALTsUqo_PLU2XV8dJ6D3_wKKKC1kpiG2hV_9kadAdes6tfQZpPFoXWdRutHuW0ExFkZFx1FRajvHb-U4xSw"/><p class="font-code-telemetry text-body-sm text-on-surface-variant max-w-md uppercase tracking-widest text-primary">// A PROBLEM ENTERS. AN ARCHITECTURE EMERGES. A SYSTEM LEAVES.</p><div class="flex flex-col gap-space-2xs pt-space-sm font-code-telemetry text-code-telemetry text-outline"><p>TELEMETRY: AUTONOMOUS PRODUCTION ENGINE v4.8</p><p>KERNEL: SECURE LAB DISTRO // CLUSTER_ONLINE</p></div></div><div class="md:col-span-4 flex flex-col gap-space-sm"><div class="font-label-sm text-label-sm text-primary uppercase tracking-widest pb-space-xs border-b border-surface-container-high">// DIRECTORY_INDEX</div><div class="grid grid-cols-2 gap-y-space-xs gap-x-space-md font-label-md text-label-md"><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="binary-diagnostic" href="#">/diagnostic</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="solutions" href="#">/solutions</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="systems-and-work" href="#">/work</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="minds-behind" href="#">/developers</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="philosophy" href="#">/about</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="transmit" href="#">/contact</a><a class="text-on-surface-variant hover:text-primary transition-colors" data-path="security-and-privacy" href="#">/privacy</a></div></div><div class="md:col-span-3 flex flex-col gap-space-sm font-code-telemetry text-code-telemetry"><div class="font-label-sm text-label-sm text-secondary uppercase tracking-widest pb-space-xs border-b border-surface-container-high">// NODE_STATUS</div><div class="flex flex-col gap-space-xs text-on-surface-variant"><div>STATUS: <span class="text-primary font-bold">SYSTEM.ONLINE</span></div><div>SECURITY: <span class="text-secondary">API_BASE: SECURED [ENV_CONFIG]</span></div><div>ENCRYPTION: <span class="text-on-surface">ED25519 // ACTIVE</span></div><div class="pt-space-xs text-outline">ROOT: CÓDIGO_BINÁRIO_LABS</div></div></div></div><div class="w-full px-gutter-desktop py-space-md border-t border-surface-container-high flex flex-col sm:flex-row items-center justify-between gap-space-sm font-code-telemetry text-code-telemetry text-outline"><div class="tracking-wider">© 2024 CÓDIGO BINÁRIO // [NULL_SECURED]</div><div class="text-primary tracking-widest">EOF_REACHED // 01000011 01000010</div></div></footer></body></html>
