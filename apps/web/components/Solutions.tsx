@@ -1,4 +1,4 @@
-import Link from 'next/link';
+
 
 export default function Solutions() {
   return (
@@ -77,7 +77,7 @@ export default function Solutions() {
 
             {/* Usage cases */}
             <div className="ptSpaceXl">
-              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">// CASOS DE USO EM PRODUÇÃO:</span>
+              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">{'// CASOS DE USO EM PRODUÇÃO:'}</span>
               <ul className="flex flex-col gapSpaceXs">
                 <li className="fontBodyMd textBodyMd textOnSurface flex items-center gapSpaceXs">
                   <span className="textPrimary">—</span> Operações financeiras complexas e reconciliação contábil
@@ -121,7 +121,7 @@ export default function Solutions() {
 
             {/* Usage cases */}
             <div className="ptSpaceXl">
-              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">// CASOS DE USO EM PRODUÇÃO:</span>
+              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">{'// CASOS DE USO EM PRODUÇÃO:'}</span>
               <ul className="flex flex-col gapSpaceXs">
                 <li className="fontBodyMd textBodyMd textOnSurface flex items-center gapSpaceXs">
                   <span className="textSecondary">—</span> Conciliação fiscal massiva e cruzamento de notas fiscais
@@ -165,7 +165,7 @@ export default function Solutions() {
 
             {/* Usage cases */}
             <div className="ptSpaceXl">
-              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">// CASOS DE USO EM PRODUÇÃO:</span>
+              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">{'// CASOS DE USO EM PRODUÇÃO:'}</span>
               <ul className="flex flex-col gapSpaceXs">
                 <li className="fontBodyMd textBodyMd textOnSurface flex items-center gapSpaceXs">
                   <span className="textPrimary">—</span> Busca semântica corporativa profunda em milhões de registros
@@ -209,7 +209,7 @@ export default function Solutions() {
 
             {/* Usage cases */}
             <div className="ptSpaceXl">
-              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">// CASOS DE USO EM PRODUÇÃO:</span>
+              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">{'// CASOS DE USO EM PRODUÇÃO:'}</span>
               <ul className="flex flex-col gapSpaceXs">
                 <li className="fontBodyMd textBodyMd textOnSurface flex items-center gapSpaceXs">
                   <span className="textTertiary">—</span> Plataformas web B2B com tolerância zero a latência
@@ -253,7 +253,7 @@ export default function Solutions() {
 
             {/* Usage cases */}
             <div className="ptSpaceXl">
-              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">// CASOS DE USO EM PRODUÇÃO:</span>
+              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">{'// CASOS DE USO EM PRODUÇÃO:'}</span>
               <ul className="flex flex-col gapSpaceXs">
                 <li className="fontBodyMd textBodyMd textOnSurface flex items-center gapSpaceXs">
                   <span className="textPrimary">—</span> Inspeção fabril automatizada com detecção micrométrica de defeitos
@@ -297,7 +297,7 @@ export default function Solutions() {
 
             {/* Usage cases */}
             <div className="ptSpaceXl">
-              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">// CASOS DE USO EM PRODUÇÃO:</span>
+              <span className="fontLabelSm textLabelSm textOutline uppercase trackingWider">{'// CASOS DE USO EM PRODUÇÃO:'}</span>
               <ul className="flex flex-col gapSpaceXs">
                 <li className="fontBodyMd textBodyMd textOnSurface flex items-center gapSpaceXs">
                   <span className="textSecondary">—</span> Conexão assíncrona entre ERPs legados e APIs de IA modernas

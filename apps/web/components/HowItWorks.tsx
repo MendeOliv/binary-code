@@ -6,7 +6,7 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto flex flex-col gap-space-2xl">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
           <div className="flex flex-col gap-space-xs max-w-2xl">
-            <div className="fontLabelSm textLabelSm uppercase trackingWidest textSecondary">// CAPACIDADES DE ENGENHARIA</div>
+            <div className="fontLabelSm textLabelSm uppercase trackingWidest textSecondary">{'// CAPACIDADES DE ENGENHARIA'}</div>
             <h2 className="fontHeadlineLg textHeadlineLg uppercase textOnSurface trackingTight">SISTEMAS QUE CONVERTEM COMPLEXIDADE EM CONTROLE</h2>
             <p className="fontBodyMd textBodyMd textOnSurfaceVariant">Motores digitais e autônomos desenhados para escala corporativa.</p>
           </div>

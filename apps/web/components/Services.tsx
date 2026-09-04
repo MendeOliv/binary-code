@@ -1,11 +1,11 @@
-import Link from 'next/link';
+
 
 export default function Services() {
   return (
     <section className="w-full bg-surface px-gutter-desktop py-space-3xl border-b border-surfaceContainerHigh/40">
       <div className="max-w-7xl mx-auto flex flex-col gap-space-2xl">
         <div className="flex flex-col gap-space-xs max-w-2xl">
-          <div className="fontLabelSm textLabelSm uppercase trackingWidest textSecondary">// PIPELINE DE ENGENHARIA</div>
+          <div className="fontLabelSm textLabelSm uppercase trackingWidest textSecondary">{'// PIPELINE DE ENGENHARIA'}</div>
           <h2 className="fontHeadlineLg textHeadlineLg uppercase textOnSurface trackingTight">DA AMBIGUIDADE AO SISTEMA OPERACIONAL</h2>
           <p className="fontBodyMd textBodyMd textOnSurfaceVariant">Arquitetura de primeiro princípio através de um ciclo irrevogável de engenharia.</p>
         </div>
