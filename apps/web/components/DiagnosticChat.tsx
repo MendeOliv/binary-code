@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import type { DiagnosticResponse } from '@shared/models';
 
 interface Message {
   id: string;
@@ -9,7 +10,7 @@ interface Message {
 
 interface DiagnosticChatProps {
   initialProblem?: string;
-  onComplete: (diagnostic: any, sessionId: string) => void;
+  onComplete: (diagnostic: DiagnosticResponse, sessionId: string) => void;
 }
 
 export default function DiagnosticChat({ initialProblem, onComplete }: DiagnosticChatProps) {
@@ -38,12 +39,61 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     }
   }, [input]);
 
-  // Send initial problem on mount
+  // Send initial problem on mount — ref guard prevents duplicate dispatch
+  const initialProblemSentRef = useRef(false);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
+
   useEffect(() => {
-    if (initialProblem && messages.length === 0) {
-      sendMessage(initialProblem);
-    }
-  }, []);
+    if (!initialProblem || initialProblemSentRef.current) return;
+    initialProblemSentRef.current = true;
+
+    const userMessage: Message = {
+      id: `user-${Date.now()}`,
+      role: 'user',
+      content: initialProblem,
+      timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+    };
+    setMessages([userMessage]);
+    setIsLoading(true);
+
+    fetch('/api/diagnostic/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: initialProblem }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      })
+      .then((data) => {
+        if (data.sessionId) setSessionId(data.sessionId);
+        const assistantMessage: Message = {
+          id: `assistant-${Date.now()}`,
+          role: 'assistant',
+          content: data.response,
+          timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+        };
+        setMessages((prev) => [...prev, assistantMessage]);
+        if (data.phase === 'diagnosis' && data.diagnostic) {
+          setIsComplete(true);
+          onCompleteRef.current(data.diagnostic, data.sessionId);
+        }
+      })
+      .catch((error) => {
+        console.error('Error sending message:', error);
+        const errorMessage: Message = {
+          id: `error-${Date.now()}`,
+          role: 'assistant',
+          content: 'Desculpe, ocorreu um erro. Por favor, tente novamente.',
+          timestamp: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+        };
+        setMessages((prev) => [...prev, errorMessage]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [initialProblem]);
 
   const sendMessage = async (text?: string) => {
     const messageText = text || input.trim();
@@ -91,7 +141,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
       // If diagnosis is ready, signal completion
       if (data.phase === 'diagnosis' && data.diagnostic) {
         setIsComplete(true);
-        onComplete(data.diagnostic, data.sessionId);
+        onCompleteRef.current(data.diagnostic, data.sessionId);
       }
     } catch (error) {
       console.error('Error sending message:', error);

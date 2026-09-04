@@ -75,7 +75,7 @@ export default function DevelopersPage() {
           <div className="mb-20">
             <div className="flex items-center gap-3 mb-4">
               <span className="w-8 h-[1px] bg-primary" />
-              <span className="font-micro-metadata text-micro-metadata text-primary uppercase tracking-widest">// SYSTEM.ARCHITECTURE.HUMANS</span>
+              <span className="font-micro-metadata text-micro-metadata text-primary uppercase tracking-widest">{'// SYSTEM.ARCHITECTURE.HUMANS'}</span>
             </div>
             <h1 className="font-headline-xl text-headline-xl text-text-high-contrast mb-6"><span className="text-surface-variant">{'{'}</span> THE MINDS BEHIND <br /> THE CODE <span className="text-surface-variant">{'}'}</span></h1>
             <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl border-l-2 border-border-glass pl-4 py-1">Os engenheiros que arquitetam o futuro. Uma convergência de lógica abstrata, design de sistemas estruturados e execução de precisão.</p>

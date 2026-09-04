@@ -1,17 +1,7 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 export default function Hero() {
   const router = useRouter();
-  const [problem, setProblem] = useState('');
-
-  const handleStart = () => {
-    if (problem.trim()) {
-      router.push({ pathname: '/diagnostic', query: { initial: problem.trim() } });
-    } else {
-      router.push('/diagnostic');
-    }
-  };
 
   return (
     <section className="relative w-full bg-background px-gutter-desktop py-space-3xl overflow-hidden border-b border-surfaceContainerHigh/40">
@@ -36,13 +26,13 @@ export default function Hero() {
 
           {/* CTA button - matches reference style */}
           <div className="pt-space-sm flex items-center gap-space-md">
-            <a
+            <button
+              type="button"
               className="flex items-center justify-center gap-space-xs pxSpaceLg pySpaceMd bgPrimaryContainer textOnPrimary fontLabelMd textLabelMd fontBold trackingWider hover:bgPrimary transition-all shadow-[0_0_24px_rgba(78,222,163,0.3)]"
-              data-path="binary-diagnostic"
-              href="#"
+              onClick={() => router.push('/diagnostic')}
             >
               <span>START DIAGNOSTIC →</span>
-            </a>
+            </button>
           </div>
         </div>
 
