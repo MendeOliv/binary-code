@@ -1,89 +1,47 @@
-import { useRouter } from 'next/router';
-
-const steps = [
-  {
-    num: '01',
-    title: 'Descreva o problema',
-    description: 'Explique o desafio que a sua empresa enfrenta. Sem jargão técnico necessário.',
-    icon: 'chat',
-  },
-  {
-    num: '02',
-    title: 'IA diagnostica',
-    description: 'A nossa IA faz perguntas inteligentes para entender o contexto, processo e impacto.',
-    icon: 'psychology',
-  },
-  {
-    num: '03',
-    title: 'Receba o diagnóstico',
-    description: 'Um project brief objectivo: problema, solução recomendada, tecnologias e próximo passo.',
-    icon: 'assignment',
-  },
-  {
-    num: '04',
-    title: 'Avance com confiança',
-    description: 'Solução simples? Orçamento directo. Complexa? Consultoria. Incerta? Análise humana.',
-    icon: 'rocket_launch',
-  },
-];
+import Link from 'next/link';
 
 export default function HowItWorks() {
-  const router = useRouter();
-
   return (
-    <section id="como-funciona" className="py-24 px-6 bg-surface-dim">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <span className="font-mono text-label-md text-primary tracking-widest">
-            {`// PROCESSO`}
-          </span>
-          <h2 className="text-headline-lg font-mono text-on-surface mt-4">
-            Como funciona o <span className="text-primary">Binary Diagnostic</span>
-          </h2>
+    <section className="w-full bg-surfaceContainerLow px-gutter-desktop py-space-3xl border-b border-surfaceContainerHigh/40">
+      <div className="max-w-7xl mx-auto flex flex-col gap-space-2xl">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+          <div className="flex flex-col gap-space-xs max-w-2xl">
+            <div className="fontLabelSm textLabelSm uppercase trackingWidest textSecondary">// CAPACIDADES DE ENGENHARIA</div>
+            <h2 className="fontHeadlineLg textHeadlineLg uppercase textOnSurface trackingTight">SISTEMAS QUE CONVERTEM COMPLEXIDADE EM CONTROLE</h2>
+            <p className="fontBodyMd textBodyMd textOnSurfaceVariant">Motores digitais e autônomos desenhados para escala corporativa.</p>
+          </div>
+          <Link href="/solutions">
+            <a className="textPrimary fontLabelMd textLabelMd uppercase trackingWider flex items-center gap-space-xs hover:underline">
+              <span>VER SOLUÇÕES</span>
+              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </a>
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {steps.map((step, idx) => (
-            <div key={step.num} className="relative">
-              {/* Connector line */}
-              {idx < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-10 left-full w-full h-px bg-outline-variant z-0" />
-              )}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-xl pt-space-sm">
+          {/* Capacity 1 */}
+          <div className="flex flex-col gap-space-xs">
+            <div className="fontHeadlineMd textHeadlineMd textOnSurface uppercase">AI Systems & Copilots</div>
+            <p className="fontBodyMd textBodyMd textOnSurfaceVariant">
+              Agentes autônomos com raciocínio contextual e memória de longo prazo para operações críticas.
+            </p>
+          </div>
 
-              <div className="relative z-10 bg-surface-container border border-outline-variant rounded-lg p-6 text-center glow-hover h-full">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-container/20 border border-primary-container mb-4">
-                  <span className="material-symbols-outlined text-primary">
-                    {step.icon}
-                  </span>
-                </div>
+          {/* Capacity 2 */}
+          <div className="flex flex-col gap-space-xs">
+            <div className="fontHeadlineMd textHeadlineMd textOnSurface uppercase">Business Automation</div>
+            <p className="fontBodyMd textBodyMd textOnSurfaceVariant">
+              Extração, normalização e encaminhamento inteligente de fluxos e documentos não estruturados.
+            </p>
+          </div>
 
-                <div className="font-mono text-label-sm text-primary mb-2">
-                  STEP {step.num}
-                </div>
-
-                <h3 className="font-mono text-body-md text-on-surface font-bold mb-2">
-                  {step.title}
-                </h3>
-
-                <p className="font-mono text-body-sm text-on-surface-variant">
-                  {step.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-16">
-          <button
-            onClick={() => router.push('/diagnostic')}
-            className="btn-primary text-label-md font-mono"
-          >
-            Começar Diagnóstico Gratuito
-          </button>
-          <p className="text-label-sm text-outline mt-4 font-mono">
-            Sem compromisso · Resultado em minutos
-          </p>
+          {/* Capacity 3 */}
+          <div className="flex flex-col gap-space-xs">
+            <div className="fontHeadlineMd textHeadlineMd textOnSurface uppercase">Custom Software Platforms</div>
+            <p className="fontBodyMd textBodyMd textOnSurfaceVariant">
+              Aplicações web e consoles de dados de ultra-baixa latência construídos com rigor técnico.
+            </p>
+          </div>
         </div>
       </div>
     </section>

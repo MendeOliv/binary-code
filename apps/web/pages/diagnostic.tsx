@@ -36,7 +36,7 @@ export default function DiagnosticPage() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
           rel="stylesheet"
         />
         <link
@@ -51,22 +51,22 @@ export default function DiagnosticPage() {
 
       <div className="min-h-screen bg-background flex flex-col">
         {/* Header */}
-        <header className="bg-surface border-b border-outline-variant px-6 h-14 flex items-center justify-between">
+        <header className="bgSurface borderBottom borderOutlineVariant px-6 h-14 flex items-center justify-between">
           <button
             onClick={() => router.push('/')}
             className="flex items-center gap-3 group"
           >
-            <div className="w-7 h-7 rounded bg-primary-container/20 border border-primary-container flex items-center justify-center">
-              <span className="text-primary font-mono text-label-sm font-bold">CB</span>
+            <div className="w-7 h-7 rounded bgPrimaryContainer/20 border borderPrimaryContainer flex items-center justify-center">
+              <span className="textPrimary fontMono textLabelSm fontBold">CB</span>
             </div>
-            <span className="font-mono text-body-sm text-on-surface font-bold hidden sm:block">
+            <span className="fontMono textBodySm textOnSurface fontBold hidden sm:block">
               Código Binário
             </span>
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="font-mono text-label-sm text-on-surface-variant">
+            <span className="w-2 h-2 rounded-full bgPrimary animate-pulse" />
+            <span className="fontMono textLabelSm textOnSurfaceVariant">
               Binary Diagnostic
             </span>
           </div>
@@ -100,19 +100,19 @@ export default function DiagnosticPage() {
           {phase === 'done' && (
             <div className="flex-1 flex items-center justify-center p-6">
               <div className="text-center max-w-md">
-                <span className="material-symbols-outlined text-6xl text-primary mb-6 block">
+                <span className="material-symbols-outlined text-6xl textPrimary mb-6 block">
                   celebration
                 </span>
-                <h2 className="font-mono text-headline-md text-on-surface mb-4">
+                <h2 className="fontMono textHeadlineMd textOnSurface mb-4">
                   Obrigado!
                 </h2>
-                <p className="font-mono text-body-sm text-on-surface-variant mb-8">
+                <p className="fontMono textBodySm textOnSurfaceVariant mb-8">
                   A nossa equipa irá analisar o seu diagnóstico e entrar em contacto
                   em breve. Enquanto isso, pode continuar a explorar os nossos serviços.
                 </p>
                 <button
                   onClick={() => router.push('/')}
-                  className="btn-primary font-mono"
+                  className="btnMono fontMono"
                 >
                   Voltar ao início
                 </button>

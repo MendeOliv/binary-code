@@ -1,51 +1,59 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Navbar() {
-  const router = useRouter();
-
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-outline-variant">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md border-b border-structuralBorder">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo / System Indicator */}
         <button
-          onClick={() => router.push('/')}
-          className="flex items-center gap-3 group"
+          onClick={() => window.location.href = '/'}
+          className="flex items-center gap-3"
         >
-          <div className="w-8 h-8 rounded bg-primary-container/20 border border-primary-container flex items-center justify-center group-hover:shadow-glow transition-all">
-            <span className="text-primary font-mono text-label-md font-bold">CB</span>
+          <div className="w-8 h-8 flex items-center justify-center bg-primaryContainer text-on-primary">
+            <span className="font-mono font-bold">CB</span>
           </div>
-          <span className="font-mono text-body-md text-on-surface font-bold hidden sm:block">
-            Código Binário
-          </span>
+          <span className="font-mono text-primary font-bold hidden sm:block">CÓDIGO BINÁRIO</span>
         </button>
 
-        {/* Nav links */}
-        <div className="flex items-center gap-6">
-          <a
-            href="#servicos"
-            className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block"
+        {/* Nav links - architectural grid style */}
+        <div className="hidden md:flex items-center gap-8">
+          <Link href="#servicos">
+            <a
+              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
+            >
+              SOLUTIONS
+            </a>
+          </Link>
+          <Link href="#terminal">
+            <a
+              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
+            >
+              DIAGNOSTIC
+            </a>
+          </Link>
+          <Link href="/projects">
+            <a
+              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
+            >
+              PROJECTS
+            </a>
+          </Link>
+          <Link href="/developers">
+            <a
+              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
+            >
+              DEVELOPERS
+            </a>
+          </Link>
+        </div>
+
+        {/* Command-style CTA button */}
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => window.location.href = '/diagnostic'}
+            className="font-mono text-on-primary bg-primaryContainer text-primary font-bold uppercase tracking-wider px-4 py-2 border border-primaryContainer hover:bg-primary hover:text-primaryContainer transition-all"
           >
-            Serviços
-          </a>
-          <a
-            href="#como-funciona"
-            className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block"
-          >
-            Sobre
-          </a>
-                    <Link href="/developers">
-                      <a
-                        className="font-mono text-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden md:block"
-                      >
-                        Developers
-                      </a>
-                    </Link>
-                    <button
-            onClick={() => router.push('/diagnostic')}
-            className="btn-primary text-label-sm"
-          >
-            Diagnóstico
+            INITIALIZE DIAGNOSTIC
           </button>
         </div>
       </div>

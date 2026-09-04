@@ -14,81 +14,46 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background grid pattern */}
-      <div className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(78, 222, 163, 0.3) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(78, 222, 163, 0.3) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }}
-      />
+    <section className="relative w-full bg-background px-gutter-desktop py-space-3xl overflow-hidden border-b border-surfaceContainerHigh/40">
+      <div className="relative w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-space-3xl py-space-xl">
+        <div className="flex-1 flex flex-col gap-space-xl max-w-2xl">
+          {/* Terminal-style system tag */}
+          <div className="flex items-center gap-space-xs font-codeTelemetry text-labelSm textPrimary trackingWidest uppercase">
+            <span className="w-2 h-2 bg-primary inline-block" />
+            <span>AUTONOMOUS SYSTEMS LAB // SOVEREIGN AI</span>
+          </div>
 
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-tertiary/5 rounded-full blur-3xl" />
+          {/* Main headline - matches reference */}
+          <h1 className="fontHeadlineXl text-[28px] sm:text-[32px] md:text-headlineXl textOnSurface trackingTight leading-none uppercase fontBold">
+            THE PROBLEM IS THE INPUT.<br />
+            <span className="textPrimary">THE SYSTEM IS THE ANSWER.</span>
+          </h1>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Terminal-style tag */}
-        <div className="inline-flex items-center gap-2 bg-surface-container border border-outline-variant rounded-full px-4 py-2 mb-8 animate-fade-in">
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="font-mono text-label-sm text-on-surface-variant">
-            DIAGNÓSTICO INTELIGENTE · v1.0
-          </span>
+          {/* Tagline */}
+          <p className="fontBodyLg textBodyLg textOnSurfaceVariant">
+            Engenhamos arquiteturas de inteligência artificial soberanas e sistemas autônomos para solucionar anomalias e gargalos operacionais críticos.
+          </p>
+
+          {/* CTA button - matches reference style */}
+          <div className="pt-space-sm flex items-center gap-space-md">
+            <a
+              className="flex items-center justify-center gap-space-xs pxSpaceLg pySpaceMd bgPrimaryContainer textOnPrimary fontLabelMd textLabelMd fontBold trackingWider hover:bgPrimary transition-all shadow-[0_0_24px_rgba(78,222,163,0.3)]"
+              data-path="binary-diagnostic"
+              href="#"
+            >
+              <span>START DIAGNOSTIC →</span>
+            </a>
+          </div>
         </div>
 
-        {/* Main headline */}
-        <h1 className="text-headline-xl font-mono text-on-surface mb-6 animate-slide-up">
-          <span className="text-primary">Tem</span> um problema{' '}
-          <br className="hidden md:block" />
-          operacional?
-        </h1>
-
-        <p className="text-headline-md font-mono text-on-surface-variant mb-4 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-          A tecnologia pode resolvê-lo.
-          <br />
-          <span className="text-primary">Vamos descobrir como.</span>
-        </p>
-
-        <p className="text-body-lg font-mono text-outline mb-12 max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.2s' }}>
-          Descreva o seu desafio. A nossa IA diagnostica o problema,
-          identifica a oportunidade tecnológica e propõe a melhor solução.
-        </p>
-
-        {/* Problem input */}
-        <div className="max-w-2xl mx-auto animate-slide-up" style={{ animationDelay: '0.3s' }}>
-          <div className="bg-surface-container-lowest border border-outline-variant rounded-lg p-2 focus-within:border-primary-container focus-within:shadow-glow transition-all duration-200">
-            <div className="flex items-center gap-3">
-              <span className="text-primary font-mono text-label-md pl-3">&gt;</span>
-              <textarea
-                value={problem}
-                onChange={(e) => setProblem(e.target.value)}
-                placeholder="Descreva o seu problema..."
-                rows={1}
-                className="flex-1 bg-transparent border-none focus:ring-0 resize-none font-mono text-body-md text-on-surface placeholder-outline min-h-[48px] max-h-32 py-3 focus:outline-none"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    handleStart();
-                  }
-                }}
-              />
-              <button
-                onClick={handleStart}
-                className="bg-primary-container text-on-primary-container p-3 rounded hover:bg-surface-container-high border border-primary transition-colors"
-                aria-label="Iniciar diagnóstico"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <p className="text-label-sm text-outline mt-3 font-mono">
-            Enter para enviar · Shift+Enter para nova linha
-          </p>
+        {/* Decorative hero orb - matches reference */}
+        <div className="flex-shrink-0 flex items-center justify-center relative">
+          <div className="absolute inset-0 bgPrimary/10 blur-2xl rounded-full" />
+          <img
+            alt="Código Binário Sovereign Core Emblem"
+            className="relative z-10 w-64 h-64 sm:w-72 sm:h-72 object-contain"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPhWfkHJ1X-mFFYcH6w_-5Kyw9X7LlqRJopqrBDptyXYjk_Vh2D37jNIBijPTtJ8Q2megQcbk7S2LqOPcT_OO2ZnYMQnfRAZuvg7cPG4zaqLkqOf26tL6trBOBl3-_gq5a0FQS3LS5Z-WN-nAM35AEDsjT3Uv88qBOWhUayQBzdOFGdwX-X_YQLyApTOJaBxB0R1ZDJC5VKnQzNyOQrs9clCSRWgcuj157DLmHo4QU5IxkfvAiUH4xHN6hyNB1qeeE..."
+          />
         </div>
       </div>
     </section>

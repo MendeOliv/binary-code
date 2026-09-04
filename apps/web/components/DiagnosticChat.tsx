@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import type { DiagnosticResponse, DiscoveryChatResponse } from '@shared/models';
 
 interface Message {
   id: string;
@@ -10,19 +9,17 @@ interface Message {
 
 interface DiagnosticChatProps {
   initialProblem?: string;
-  onComplete: (diagnostic: DiagnosticResponse, sessionId: string) => void;
+  onComplete: (diagnostic: any, sessionId: string) => void;
 }
 
 export default function DiagnosticChat({ initialProblem, onComplete }: DiagnosticChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [sessionId, setSessionId] = useState<string>('');
   const [isComplete, setIsComplete] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const apiBase = process.env.NEXT_PUBLIC_API_BASE || '/api';
 
   // Auto-scroll to bottom
   const scrollToBottom = () => {
@@ -46,7 +43,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     if (initialProblem && messages.length === 0) {
       sendMessage(initialProblem);
     }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const sendMessage = async (text?: string) => {
     const messageText = text || input.trim();
@@ -64,7 +61,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${apiBase}/discovery/chat`, {
+      const response = await fetch('/api/diagnostic/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -75,7 +72,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-      const data: DiscoveryChatResponse = await response.json();
+      const data = await response.json();
 
       // Update session ID
       if (data.sessionId) {
@@ -120,10 +117,10 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
   return (
     <div className="flex flex-col h-full">
       {/* Chat header */}
-      <div className="p-sm text-center border-b border-outline-variant bg-surface-dim">
-        <span className="font-mono text-label-sm text-on-surface-variant">
-          {'>'} <span className="text-primary">Binary Diagnostic</span> · fase:{' '}
-          <span className="text-primary">{isComplete ? 'DIAGNÓSTICO' : 'ENTREVISTA'}</span>
+      <div className="pSpaceSm text-center border-b borderOutlineVariant bgSurfaceDim">
+        <span className="fontMono textLabelSm textOnSurfaceVariant">
+          {'>'} <span className="textPrimary">Binary Diagnostic</span> · fase:{' '}
+          <span className="textPrimary">{isComplete ? 'DIAGNÓSTICO' : 'ENTREVISTA'}</span>
         </span>
       </div>
 
@@ -132,10 +129,10 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
         {messages.length === 0 && !initialProblem && (
           <div className="flex items-center justify-center h-full">
             <div className="text-center">
-              <span className="material-symbols-outlined text-4xl text-outline mb-4 block">
+              <span className="material-symbols-outlined text-4xl textOutline mb-4 block">
                 psychology
               </span>
-              <p className="font-mono text-body-md text-on-surface-variant">
+              <p className="fontMono textBodyMd textOnSurfaceVariant">
                 Descreva o problema que gostaria de resolver.
               </p>
             </div>
@@ -145,27 +142,21 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
         {messages.map((msg) => (
           <div
             key={msg.id}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} mb-4`}
           >
             <div
-              className={`max-w-[85%] rounded-lg p-4 ${
-                msg.role === 'user'
-                  ? 'bg-surface border border-outline-variant rounded-tr-none shadow-hard'
-                  : 'bg-surface border border-primary-container rounded-tl-none'
-              }`}
+              className={`max-w-[85%] rounded-lg p-4 roundedSurface ${msg.role === 'user' ? 'border borderOutlineVariant rounded-tr-none' : 'border borderPrimaryContainer rounded-tl-none'}`}
             >
               {msg.role === 'assistant' && (
-                <div className="flex items-center gap-2 mb-2 text-primary font-mono text-label-sm">
-                  <span className="material-symbols-outlined text-[16px]">
-                    terminal
-                  </span>
+                <div className="flex items-center gap-2 mb-2 textPrimary fontMono textLabelSm">
+                  <span className="material-symbols-outlined text-[16px]">terminal</span>
                   CB_DIAGNÓSTICO
                 </div>
               )}
-              <div className="font-mono text-body-sm text-on-surface whitespace-pre-wrap">
+              <div className="fontMono textBodySm textOnSurface whitespace-pre-wrap">
                 {msg.content}
               </div>
-              <span className="font-mono text-label-sm text-on-surface-variant block mt-2 text-right">
+              <span className="fontMono textLabelSm textOnSurfaceVariant block mt-2 text-right">
                 {msg.timestamp}
               </span>
             </div>
@@ -175,17 +166,15 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
         {/* Typing indicator */}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-surface border border-primary-container rounded-lg rounded-tl-none p-4">
-              <div className="flex items-center gap-2 mb-2 text-primary font-mono text-label-sm">
-                <span className="material-symbols-outlined text-[16px]">
-                  terminal
-                </span>
+            <div className="bgSurfaceContainer border borderSurfaceContainerHigh rounded-lg roundedTlNone p-4">
+              <div className="flex items-center gap-2 mb-2 textPrimary fontMono textLabelSm">
+                <span className="material-symbols-outlined text-[16px]">terminal</span>
                 CB_DIAGNÓSTICO
               </div>
               <div className="flex space-x-2">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.2s' }} />
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.4s' }} />
+                <div className="w-2 h-2 rounded-full bgPrimary animate-pulse" />
+                <div className="w-2 h-2 rounded-full bgPrimary animate-pulse" style={{ animationDelay: '0.2s' }} />
+                <div className="w-2 h-2 rounded-full bgPrimary animate-pulse" style={{ animationDelay: '0.4s' }} />
               </div>
             </div>
           </div>
@@ -196,8 +185,8 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
 
       {/* Input area */}
       {!isComplete && (
-        <div className="p-4 bg-surface-dim border-t border-outline-variant">
-          <div className="flex items-end gap-2 bg-surface-container-lowest border border-outline-variant rounded-lg p-2 focus-within:border-primary-container focus-within:shadow-glow transition-all">
+        <div className="p-4 bgSurfaceDim borderT borderOutlineVariant">
+          <div className="flex items-end gap-2 bgSurfaceContainerLowest border borderOutlineVariant rounded-lg p-2 focusWithIn:borderPrimaryContainer focusWithIn:shadowGlow transitionAll">
             <textarea
               ref={textareaRef}
               value={input}
@@ -205,13 +194,13 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
               onKeyDown={handleKeyDown}
               placeholder="> Responder..."
               rows={1}
-              className="flex-1 bg-transparent border-none focus:ring-0 resize-none font-mono text-body-sm text-on-surface placeholder-outline min-h-[44px] max-h-32 py-2 focus:outline-none"
+              className="flex-1 bgTransparent borderNone focusRing0 resize-none fontMono textBodySm textOnSurface placeholderOutline min-h-[44px] max-h-32 py-2 focus:outline-none"
               disabled={isLoading}
             />
             <button
               onClick={() => sendMessage()}
               disabled={isLoading || !input.trim()}
-              className="bg-primary-container text-on-primary-container p-2 rounded hover:bg-surface-container-high border border-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bgPrimaryContainer textOnPrimaryContainer p-2 rounded hover:bgSurfaceContainerHigh border borderPrimary transitionColours disabled:opacity-50 disabled:cursorNotAllowed"
               aria-label="Enviar"
             >
               <span className="material-symbols-outlined">send</span>

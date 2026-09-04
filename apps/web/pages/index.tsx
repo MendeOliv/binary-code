@@ -8,7 +8,7 @@ import DigitalRain from '../components/DigitalRain';
 
 export default function Home() {
   return (
-    <>
+    <>,
       <Head>
         <title>Código Binário — Diagnóstico Inteligente</title>
         <meta
@@ -17,11 +17,7 @@ export default function Home() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
           rel="stylesheet"
         />
         <link
