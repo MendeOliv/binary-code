@@ -1,62 +1,124 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+
+const NAV_LINKS = [
+  { label: 'SHOWCASE', href: '/solutions' },
+  { label: 'STACK', href: '/' },
+  { label: 'LABS', href: '/diagnostic' },
+];
 
 export default function Navbar() {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+
+  const close = () => setOpen(false);
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-md border-b border-structuralBorder">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo / System Indicator */}
-        <button
-          onClick={() => window.location.href = '/'}
-          className="flex items-center gap-3"
+    <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border-glass">
+      <nav
+        className="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between"
+        aria-label="Navegação principal"
+      >
+        {/* Brand */}
+        <Link
+          href="/"
+          onClick={close}
+          className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
         >
-          <div className="w-8 h-8 flex items-center justify-center bg-primaryContainer text-on-primary">
-            <span className="font-mono font-bold">CB</span>
-          </div>
-          <span className="font-mono text-primary font-bold hidden sm:block">CÓDIGO BINÁRIO</span>
-        </button>
+          <span className="inline-flex h-8 w-8 items-center justify-center bg-surface-container border border-border-glass text-primary font-mono text-label-sm font-bold">
+            CB
+          </span>
+          <span className="font-mono text-primary font-bold hidden sm:block tracking-wider">
+            CÓDIGO BINÁRIO
+          </span>
+        </Link>
 
-        {/* Nav links - architectural grid style */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="#servicos">
-            <a
-              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-7">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`font-mono text-label-sm uppercase tracking-widest transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
+                router.pathname === link.href
+                  ? 'text-primary'
+                  : 'text-on-surface-variant hover:text-primary'
+              }`}
             >
-              SOLUTIONS
-            </a>
-          </Link>
-          <Link href="#terminal">
-            <a
-              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
-            >
-              DIAGNOSTIC
-            </a>
-          </Link>
-          <Link href="/projects">
-            <a
-              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
-            >
-              PROJECTS
-            </a>
-          </Link>
-          <Link href="/developers">
-            <a
-              className="font-mono text-on-surface-variant uppercase tracking-wider text-label-sm hover:text-primary transition-colors cursor-pointer"
-            >
-              DEVELOPERS
-            </a>
-          </Link>
-        </div>
-
-        {/* Command-style CTA button */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => window.location.href = '/diagnostic'}
-            className="font-mono text-on-primary bg-primaryContainer text-primary font-bold uppercase tracking-wider px-4 py-2 border border-primaryContainer hover:bg-primary hover:text-primaryContainer transition-all"
+              {link.label}
+            </Link>
+          ))}
+          <Link
+            href="/diagnostic"
+            className="font-mono text-on-surface-variant uppercase tracking-widest text-label-sm hover:text-primary transition-colors duration-200"
           >
-            INITIALIZE DIAGNOSTIC
-          </button>
+            TERMINAL
+          </Link>
         </div>
-      </div>
-    </nav>
+
+        {/* CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          <Link
+            href="/diagnostic"
+            className="btn-primary"
+            aria-label="Initialize diagnostic"
+          >
+            START DIAGNOSTIC
+          </Link>
+        </div>
+
+        {/* Mobile toggle */}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="md:hidden inline-flex items-center justify-center h-10 w-10 text-on-surface-variant hover:text-on-surface transition-colors"
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-expanded={open}
+        >
+          <span className="material-symbols-outlined">{open ? 'close' : 'menu'}</span>
+        </button>
+      </nav>
+
+      {/* Mobile menu */}
+      {open && (
+        <div className="md:hidden border-t border-border-glass bg-surface">
+          <div className="px-5 py-4 flex flex-col gap-1">
+            <Link
+              href="/"
+              onClick={close}
+              className="py-2.5 font-mono text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors"
+            >
+              HOME
+            </Link>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={close}
+                className="py-2.5 font-mono text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/diagnostic"
+              onClick={close}
+              className="py-2.5 font-mono text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors"
+            >
+              TERMINAL
+            </Link>
+            <Link
+              href="/diagnostic"
+              onClick={close}
+              className="btn-primary mt-3"
+              aria-label="Initialize diagnostic"
+            >
+              START DIAGNOSTIC
+            </Link>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

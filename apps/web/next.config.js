@@ -14,12 +14,12 @@ const nextConfig = {
       return [];
     }
     // Development: proxy to local backend
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'http://localhost:3001/api/:path*',
-      },
-    ];
+        return [
+          {
+            source: '/api/:path*',
+            destination: 'http://localhost:8000/api/:path*',
+          },
+        ];
   },
 
   images: {

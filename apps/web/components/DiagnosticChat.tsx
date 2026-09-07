@@ -13,16 +13,24 @@ interface DiagnosticChatProps {
   onComplete: (diagnostic: DiagnosticResponse, sessionId: string) => void;
 }
 
+type PhaseLabel = 'READY TO DIAGNOSE' | 'ANALYSING SYSTEM…' | 'SYSTEM ANALYSIS' | 'DIAGNOSIS READY';
+
+function getPhaseLabel(isLoading: boolean, isComplete: boolean): PhaseLabel {
+  if (isComplete) return 'DIAGNOSIS READY';
+  if (isLoading) return 'ANALYSING SYSTEM…';
+  return 'READY TO DIAGNOSE';
+}
+
 export default function DiagnosticChat({ initialProblem, onComplete }: DiagnosticChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string>('');
   const [isComplete, setIsComplete] = useState(false);
+  const [hasResponded, setHasResponded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  // Auto-scroll to bottom
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -31,7 +39,6 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     scrollToBottom();
   }, [messages]);
 
-  // Auto-resize textarea
   useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -39,7 +46,6 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     }
   }, [input]);
 
-  // Send initial problem on mount — ref guard prevents duplicate dispatch
   const initialProblemSentRef = useRef(false);
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
@@ -57,7 +63,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     setMessages([userMessage]);
     setIsLoading(true);
 
-    fetch('/api/diagnostic/chat', {
+    fetch('/api/discovery/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: initialProblem }),
@@ -68,6 +74,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
       })
       .then((data) => {
         if (data.sessionId) setSessionId(data.sessionId);
+        setHasResponded(true);
         const assistantMessage: Message = {
           id: `assistant-${Date.now()}`,
           role: 'assistant',
@@ -82,6 +89,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
       })
       .catch((error) => {
         console.error('Error sending message:', error);
+        setHasResponded(true);
         const errorMessage: Message = {
           id: `error-${Date.now()}`,
           role: 'assistant',
@@ -111,7 +119,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/diagnostic/chat', {
+      const response = await fetch('/api/discovery/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -124,11 +132,11 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
 
       const data = await response.json();
 
-      // Update session ID
       if (data.sessionId) {
         setSessionId(data.sessionId);
       }
 
+      setHasResponded(true);
       const assistantMessage: Message = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
@@ -138,13 +146,13 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
 
       setMessages((prev) => [...prev, assistantMessage]);
 
-      // If diagnosis is ready, signal completion
       if (data.phase === 'diagnosis' && data.diagnostic) {
         setIsComplete(true);
         onCompleteRef.current(data.diagnostic, data.sessionId);
       }
     } catch (error) {
       console.error('Error sending message:', error);
+      setHasResponded(true);
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
         role: 'assistant',
@@ -164,26 +172,54 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     }
   };
 
+  const phaseLabel = getPhaseLabel(isLoading, isComplete);
+
   return (
     <div className="flex flex-col h-full">
-      {/* Chat header */}
-      <div className="pSpaceSm text-center border-b borderOutlineVariant bgSurfaceDim">
-        <span className="fontMono textLabelSm textOnSurfaceVariant">
-          {'>'} <span className="textPrimary">Binary Diagnostic</span> · fase:{' '}
-          <span className="textPrimary">{isComplete ? 'DIAGNÓSTICO' : 'ENTREVISTA'}</span>
-        </span>
+      {/* System status header */}
+      <div className="flex items-center justify-between px-5 py-3 border-b border-outline-variant bg-surface-container-lowest">
+        <div className="flex items-center gap-2.5">
+          <span className="relative flex h-2.5 w-2.5">
+            <span
+              className={`absolute inline-flex h-full w-full rounded-full ${
+                isLoading ? 'bg-primary animate-ping opacity-60' : 'bg-primary'
+              }`}
+            />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
+          </span>
+          <span className="font-mono text-label-sm text-on-surface-variant uppercase tracking-widest">
+            CB // SILENT INTERVIEW
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span
+            className={`h-1.5 w-1.5 bg-surface rounded-full ${
+              isComplete ? 'bg-primary' : 'bg-outline'
+            }`}
+          />
+          <span
+            className={`font-mono text-label-sm uppercase tracking-widest ${
+              isComplete ? 'text-primary' : 'text-outline'
+            }`}
+          >
+            {phaseLabel}
+          </span>
+        </div>
       </div>
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-6">
+      <div className="flex-1 overflow-y-auto px-5 md:px-8 py-8 space-y-6" aria-live="polite">
         {messages.length === 0 && !initialProblem && (
           <div className="flex items-center justify-center h-full">
-            <div className="text-center">
-              <span className="material-symbols-outlined text-4xl textOutline mb-4 block">
-                psychology
-              </span>
-              <p className="fontMono textBodyMd textOnSurfaceVariant">
-                Descreva o problema que gostaria de resolver.
+            <div className="text-center max-w-md">
+              <div className="flex justify-center mb-5">
+                <span className="inline-flex items-center px-3 py-1 bg-surface-container text-primary border border-outline-variant font-mono text-label-sm uppercase tracking-widest">
+                  [SYS.READY]
+                </span>
+              </div>
+              <p className="font-mono text-body-md text-on-surface-variant leading-relaxed">
+                Está dentro de um sistema de diagnóstico. Descreva o problema que gostaria de
+                resolver — em linguagem natural, sem preparação técnica.
               </p>
             </div>
           </div>
@@ -195,36 +231,52 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
             className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} mb-4`}
           >
             <div
-              className={`max-w-[85%] rounded-lg p-4 roundedSurface ${msg.role === 'user' ? 'border borderOutlineVariant rounded-tr-none' : 'border borderPrimaryContainer rounded-tl-none'}`}
+              className={`max-w-[85%] md:max-w-[70%] ${
+                msg.role === 'user'
+                  ? 'bg-surface-container text-on-surface border border-outline-variant'
+                  : 'bg-surface-container-low text-on-surface border border-outline-variant'
+              }`}
             >
               {msg.role === 'assistant' && (
-                <div className="flex items-center gap-2 mb-2 textPrimary fontMono textLabelSm">
-                  <span className="material-symbols-outlined text-[16px]">terminal</span>
-                  CB_DIAGNÓSTICO
+                <div className="flex items-center gap-2 px-4 pt-3 text-primary font-mono text-label-sm uppercase tracking-widest border-b border-outline-variant/50 pb-2 mb-2">
+                  <span className="material-symbols-outlined text-[15px]">terminal</span>
+                  CB_SYSTEM
                 </div>
               )}
-              <div className="fontMono textBodySm textOnSurface whitespace-pre-wrap">
+              {msg.role === 'user' && (
+                <div className="flex items-center justify-end gap-2 px-4 pt-3 text-on-surface-variant font-mono text-label-sm uppercase tracking-widest pb-2">
+                  INPUT
+                </div>
+              )}
+              <div className="px-4 pb-3 pt-1 font-mono text-body-md text-on-surface whitespace-pre-wrap leading-relaxed">
                 {msg.content}
               </div>
-              <span className="fontMono textLabelSm textOnSurfaceVariant block mt-2 text-right">
+              <span className="block px-4 pb-3 font-mono text-label-sm text-outline text-right">
                 {msg.timestamp}
               </span>
             </div>
           </div>
         ))}
 
-        {/* Typing indicator */}
+        {/* Processing / thinking indicator */}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bgSurfaceContainer border borderSurfaceContainerHigh rounded-lg roundedTlNone p-4">
-              <div className="flex items-center gap-2 mb-2 textPrimary fontMono textLabelSm">
-                <span className="material-symbols-outlined text-[16px]">terminal</span>
-                CB_DIAGNÓSTICO
-              </div>
-              <div className="flex space-x-2">
-                <div className="w-2 h-2 rounded-full bgPrimary animate-pulse" />
-                <div className="w-2 h-2 rounded-full bgPrimary animate-pulse" style={{ animationDelay: '0.2s' }} />
-                <div className="w-2 h-2 rounded-full bgPrimary animate-pulse" style={{ animationDelay: '0.4s' }} />
+            <div className="bg-surface-container-low border border-outline-variant px-4 py-3.5">
+              <div className="flex items-center gap-3">
+                <div className="flex space-x-1.5">
+                  <span className="w-1.5 h-1.5 bg-primary animate-pulse" />
+                  <span
+                    className="w-1.5 h-1.5 bg-primary animate-pulse"
+                    style={{ animationDelay: '0.15s' }}
+                  />
+                  <span
+                    className="w-1.5 h-1.5 bg-primary animate-pulse"
+                    style={{ animationDelay: '0.3s' }}
+                  />
+                </div>
+                <span className="font-mono text-label-sm text-on-surface-variant uppercase tracking-widest">
+                  THINKING…
+                </span>
               </div>
             </div>
           </div>
@@ -235,26 +287,34 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
 
       {/* Input area */}
       {!isComplete && (
-        <div className="p-4 bgSurfaceDim borderT borderOutlineVariant">
-          <div className="flex items-end gap-2 bgSurfaceContainerLowest border borderOutlineVariant rounded-lg p-2 focusWithIn:borderPrimaryContainer focusWithIn:shadowGlow transitionAll">
-            <textarea
-              ref={textareaRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="> Responder..."
-              rows={1}
-              className="flex-1 bgTransparent borderNone focusRing0 resize-none fontMono textBodySm textOnSurface placeholderOutline min-h-[44px] max-h-32 py-2 focus:outline-none"
-              disabled={isLoading}
-            />
-            <button
-              onClick={() => sendMessage()}
-              disabled={isLoading || !input.trim()}
-              className="bgPrimaryContainer textOnPrimaryContainer p-2 rounded hover:bgSurfaceContainerHigh border borderPrimary transitionColours disabled:opacity-50 disabled:cursorNotAllowed"
-              aria-label="Enviar"
-            >
-              <span className="material-symbols-outlined">send</span>
-            </button>
+        <div className="px-5 py-4 bg-surface-container-lowest border-t border-outline-variant">
+          <div className="max-w-3xl mx-auto">
+            {hasResponded && messages.length > 0 && (
+              <p className="mb-2 font-mono text-label-sm text-outline uppercase tracking-widest">
+                {isLoading ? 'PROCESSANDO…' : 'DESCREVA MAIS DETALHES'}
+              </p>
+            )}
+            <div className="flex items-end gap-2 bg-surface-container border border-outline-variant focus-within:border-primary focus-within:shadow-glow transition-all p-1.5">
+              <textarea
+                ref={textareaRef}
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder={`> Descreva o problema...`}
+                rows={1}
+                aria-label="Descreva o seu problema operacional ou técnico"
+                className="flex-1 bg-transparent resize-none font-mono text-body-md text-on-surface placeholder-outline min-h-[48px] max-h-40 py-2.5 px-3 focus:outline-none"
+                disabled={isLoading}
+              />
+              <button
+                onClick={() => sendMessage()}
+                disabled={isLoading || !input.trim()}
+                className="bg-primary-container text-on-primary-container p-3 hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                aria-label="Enviar"
+              >
+                <span className="material-symbols-outlined">arrow_forward</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

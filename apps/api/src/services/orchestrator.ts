@@ -99,12 +99,12 @@ export class OrchestratorService {
     if (!isSufficient) {
       // Log the insufficient retrieval query
       await repo.createRequestLog(
-        projectId,
-        query,
-        retrievedIds,
-        reasoning,
-        forcedProvider || process.env.PRIMARY_PROVIDER || 'anthropic',
-      );
+              projectId,
+              query,
+              retrievedIds,
+              reasoning,
+              forcedProvider || process.env.PRIMARY_PROVIDER || 'gemini',
+            );
 
       return {
         response: clarificationQuestion || "Preciso de mais informações para responder.",
@@ -137,7 +137,7 @@ export class OrchestratorService {
       `Response:`
     );
 
-    const modelName = forcedProvider || process.env.PRIMARY_PROVIDER || 'anthropic';
+    const modelName = forcedProvider || process.env.PRIMARY_PROVIDER || 'gemini';
     const aiResponse = await aiProvider.generateText(systemPrompt, userPrompt, modelName, false);
 
     // 7. Post-process: extract and persist memories

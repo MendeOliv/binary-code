@@ -141,14 +141,14 @@ export class AIProviderService {
   private async callGroq(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     if (!this.groq) throw new Error('Groq client not initialized');
     const completion = await this.groq.chat.completions.create({
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      model: 'llama3-8b-8192',
-      temperature: jsonMode ? 0.0 : 0.7,
-      ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
-    });
+              messages: [
+                { role: 'system', content: systemPrompt },
+                { role: 'user', content: userPrompt },
+              ],
+              model: 'groq/compound-mini',
+          temperature: jsonMode ? 0.0 : 0.7,
+          ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
+        });
     return completion.choices[0].message.content ?? '';
   }
 }

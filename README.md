@@ -73,7 +73,7 @@ ANTHROPIC_API_KEY=            # At least one AI provider key required
 OPENAI_API_KEY=
 GEMINI_API_KEY=
 GROQ_API_KEY=
-PRIMARY_PROVIDER=anthropic
+PRIMARY_PROVIDER=gemini
 CORS_ORIGINS=http://localhost:3000
 ```
 
