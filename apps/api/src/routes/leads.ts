@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { repo } from '@db/repository';
+import { requireAdminKey } from '../lib/auth';
 import type { LeadCreate } from '@shared/models';
 
 export async function leadRoutes(fastify: FastifyInstance) {
@@ -27,8 +28,8 @@ export async function leadRoutes(fastify: FastifyInstance) {
     }
   });
 
-  fastify.get('/', async (request, reply) => {
-    const { status } = request.query as { status?: string };
+  fastify.get('/', { onRequest: requireAdminKey }, async (request, reply) => {
+      const { status } = request.query as { status?: string };
     try {
       const leads = await repo.listLeads(status);
       reply.send(leads);
@@ -38,8 +39,8 @@ export async function leadRoutes(fastify: FastifyInstance) {
     }
   });
 
-  fastify.patch('/:id', async (request, reply) => {
-    const { id } = request.params as { id: string };
+  fastify.patch('/:id', { onRequest: requireAdminKey }, async (request, reply) => {
+      const { id } = request.params as { id: string };
     const payload = request.body as Partial<LeadCreate & { status: string }>;
 
     try {

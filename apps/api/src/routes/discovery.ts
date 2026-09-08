@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { discoveryOrchestrator } from '../services/discovery-orchestrator';
+import { requireAdminKey } from '../lib/auth';
 import { repo } from '@db/repository';
 import type { DiscoveryChatRequest } from '@shared/models';
 
@@ -23,8 +24,8 @@ export async function discoveryRoutes(fastify: FastifyInstance) {
     }
   });
 
-  fastify.get('/session/:sessionId', async (request, reply) => {
-    const { sessionId } = request.params as { sessionId: string };
+  fastify.get('/session/:sessionId', { onRequest: requireAdminKey }, async (request, reply) => {
+      const { sessionId } = request.params as { sessionId: string };
 
     try {
       const session = await repo.getDiscoverySession(sessionId);

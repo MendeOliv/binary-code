@@ -30,6 +30,8 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
   const [hasResponded, setHasResponded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE || '/api';
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -63,7 +65,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     setMessages([userMessage]);
     setIsLoading(true);
 
-    fetch('/api/discovery/chat', {
+    fetch(`${apiBase}/discovery/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: initialProblem }),
@@ -101,7 +103,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
       .finally(() => {
         setIsLoading(false);
       });
-  }, [initialProblem]);
+  }, [initialProblem, apiBase]);
 
   const sendMessage = async (text?: string) => {
     const messageText = text || input.trim();
@@ -119,7 +121,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/discovery/chat', {
+      const response = await fetch(`${apiBase}/discovery/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

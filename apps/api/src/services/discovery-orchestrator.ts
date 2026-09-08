@@ -270,13 +270,19 @@ export class DiscoveryOrchestrator {
   }
 
   /**
-   * Heuristic: do we have enough basic facts to attempt a diagnosis?
-   */
-  private maybeEnoughInfo(facts: Record<string, any>): boolean {
-    const requiredKeys = ['industry', 'painPoint'];
-    return requiredKeys.some(k => facts[k] && facts[k] !== '');
+     * Heuristic: do we have enough basic facts to attempt a diagnosis?
+     *
+     * A diagnosis requires at least a concrete problem PLUS a minimal context.
+     * Demanding only `industry` or only `painPoint` risks ending the interview
+     * with no real understanding of the bottleneck, so both dimensions are
+     * required before the deterministic path terminates.
+     */
+    private maybeEnoughInfo(facts: Record<string, any>): boolean {
+      const hasProblem = Boolean(facts.painPoint);
+      const hasContext = Boolean(facts.currentProcess || facts.industry || facts.techStack);
+      return hasProblem && hasContext;
+    }
   }
-}
 
 // Single global instance
 export const discoveryOrchestrator = new DiscoveryOrchestrator();
