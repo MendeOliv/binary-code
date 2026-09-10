@@ -24,14 +24,17 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={close}
-          className="flex items-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          aria-label="Código Binário — página inicial"
         >
-          <span className="inline-flex h-8 w-8 items-center justify-center bg-surface-container border border-border-glass text-primary font-mono text-label-sm font-bold">
-            CB
-          </span>
-          <span className="font-mono text-primary font-bold hidden sm:block tracking-wider">
-            CÓDIGO BINÁRIO
-          </span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo/codigo-binario-padded.png"
+            alt="Código Binário"
+            width={759}
+            height={778}
+            className="h-8 w-auto object-contain"
+          />
         </Link>
 
         {/* Desktop nav */}

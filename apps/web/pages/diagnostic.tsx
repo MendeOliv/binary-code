@@ -34,13 +34,6 @@ export default function DiagnosticPage() {
           name="description"
           content="Descreva o seu problema e receba um diagnóstico técnico personalizado da nossa IA."
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/svg/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/logo-icon-192.png" />
-        <meta
-          property="og:image"
-          content="/svg/codigo-binario-exact.svg"
-        />
       </Head>
 
       <div className="min-h-[calc(100vh-4rem)] bg-background">

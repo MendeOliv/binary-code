@@ -12,13 +12,15 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between gap-10 border-b border-outline-variant pb-10">
           {/* Brand */}
           <div className="max-w-md">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="inline-flex h-8 w-8 items-center justify-center bg-surface-container border border-outline-variant text-primary font-mono text-label-sm font-bold">
-                CB
-              </span>
-              <span className="font-mono text-label-md text-on-surface tracking-widest uppercase font-semibold">
-                Código Binário
-              </span>
+            <div className="mb-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/logo/codigo-binario-transparent.png"
+                alt="Código Binário"
+                width={679}
+                height={698}
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <p className="font-mono text-body-sm text-on-surface-variant leading-relaxed">
               Um problema entra. Uma arquitetura emerge. Um sistema sai.
