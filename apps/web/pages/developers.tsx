@@ -80,6 +80,13 @@ export default function DevelopersPage() {
       <Head>
         <title>CÓDIGO BINÁRIO - The Minds Behind the Code</title>
         <meta name="description" content="Os engenheiros que arquitetam o futuro. Uma convergência de lógica abstrata, design de sistemas estruturados e execução de precisão." />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/svg/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/logo-icon-192.png" />
+        <meta
+          property="og:image"
+          content="/svg/codigo-binario-exact.svg"
+        />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
       </Head>

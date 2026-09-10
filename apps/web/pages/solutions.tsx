@@ -54,6 +54,13 @@ export default function SolutionsPage() {
           name="description"
           content="O que exatamente o Código Binário consegue construir para si. IA, automação, produtos digitais, sistemas internos e integrações."
         />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/svg/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/logo-icon-192.png" />
+        <meta
+          property="og:image"
+          content="/svg/codigo-binario-exact.svg"
+        />
       </Head>
 
       <section className="relative w-full bg-background">
