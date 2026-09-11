@@ -5,9 +5,13 @@ dotenv.config();
 import fastify from 'fastify';
 import cors from '@fastify/cors';
 import { supabase } from '@db/supabase';
+import { requireAdminKey } from './lib/auth';
+import { discoveryLimiter } from './lib/rate-limit';
 
 const server = fastify({
   logger: true,
+  // Render sits behind a proxy — reflect the real client IP for rate limiting.
+  trustProxy: process.env.APP_TRUST_PROXY === 'true',
 });
 
 // CORS — allow frontend origin
@@ -32,11 +36,16 @@ server.get('/health', async (_request, reply) => {
   return { status: 'ok', version: '1.0.0', name: 'Código Binário API' };
 });
 
-// Test Supabase connection
+// Minimal service-identification root (spec §20). Healthcheck remains /health.
+server.get('/', async (_request, reply) => {
+  return { name: 'Código Binário API', status: 'ok', health: '/health' };
+});
+
+// Test Supabase connection (kept minimal; no sensitive data exposed)
 server.get('/test-db', async (_request, reply) => {
   const { data, error } = await supabase.from('projects').select('count', { count: 'exact', head: true });
   if (error) {
-    return reply.status(500).send({ error: error.message });
+    return reply.status(500).send({ error: 'Database connection failed' });
   }
   return { dbConnected: true, count: data };
 });
@@ -54,20 +63,38 @@ import { logRoutes } from './routes/logs';
 import { discoveryRoutes } from './routes/discovery';
 import { leadRoutes } from './routes/leads';
 
-// Discovery pipeline (Binary Diagnostic)
+// Discovery pipeline (Binary Diagnostic) — public write endpoints get rate limiting.
 server.register(discoveryRoutes, { prefix: '/api/discovery' });
+
+// Apply rate limiting to the public Discovery chat write endpoint.
+server.addHook('onRequest', (req, reply, next) => {
+  if (req.raw.url?.startsWith('/api/discovery/chat') && req.raw.method === 'POST') {
+    if (!discoveryLimiter.allow(req)) {
+      return reply.code(429).send({ error: 'Too many requests. Please try again later.' });
+    }
+  }
+  return next();
+});
+
 server.register(leadRoutes, { prefix: '/api/leads' });
 
-// Project-scoped routes
-server.register(projectRoutes, { prefix: '/api/projects' });
-server.register(chatRoutes, { prefix: '/api/projects' });
-server.register(memoryRoutes, { prefix: '/api/projects' });
-server.register(stateRoutes, { prefix: '/api/projects' });
-server.register(decisionRoutes, { prefix: '/api/projects' });
-server.register(requirementRoutes, { prefix: '/api/projects' });
-server.register(taskRoutes, { prefix: '/api/projects' });
-server.register(conflictRoutes, { prefix: '/api/projects' });
-server.register(logRoutes, { prefix: '/api/projects' });
+// Project-scoped routes: INTERNAL/ADMINISTRATIVE. Require the admin key so
+// project data is never exposed through public endpoints (spec §5).
+server.register(
+  async (app) => {
+    app.addHook('onRequest', requireAdminKey);
+    app.register(projectRoutes);
+    app.register(chatRoutes);
+    app.register(memoryRoutes);
+    app.register(stateRoutes);
+    app.register(decisionRoutes);
+    app.register(requirementRoutes);
+    app.register(taskRoutes);
+    app.register(conflictRoutes);
+    app.register(logRoutes);
+  },
+  { prefix: '/api/projects' }
+);
 
 const start = async () => {
   try {

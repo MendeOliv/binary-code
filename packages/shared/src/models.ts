@@ -223,6 +223,19 @@ export interface DiagnosticCreate {
   nextStep: string; // budget, consultation, analysis
   reasoning?: string;
   confidence?: number;
+  // --- Diagnostic Engine (FASE 3) ---
+  technicalDirection?: string | null;
+  architectureDirection?: string | null;
+  implementationConsiderations?: string | null;
+  risks?: string[];
+  opportunities?: string[];
+  // --- Lead Engine (FASE 3) ---
+  score?: number;
+  scoreReasons?: string[];
+  priority?: string;
+  classification?: string;
+  requiresHumanReview?: boolean;
+  onSiteRequired?: boolean;
 }
 
 export interface DiagnosticResponse {
@@ -238,6 +251,18 @@ export interface DiagnosticResponse {
   reasoning: string | null;
   confidence: number;
   createdAt: string;
+  // --- Diagnostic Engine (FASE 3) ---
+  technicalDirection: string | null;
+  architectureDirection: string | null;
+  implementationConsiderations: string | null;
+  risks: string[];
+  opportunities: string[];
+  score: number;
+  scoreReasons: string[];
+  priority: string;
+  classification: string;
+  requiresHumanReview: boolean;
+  onSiteRequired: boolean;
 }
 
 // --- Lead Schemas ---
@@ -258,6 +283,10 @@ export interface LeadUpdate {
   company?: string;
   status?: string;
   notes?: string;
+  score?: number;
+  priority?: string;
+  classification?: string;
+  requiresHumanReview?: boolean;
 }
 
 export interface LeadResponse {
@@ -272,6 +301,11 @@ export interface LeadResponse {
   notes: string | null;
   createdAt: string;
   updatedAt: string;
+  // --- Lead Engine (FASE 3) ---
+  score: number | null;
+  priority: string | null;
+  classification: string | null;
+  requiresHumanReview: boolean | null;
 }
 
 // --- Discovery Chat Schemas ---

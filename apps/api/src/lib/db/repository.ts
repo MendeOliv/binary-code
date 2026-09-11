@@ -502,30 +502,40 @@ export class SupabaseRepository {
     return data.map(m => this.mapDiscoveryMessage(m));
   }
 
-  // --- Diagnostic Operations ---
   async createDiagnostic(data: DiagnosticCreate): Promise<DiagnosticResponse> {
-    const { data: result, error } = await this.client
-      .from('diagnostics')
-      .insert([{
-        session_id: data.sessionId,
-        problem_identified: data.problemIdentified,
-        process_affected: data.processAffected,
-        impact_estimated: data.impactEstimated,
-        solution_recommended: data.solutionRecommended,
-        technologies_needed: data.technologiesNeeded || [],
-        complexity: data.complexity,
-        next_step: data.nextStep,
-        reasoning: data.reasoning,
-        confidence: data.confidence ?? 0.8,
-      }])
-      .select()
-      .single();
+      const { data: result, error } = await this.client
+        .from('diagnostics')
+        .insert([{
+          session_id: data.sessionId,
+          problem_identified: data.problemIdentified,
+          process_affected: data.processAffected,
+          impact_estimated: data.impactEstimated,
+          solution_recommended: data.solutionRecommended,
+          technologies_needed: data.technologiesNeeded || [],
+          complexity: data.complexity,
+          next_step: data.nextStep,
+          reasoning: data.reasoning,
+          confidence: data.confidence ?? 0.8,
+          technical_direction: data.technicalDirection ?? null,
+          architecture_direction: data.architectureDirection ?? null,
+          implementation_considerations: data.implementationConsiderations ?? null,
+          risks: data.risks || [],
+          opportunities: data.opportunities || [],
+          score: data.score ?? 0,
+          score_reasons: data.scoreReasons || [],
+          priority: data.priority || 'low',
+          classification: data.classification || 'LOW',
+          requires_human_review: data.requiresHumanReview ?? false,
+          on_site_required: data.onSiteRequired ?? false,
+        }])
+        .select()
+        .single();
 
-    if (error) throw error;
-    return this.mapDiagnostic(result);
-  }
+      if (error) throw error;
+      return this.mapDiagnostic(result);
+    }
 
-  async getDiagnosticBySession(sessionId: string): Promise<DiagnosticResponse | null> {
+    async getDiagnosticBySession(sessionId: string): Promise<DiagnosticResponse | null> {
     const { data, error } = await this.client
       .from('diagnostics')
       .select('*')
@@ -565,7 +575,11 @@ export class SupabaseRepository {
     if (data.phone !== undefined) dbUpdates.phone = data.phone;
     if (data.company !== undefined) dbUpdates.company = data.company;
     if (data.status !== undefined) dbUpdates.status = data.status;
-    if (data.notes !== undefined) dbUpdates.notes = data.notes;
+        if (data.notes !== undefined) dbUpdates.notes = data.notes;
+        if (data.score !== undefined) dbUpdates.score = data.score;
+        if (data.priority !== undefined) dbUpdates.priority = data.priority;
+        if (data.classification !== undefined) dbUpdates.classification = data.classification;
+        if (data.requiresHumanReview !== undefined) dbUpdates.requires_human_review = data.requiresHumanReview;
 
     const { data: result, error } = await this.client
       .from('leads')
@@ -585,6 +599,26 @@ export class SupabaseRepository {
     const { data, error } = await query;
     if (error) throw error;
     return data.map(l => this.mapLead(l));
+  }
+
+  // --- Discovery Session Concurrency Lock (FASE 3) ---
+  // DB-backed advisory lock so concurrent messages to the same session cannot
+  // trigger duplicated AI calls/diagnostics across instances.
+  async acquireDiscoveryLock(sessionId: string, owner: string, ttlSeconds: number): Promise<boolean | null> {
+      const { data, error } = await this.client.rpc('acquire_discovery_lock', {
+        p_session: sessionId,
+        p_owner: owner,
+        p_ttl_seconds: ttlSeconds,
+      });
+      if (error) {
+        console.warn(`[Repo] acquire_discovery_lock unavailable (${error.message}); falling back to memory`);
+        return null;
+      }
+      return data === true;
+    }
+
+  async releaseDiscoveryLock(sessionId: string, owner: string): Promise<void> {
+    await this.client.rpc('release_discovery_lock', { p_session: sessionId, p_owner: owner });
   }
 
   // --- Mappers (snake_case DB -> camelCase) ---
@@ -611,37 +645,52 @@ export class SupabaseRepository {
   }
 
   private mapDiagnostic(row: any): DiagnosticResponse {
-    return {
-      id: row.id,
-      sessionId: row.session_id,
-      problemIdentified: row.problem_identified,
-      processAffected: row.process_affected,
-      impactEstimated: row.impact_estimated,
-      solutionRecommended: row.solution_recommended,
-      technologiesNeeded: row.technologies_needed || [],
-      complexity: row.complexity,
-      nextStep: row.next_step,
-      reasoning: row.reasoning,
-      confidence: row.confidence,
-      createdAt: row.created_at,
-    };
-  }
+      return {
+        id: row.id,
+        sessionId: row.session_id,
+        problemIdentified: row.problem_identified,
+        processAffected: row.process_affected,
+        impactEstimated: row.impact_estimated,
+        solutionRecommended: row.solution_recommended,
+        technologiesNeeded: row.technologies_needed || [],
+        complexity: row.complexity,
+        nextStep: row.next_step,
+        reasoning: row.reasoning,
+        confidence: row.confidence,
+        createdAt: row.created_at,
+        technicalDirection: row.technical_direction ?? null,
+        architectureDirection: row.architecture_direction ?? null,
+        implementationConsiderations: row.implementation_considerations ?? null,
+        risks: row.risks || [],
+        opportunities: row.opportunities || [],
+        score: row.score ?? 0,
+        scoreReasons: row.score_reasons || [],
+        priority: row.priority || 'low',
+        classification: row.classification || 'LOW',
+        requiresHumanReview: row.requires_human_review ?? false,
+        onSiteRequired: row.on_site_required ?? false,
+      };
+    }
 
   private mapLead(row: any): LeadResponse {
-    return {
-      id: row.id,
-      diagnosticId: row.diagnostic_id,
-      sessionId: row.session_id,
-      name: row.name,
-      email: row.email,
-      phone: row.phone,
-      company: row.company,
-      status: row.status,
-      notes: row.notes,
-      createdAt: row.created_at,
-      updatedAt: row.updated_at,
-    };
-  }
+      return {
+        id: row.id,
+        diagnosticId: row.diagnostic_id,
+        sessionId: row.session_id,
+        name: row.name,
+        email: row.email,
+        phone: row.phone,
+        company: row.company,
+        status: row.status,
+        notes: row.notes,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at,
+        score: row.score ?? null,
+        priority: row.priority ?? null,
+        classification: row.classification ?? null,
+        requiresHumanReview: row.requires_human_review ?? null,
+      };
+    }
 }
 
 // Single global repository instance

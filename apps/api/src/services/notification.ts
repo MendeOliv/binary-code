@@ -35,7 +35,17 @@ export interface DiagnosticNotificationPayload {
   confidence: number;
   createdAt: string;
   lead?: { name: string; email?: string; phone?: string; company?: string } | null;
+  // --- Lead Engine (FASE 3) ---
+  score?: number;
+  classification?: string;
+  priority?: string;
+  requiresHumanReview?: boolean;
+  onSiteRequired?: boolean;
+  fallbackUsed?: boolean;
 }
+
+/** Default team recipient (spec §15). Configure via NOTIFICATION_EMAIL_TO to override. */
+export const DEFAULT_NOTIFICATION_EMAIL_TO = 'fabiobessadeoliveira2@gmail.com';
 
 interface SendResult {
   delivered: boolean;
@@ -79,13 +89,14 @@ export class NotificationService {
 
   private async sendViaResend(subject: string, text: string): Promise<SendResult> {
     const apiKey = process.env.RESEND_API_KEY!;
-    const from = process.env.NOTIFICATION_EMAIL_FROM;
-    const to = process.env.NOTIFICATION_EMAIL_TO;
+        const from = process.env.NOTIFICATION_EMAIL_FROM;
+        // Spec §15: default recipient is fabiobessadeoliveira2@gmail.com.
+        const to = process.env.NOTIFICATION_EMAIL_TO || DEFAULT_NOTIFICATION_EMAIL_TO;
 
-    if (!from || !to) {
-      console.warn('[Notification] RESEND configured but NOTIFICATION_EMAIL_FROM/TO missing');
-      return { delivered: false, provider: 'resend', detail: 'Missing sender/recipient env vars' };
-    }
+        if (!from) {
+          console.warn('[Notification] RESEND configured but NOTIFICATION_EMAIL_FROM missing');
+          return { delivered: false, provider: 'resend', detail: 'Missing sender env var' };
+        }
 
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -119,9 +130,14 @@ export class NotificationService {
       p.solutionRecommended ? `SOLUÇÃO: ${p.solutionRecommended}` : null,
       `TECNOLOGIAS: ${p.technologiesNeeded.join(', ') || '—'}`,
       `COMPLEXIDADE: ${p.complexity}`,
-      `PRÓXIMO PASSO: ${p.nextStep}`,
-      `CONFIANÇA: ${Math.round((p.confidence || 0) * 100)}%`,
-    ];
+            `PRÓXIMO PASSO: ${p.nextStep}`,
+            `CONFIANÇA: ${Math.round((p.confidence || 0) * 100)}%`,
+            `SCORE: ${p.score ?? '—'}/100 (${p.classification ?? '—'})`,
+            `PRIORIDADE: ${(p.priority || 'low').toUpperCase()}`,
+            `REVISÃO HUMANA: ${p.requiresHumanReview ? 'SIM' : 'Não'}`,
+            `VISITA PRESENCIAL: ${p.onSiteRequired ? 'SIM' : 'Não'}`,
+            p.fallbackUsed ? `NOTA: diagnóstico gerado por fallback controlado — requer revisão` : null,
+          ];
     if (p.lead) {
       lines.push(
         '',
