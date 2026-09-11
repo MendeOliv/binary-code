@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import { repo } from '@db/repository';
 import { requireAdminKey } from '../lib/auth';
+import { notificationService } from '../services/notification';
 import type { LeadCreate } from '@shared/models';
 
 export async function leadRoutes(fastify: FastifyInstance) {
@@ -21,6 +22,26 @@ export async function leadRoutes(fastify: FastifyInstance) {
         company: payload.company?.trim() || undefined,
         notes: payload.notes?.trim() || undefined,
       });
+      // Best-effort team notification for the new lead (never throws).
+      notificationService
+        .notifyNewDiagnostic({
+          diagnosticId: lead.diagnosticId || '',
+          sessionId: lead.sessionId || '',
+          problemIdentified: payload.notes?.trim() || 'Lead submetido após diagnóstico',
+          technologiesNeeded: [],
+          complexity: 'low',
+          nextStep: 'budget',
+          confidence: 0,
+          createdAt: lead.createdAt,
+          lead: {
+            name: lead.name,
+            email: lead.email ?? undefined,
+            phone: lead.phone ?? undefined,
+            company: lead.company ?? undefined,
+          },
+        })
+        .catch(() => undefined);
+
       reply.code(201).send(lead);
     } catch (error) {
       request.log.error(error);

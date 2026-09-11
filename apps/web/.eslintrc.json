@@ -42,7 +42,8 @@
         ]
       }
     ],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-no-comment-textnodes": "off"
   },
   "ignorePatterns": [
     "dist/",

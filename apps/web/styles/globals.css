@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0..200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,24 +12,23 @@
   }
 
   body {
-    @apply bg-background text-on-background font-mono antialiased;
-    font-feature-settings: 'tnum' on, 'cv11' on;
+    @apply bg-surface text-on-surface font-body-md antialiased;
     overscroll-behavior: none;
   }
 
   ::selection {
-    background: rgba(78, 222, 163, 0.22);
-    color: #dbe2fd;
+    background: #00e599;
+    color: #00613e;
   }
 
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #0b1326; }
-  ::-webkit-scrollbar-thumb { background: #171f33; border-radius: 0; }
-  ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+  ::-webkit-scrollbar-track { background: #080C0E; }
+  ::-webkit-scrollbar-thumb { background: #1c2b3c; border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background: #00e599; }
 
   /* Consistent, visible focus states — a11y */
   :focus-visible {
-    outline: 2px solid #4edea3;
+    outline: 2px solid #00e599;
     outline-offset: 2px;
   }
 
@@ -47,51 +46,60 @@
 }
 
 @layer components {
-  .card-surface { @apply bg-surface border border-outline-variant; }
-  .card-elevated { @apply bg-surface-container border border-outline-variant; }
+  .card-surface {
+    @apply bg-surface-container-low border border-border-subtle;
+  }
 
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-container
-      border border-primary font-mono text-label-sm uppercase tracking-widest font-semibold
-      px-6 py-3 transition-all duration-200
-      hover:bg-primary hover:shadow-none
+      font-label-code text-label-code uppercase tracking-wider
+      px-4 py-2 transition-all duration-200 shadow-cta-glow
+      hover:bg-primary
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 bg-surface-container-high text-text-primary
+      border border-border-subtle font-body-md text-body-md font-medium
+      px-4 py-2 transition-all duration-200
+      hover:border-outline
       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
   }
 
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 bg-transparent text-on-surface-variant
-      border border-outline-variant font-mono text-label-sm uppercase tracking-widest
-      px-6 py-3 transition-colors duration-200
-      hover:text-on-surface hover:border-primary
+      border border-border-subtle font-label-code text-label-code uppercase tracking-wider
+      px-4 py-2 transition-colors duration-200
+      hover:text-primary hover:border-primary
       focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary;
   }
 
   .input-field {
-    @apply bg-surface-container border border-outline-variant px-4 py-3 font-mono text-body-md
-      text-on-surface placeholder-outline transition-colors duration-200
+    @apply bg-bg-canvas border border-white/20 px-4 py-3 font-body-md text-body-md
+      text-on-surface placeholder-text-tertiary transition-colors duration-200
       focus:border-primary focus:outline-none;
   }
 
-  /* Editorial / technical label */
+  /* Technical eyebrow label: "// CAPABILITIES" */
   .tech-label {
-    @apply font-mono text-label-sm uppercase tracking-widest text-primary;
-  }
-
-  /* Subtle architectural grid background */
-  .grid-background {
-    background-image:
-      linear-gradient(to right, rgba(78, 222, 163, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(78, 222, 163, 0.04) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-
-  /* Soft radial wash, not a hard glow */
-  .soft-glow {
-    background: radial-gradient(closest-side, rgba(78, 222, 163, 0.08), transparent);
+    @apply font-label-telemetry text-label-telemetry uppercase tracking-widest text-primary;
   }
 
   /* Small system state dot */
   .state-dot {
-    @apply inline-block w-1.5 h-1.5 bg-primary relative;
+    @apply inline-block w-1.5 h-1.5 rounded-full bg-primary-container relative;
+  }
+
+  /* Precision hairline grid backdrop */
+  .grid-background {
+    background-image:
+      linear-gradient(to right, rgba(0, 229, 153, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 229, 153, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Soft specular radial, no diffuse blur clutter */
+  .soft-glow {
+    background: radial-gradient(closest-side, rgba(0, 229, 153, 0.06), transparent);
   }
 }

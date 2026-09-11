@@ -1,5 +1,6 @@
 import { repo } from '@db/repository';
 import { aiProvider } from './ai-provider';
+import { notificationService } from './notification';
 import {
   DISCOVERY_SYSTEM_PROMPT,
   DIAGNOSIS_GENERATION_PROMPT,
@@ -177,6 +178,23 @@ export class DiscoveryOrchestrator {
       status: 'diagnosis_ready',
       complexity: parsed.complexity,
     });
+
+    // Notify the team that a diagnostic is available (never blocks the flow).
+    notificationService
+      .notifyNewDiagnostic({
+        diagnosticId: diagnostic.id,
+        sessionId: session.id,
+        problemIdentified: diagnostic.problemIdentified,
+        processAffected: diagnostic.processAffected,
+        impactEstimated: diagnostic.impactEstimated,
+        solutionRecommended: diagnostic.solutionRecommended,
+        technologiesNeeded: diagnostic.technologiesNeeded || [],
+        complexity: diagnostic.complexity,
+        nextStep: diagnostic.nextStep,
+        confidence: diagnostic.confidence,
+        createdAt: diagnostic.createdAt,
+      })
+      .catch((err) => console.error('[Diagnostic] notification error:', (err as Error).message));
 
     // Build the diagnostic presentation message
     const presentationMessage = this.formatDiagnosticPresentation(diagnostic);

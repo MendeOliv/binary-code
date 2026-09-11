@@ -44,19 +44,17 @@ export class AIProviderService {
   }
 
   async generateText(systemPrompt: string, userPrompt: string, provider?: string, jsonMode: boolean = false): Promise<string> {
+    // EXPLICIT provider order (spec §14): Gemini primary → Groq fallback.
+    // Remaining configured providers are appended last-resort so a transient
+    // outage never breaks the diagnostic flow. Values are never logged.
     const primary = (provider || process.env.PRIMARY_PROVIDER || 'gemini').toLowerCase();
-    
-    // Explicit check for Gemini if it's the primary or forced
-    if (primary === 'gemini' && !process.env.GEMINI_API_KEY) {
-      throw new Error("Gemini provider is not configured: GEMINI_API_KEY is missing");
-    }
+    const secondary = (process.env.FALLBACK_PROVIDER || 'groq').toLowerCase();
 
-    const fallbackSequence = [primary];
-    const providers = ['gemini', 'anthropic', 'openai', 'groq'];
-    for (const p of providers) {
-      if (!fallbackSequence.includes(p)) {
-        fallbackSequence.push(p);
-      }
+    const ordered = ['gemini', 'groq'];
+    const others = ['anthropic', 'openai'];
+    const fallbackSequence: string[] = [];
+    for (const p of [primary, secondary, ...ordered, ...others]) {
+      if (!fallbackSequence.includes(p)) fallbackSequence.push(p);
     }
 
     let lastError: any = null;
@@ -130,7 +128,7 @@ export class AIProviderService {
     if (!this.gemini) throw new Error('Gemini client not initialized');
 
     const response = await this.gemini.models.generateContent({
-      model: 'gemini-3.7-flash',
+      model: 'gemini-2.0-flash',
       contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
       config: {
         systemInstruction: systemPrompt,

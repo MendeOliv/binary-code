@@ -1,56 +1,67 @@
 import Head from 'next/head';
-import SectionHeader from '../components/SectionHeader';
+import Link from 'next/link';
 
+/**
+ * Systems & cases. The flagship case is the company's own platform (real,
+ * verifiable in this repository). Client-facing systems remain NDA-protected:
+ * we present problem/solution/stack without inventing results or metrics.
+ */
 const PROJECTS = [
   {
     id: 'PROJECT_001',
-    name: 'SYNAPSE_VLM',
-    type: 'Autonomous Document & ERP Ingestion Engine',
-    status: 'PRODUCTION // STABLE',
-    statusColor: 'text-primary',
+    name: 'BINARY_DIAGNOSTIC',
+    type: 'Motor de Diagnóstico Guiado por IA',
+    status: 'EM PRODUÇÃO',
+    active: true,
     problem:
-      'Reconciliação fiscal manual com alta redundância operacional e erro humano recorrente.',
+      'Empresas sabem que têm ineficiências operacionais, mas não conseguem traduzir o problema em requisitos técnicos nem escolher a arquitetura certa.',
     solution:
-      'Sistema autónomo de extração de faturas e reconciliação fiscal com processamento vetorial assíncrono e inferência multimodal.',
-    stack: ['Fastify v4', 'TypeScript Strict', 'pgvector', 'Python 3.12', 'Docker Sandbox'],
-    metrics: [
-      { label: 'LATENCY THRESHOLD', value: '< 2.8s', note: 'End-to-end parsed' },
-      { label: 'BOTTLENECK', value: '0.00%', note: 'Zero Human Dependency' },
-      { label: 'VERIFICATION', value: 'STRICT', note: 'Type Safe' },
+      'Entrevista de discovery guiada por IA (Gemini com fallback Groq) que extrai fatos estruturados da conversa e gera um diagnóstico técnico com solução recomendada, complexidade e próximos passos — persistido no Supabase e convertido em lead.',
+    stack: ['Next.js', 'Fastify', 'Gemini', 'Groq', 'Supabase'],
+    scope: [
+      'SESSION // discovery_sessions + messages',
+      'ANALYSIS // diagnóstico estruturado JSON',
+      'PIPELINE // diagnóstico → lead → notificação',
+      'SECURITY // rotas admin protegidas por chave',
     ],
+    telemetry: 'PLATFORM // Este website e a API que o alimenta',
   },
   {
     id: 'PROJECT_002',
-    name: 'KERNEL_OBSERVER',
-    type: 'Telemetry & Multi-Agent Network Orchestrator',
-    status: 'STAGING // BENCHMARKING',
-    statusColor: 'text-secondary',
+    name: 'PLATFORM_CORE',
+    type: 'Monorepo Web + API + Shared Models',
+    status: 'EM PRODUÇÃO',
+    active: true,
     problem:
-      'Auditoria contínua de contratos e conformidade fragmentada em múltiplos silos de dados.',
+      'Frontend, backend e modelos de dados precisam evoluir em sincronia sem quebrar contratos nem duplicar lógica.',
     solution:
-      'Orquestrador de nós de inferência distribuída com topologia de grafos supervisionada e verificação de segurança em tempo real.',
-    stack: ['Rust (Core)', 'LangGraph', 'Supabase', 'Redis Streams', 'gRPC'],
-    metrics: [
-      { label: 'CONCURRENCY', value: '64k NODES', note: 'Async Runtime' },
-      { label: 'SYNC OVERHEAD', value: '< 14ms', note: 'Redis Pub/Sub' },
-      { label: 'AUDIT', value: '99.998%', note: 'Convergence' },
+      'Arquitetura monorepo (pnpm + Turborepo) com Next.js na Vercel, API Fastify no Render e modelos TypeScript compartilhados entre as pontas, com CORS restrito e variáveis de ambiente segregadas.',
+    stack: ['pnpm Workspaces', 'Turborepo', 'Next.js 14', 'Fastify 5', 'TypeScript'],
+    scope: [
+      'WEB // apps/web (Vercel)',
+      'API // apps/api (Render)',
+      'SHARED // packages/shared models',
+      'DEPLOY // CI por ambiente',
     ],
+    telemetry: 'PLATFORM // Infraestrutura desta operação',
   },
   {
     id: 'PROJECT_003',
-    name: 'PROCESS_AUTOMATION',
-    type: 'VLM Document Intelligence Pipeline',
-    status: 'DEPLOYABLE',
-    statusColor: 'text-primary',
-    problem: 'Triagem e processamento de documentos não estruturados com alto custo operacional.',
+    name: 'CLIENT_SYSTEMS',
+    type: 'Sistemas Sob Medida para Clientes',
+    status: 'SOB NDA',
+    active: false,
+    problem:
+      'Cada cliente opera com fluxos, ERPs e restrições próprias que plataformas genéricas não atendem.',
     solution:
-      'Pipeline de extração VLM com esquemas rígidos, normalização e encaminhamento inteligente por categoria de fluxo.',
-    stack: ['Vision-LM', 'FastAPI', 'Postgres', 'Airflow', 'Terraform'],
-    metrics: [
-      { label: 'THROUGHPUT', value: '1.2k DOC/MIN', note: 'Batch + Stream' },
-      { label: 'ACCURACY', value: '99.4%', note: 'Field-level' },
-      { label: 'HUMAN EFFORT', value: '-94%', note: 'Reduction' },
+      'Sistemas personalizados de software, automação e IA desenhados a partir do diagnóstico. Detalhes, métricas e resultados permanecem protegidos por acordos de confidencialidade.',
+    stack: ['Sob contrato', 'Por projeto'],
+    scope: [
+      'DISCOVERY // diagnóstico define escopo',
+      'BUILD // engenharia sob medida',
+      'NDA // detalhes sob confidencialidade',
     ],
+    telemetry: 'POLICY // Sem divulgação de dados de clientes',
   },
 ];
 
@@ -58,109 +69,109 @@ export default function ProjectsPage() {
   return (
     <>
       <Head>
-        <title>Projects — Código Binário</title>
+        <title>Projetos — Código Binário</title>
         <meta
           name="description"
-          content="Sistemas construídos pelo Código Binário. Cases de engenharia de software, IA e automação em produção."
+          content="Sistemas construídos pela Código Binário: engenharia de software, IA e automação em produção. Cases descritos como sistemas — problema, solução, stack."
         />
       </Head>
 
-      <section className="relative w-full bg-background">
-        <div className="absolute inset-0 grid-background pointer-events-none" aria-hidden="true" />
-        <div className="relative max-w-7xl mx-auto px-5 md:px-8 pt-20 pb-12 md:pt-24">
-          <SectionHeader
-            eyebrow="// SYSTEMS ADVANCING"
-            title={
-              <>
-                PROJECTO & WO
-                R K
-                <br />
-                — SISTEMAS CONSTRUÍDOS
-              </>
-            }
-            description="Cada projecto é um sistema real, descrito como um sistema: problema, solução, stack e telemetria. Sem portfolio genérico."
-          />
+      {/* Telemetry bar */}
+      <section className="w-full px-gutter-mobile md:px-margin pt-space-lg pb-space-md">
+        <div className="max-w-7xl mx-auto bg-surface-container-lowest p-space-md rounded-lg flex flex-wrap items-center justify-between gap-space-md border border-border-subtle shadow-sm">
+          <span className="inline-flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-primary uppercase">
+            <span className="w-2 h-2 rounded-full bg-primary-container animate-ping" aria-hidden="true" />
+            SYS//PROJECTS: REGISTRY_OPEN
+          </span>
+          <span className="font-label-code text-label-code text-text-secondary">
+            POLICY: NO_INVENTED_METRICS
+          </span>
         </div>
       </section>
 
-      <section className="w-full bg-surface-container-lowest pb-24">
-        <div className="max-w-7xl mx-auto px-5 md:px-8 flex flex-col gap-8">
+      {/* Header */}
+      <section className="w-full px-gutter-mobile md:px-margin pt-space-md pb-space-xl">
+        <div className="max-w-7xl mx-auto flex flex-col gap-space-xs">
+          <div className="flex items-center gap-space-xs tech-label">
+            <span className="material-symbols-outlined text-base" aria-hidden="true">folder_open</span>
+            <span>// SYSTEM REGISTRY</span>
+          </div>
+          <h1 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-text-primary tracking-tight uppercase">
+            Projetos &amp; Cases — Sistemas Construídos
+          </h1>
+          <p className="font-body-lg text-body-md md:text-body-lg text-text-secondary max-w-3xl pt-space-xs">
+            Cada projeto é um sistema real, descrito como um sistema: problema, solução, stack e
+            escopo. Sem portfólio genérico, sem números inventados.
+          </p>
+        </div>
+      </section>
+
+      {/* Projects stream */}
+      <section className="w-full px-gutter-mobile md:px-margin pb-space-xl">
+        <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
           {PROJECTS.map((project) => (
             <article
               key={project.id}
-              className="bg-surface-container border border-outline-variant"
+              className="bg-surface-container-low border border-border-subtle rounded-xl overflow-hidden shadow-card"
             >
               {/* Header strip */}
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-outline-variant bg-surface-container-lowest px-5 py-3">
-                <div className="flex items-center gap-2.5 font-mono text-label-sm">
+              <div className="flex flex-wrap items-center justify-between gap-space-sm border-b border-border-subtle bg-surface-container-lowest px-space-lg py-space-sm">
+                <div className="flex items-center gap-space-sm font-label-telemetry text-label-telemetry">
                   <span className="state-dot" aria-hidden="true" />
-                  <span className="text-primary font-semibold tracking-wider">
-                    {project.id}{' // '}{project.name}
+                  <span className="text-primary font-bold tracking-wider">
+                    {project.id} // {project.name}
                   </span>
                 </div>
                 <span
-                  className={`px-2.5 py-1 font-mono text-code-telemetry ${
-                    project.statusColor === 'text-primary'
-                      ? 'bg-primary/10 text-primary'
-                      : 'bg-secondary/10 text-secondary'
+                  className={`px-space-sm py-0.5 rounded font-label-code text-label-code ${
+                    project.active ? 'bg-primary/10 text-primary' : 'bg-surface-container-high text-on-surface-variant'
                   }`}
                 >
                   [{project.status}]
                 </span>
               </div>
 
-              <div className="px-5 py-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div className="px-space-lg py-space-lg grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
                 {/* Left: identity */}
                 <div className="lg:col-span-5">
-                  <span className="font-mono text-code-telemetry text-secondary uppercase tracking-widest">
+                  <span className="font-label-telemetry text-label-telemetry text-secondary uppercase tracking-widest">
                     SYSTEM TYPE
                   </span>
-                  <h3 className="mt-1 font-mono text-headline-md text-on-surface">
-                    {project.type}
-                  </h3>
+                  <h2 className="mt-1 font-headline-md text-headline-md text-text-primary">{project.type}</h2>
 
-                  <div className="mt-5 font-mono text-body-sm text-on-surface-variant leading-relaxed">
-                    <div className="mb-4">
-                      <div className="tech-label mb-1">{'// PROBLEM'}</div>
+                  <div className="mt-space-md font-body-sm text-body-sm text-on-surface-variant leading-relaxed flex flex-col gap-space-md">
+                    <div>
+                      <div className="tech-label mb-1">// PROBLEMA</div>
                       <p>{project.problem}</p>
                     </div>
                     <div>
-                      <div className="tech-label mb-1">{'// SOLUTION'}</div>
+                      <div className="tech-label mb-1">// SOLUÇÃO</div>
                       <p>{project.solution}</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Right: telemetry + stack */}
+                {/* Right: scope + stack */}
                 <div className="lg:col-span-7">
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {project.metrics.map((m) => (
-                      <div key={m.label} className="bg-surface-container-lowest p-4 flex flex-col">
-                        <span className="font-mono text-label-sm text-outline uppercase">
-                          {m.label}
-                        </span>
-                        <span className="mt-1 font-mono text-headline-md text-on-surface">
-                          {m.value}
-                        </span>
-                        <span className="font-mono text-code-telemetry text-on-surface-variant">
-                          {m.note}
-                        </span>
-                      </div>
+                  <div className="bg-bg-surface-base p-space-md rounded font-label-code text-label-code text-on-surface-variant flex flex-col gap-1">
+                    <div className="text-text-tertiary">// ESCOPO DO SISTEMA</div>
+                    {project.scope.map((line) => (
+                      <div key={line}>&gt; {line}</div>
                     ))}
                   </div>
 
-                  <div className="mt-6 flex flex-col gap-2">
-                    <span className="font-mono text-code-telemetry text-outline uppercase">
-                      CORE STACK ARCHITECTURE:
+                  <div className="mt-space-lg flex flex-col gap-space-sm">
+                    <span className="font-label-telemetry text-label-telemetry text-text-tertiary uppercase">
+                      // STACK & ARQUITETURA:
                     </span>
-                    <div className="flex flex-wrap gap-1.5 font-mono text-code-telemetry">
+                    <div className="flex flex-wrap gap-1.5 font-label-code text-label-code">
                       {project.stack.map((tech, i) => (
                         <span
                           key={tech}
                           className={
-                            i === 0
-                              ? 'px-2.5 py-1 bg-primary text-on-primary'
-                              : 'px-2.5 py-1 bg-surface text-on-surface border border-outline-variant'
+                            i === 0 && project.active
+                              ? 'px-space-sm py-0.5 rounded bg-primary-container text-on-primary-container'
+                              : 'px-space-sm py-0.5 rounded bg-surface-container text-on-surface border border-border-subtle'
                           }
                         >
                           {tech}
@@ -169,18 +180,38 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  <div className="mt-6 flex items-center justify-between gap-3 border-t border-outline-variant pt-4">
-                    <span className="font-mono text-code-telemetry text-outline">
-                      {'ENDPOINT: GET /api/projects/'}{project.id}
+                  <div className="mt-space-lg flex items-center justify-between gap-space-sm border-t border-border-subtle pt-space-md">
+                    <span className="font-label-telemetry text-label-telemetry text-outline uppercase">
+                      {project.telemetry}
                     </span>
-                    <span className="font-mono text-label-sm text-on-surface-variant uppercase tracking-widest">
-                      [UNDER NDA]
-                    </span>
+                    {!project.active && (
+                      <span className="font-label-code text-label-code text-on-surface-variant uppercase">
+                        [NDA]
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="w-full px-gutter-mobile md:px-margin pb-space-xl">
+        <div className="max-w-4xl mx-auto bg-bg-surface-elevated border border-border-subtle rounded-xl p-space-xl text-center shadow-card">
+          <h2 className="font-headline-lg text-headline-md md:text-headline-lg text-text-primary tracking-tight">
+            Tem um problema que precisa de um <span className="text-primary">sistema</span>?
+          </h2>
+          <p className="mt-space-sm font-body-md text-body-md text-text-secondary max-w-xl mx-auto leading-relaxed">
+            Descreva o contexto no Binary Diagnostic e receba uma recomendação arquitetural
+            personalizada.
+          </p>
+          <div className="mt-space-lg flex justify-center">
+            <Link href="/diagnostic" className="btn-primary px-space-lg py-3">
+              [INICIAR DIAGNÓSTICO →]
+            </Link>
+          </div>
         </div>
       </section>
     </>

@@ -3,9 +3,11 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 const NAV_LINKS = [
-  { label: 'SHOWCASE', href: '/solutions' },
-  { label: 'STACK', href: '/' },
-  { label: 'LABS', href: '/diagnostic' },
+  { label: 'Início', href: '/' },
+  { label: 'Soluções', href: '/solutions' },
+  { label: 'Projetos', href: '/projects' },
+  { label: 'Developers', href: '/developers' },
+  { label: 'Diagnóstico', href: '/diagnostic' },
 ];
 
 export default function Navbar() {
@@ -14,112 +16,105 @@ export default function Navbar() {
 
   const close = () => setOpen(false);
 
+  const isActive = (href: string) =>
+    href === '/' ? router.pathname === '/' : router.pathname.startsWith(href);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md border-b border-border-glass">
-      <nav
-        className="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between"
-        aria-label="Navegação principal"
-      >
+    <header className="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-navbar">
+      <div className="h-20 w-full px-gutter-mobile md:px-margin flex items-center justify-between gap-space-md">
         {/* Brand */}
         <Link
           href="/"
           onClick={close}
-          className="flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+          className="flex items-center gap-space-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
           aria-label="Código Binário — página inicial"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo/codigo-binario-padded.png"
-            alt="Código Binário"
-            width={759}
-            height={778}
-            className="h-8 w-auto object-contain"
+            src="/logo/codigo-binario-transparent.png"
+            alt="Logotipo Código Binário"
+            width={40}
+            height={40}
+            className="h-10 w-10 object-contain"
           />
+          <span className="flex flex-col">
+            <span className="font-headline-sm text-headline-sm tracking-tight text-text-primary font-semibold">
+              Código Binário
+            </span>
+            <span className="font-label-telemetry text-label-telemetry text-text-secondary uppercase">
+              // AI &amp; SYSTEM ARCHITECTURE
+            </span>
+          </span>
         </Link>
 
+        {/* Kernel status — desktop wide only */}
+        <div className="hidden xl:flex items-center gap-space-sm px-space-sm py-space-xs rounded bg-surface-container-low">
+          <span className="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse" aria-hidden="true" />
+          <span className="font-label-telemetry text-label-telemetry text-on-surface-variant tracking-wider uppercase">
+            KERNEL: OPERATIONAL // SYSTEM: READY
+          </span>
+        </div>
+
         {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-7">
+        <nav className="hidden lg:flex items-center gap-space-lg" aria-label="Navegação principal">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`font-mono text-label-sm uppercase tracking-widest transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${
-                router.pathname === link.href
-                  ? 'text-primary'
-                  : 'text-on-surface-variant hover:text-primary'
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              className={`font-body-sm text-body-sm transition-colors ${
+                isActive(link.href)
+                  ? 'text-primary font-bold'
+                  : 'text-on-surface-variant hover:text-on-surface'
               }`}
             >
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/diagnostic"
-            className="font-mono text-on-surface-variant uppercase tracking-widest text-label-sm hover:text-primary transition-colors duration-200"
-          >
-            TERMINAL
-          </Link>
-        </div>
+        </nav>
 
-        {/* CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link
-            href="/diagnostic"
-            className="btn-primary"
-            aria-label="Initialize diagnostic"
-          >
-            START DIAGNOSTIC
+        {/* CTA + mobile toggle */}
+        <div className="flex items-center gap-space-md">
+          <Link href="/diagnostic" className="btn-primary hidden md:inline-flex">
+            [INICIAR DIAGNÓSTICO →]
           </Link>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="lg:hidden inline-flex items-center justify-center h-10 w-10 text-on-surface-variant hover:text-on-surface transition-colors"
+            aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={open}
+          >
+            <span className="material-symbols-outlined" aria-hidden="true">
+              {open ? 'close' : 'menu'}
+            </span>
+          </button>
         </div>
-
-        {/* Mobile toggle */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="md:hidden inline-flex items-center justify-center h-10 w-10 text-on-surface-variant hover:text-on-surface transition-colors"
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          aria-expanded={open}
-        >
-          <span className="material-symbols-outlined">{open ? 'close' : 'menu'}</span>
-        </button>
-      </nav>
+      </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-border-glass bg-surface">
-          <div className="px-5 py-4 flex flex-col gap-1">
-            <Link
-              href="/"
-              onClick={close}
-              className="py-2.5 font-mono text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors"
-            >
-              HOME
-            </Link>
+        <div className="lg:hidden border-t border-border-subtle bg-surface">
+          <nav className="px-gutter-mobile py-4 flex flex-col gap-1" aria-label="Navegação móvel">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={close}
-                className="py-2.5 font-mono text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors"
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                className={`py-2.5 font-body-md text-body-md transition-colors ${
+                  isActive(link.href)
+                    ? 'text-primary font-bold'
+                    : 'text-on-surface-variant hover:text-on-surface'
+                }`}
               >
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/diagnostic"
-              onClick={close}
-              className="py-2.5 font-mono text-label-sm uppercase tracking-widest text-on-surface-variant hover:text-primary transition-colors"
-            >
-              TERMINAL
+            <Link href="/diagnostic" onClick={close} className="btn-primary mt-3">
+              [INICIAR DIAGNÓSTICO →]
             </Link>
-            <Link
-              href="/diagnostic"
-              onClick={close}
-              className="btn-primary mt-3"
-              aria-label="Initialize diagnostic"
-            >
-              START DIAGNOSTIC
-            </Link>
-          </div>
+          </nav>
         </div>
       )}
     </header>
