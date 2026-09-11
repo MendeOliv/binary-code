@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#4edea3", "on-secondary": "#003642", "on-background": "#d4e4fa", "on-error": "#690005", "border-subtle": "rgba(255, 255, 255, 0.08)", "on-tertiary-container": "#006141", "surface-variant": "#273647", "surface-bright": "#2c3a4c", "primary-container": "#00e599", "on-surface-variant": "#bacbbe", "error-container": "#93000a", "surface-dim": "#051424", "tertiary-fixed": "#6ffbbe", "on-tertiary": "#003824", "surface-container-lowest": "#010f1f", "bg-surface-overlay": "#162026", "on-error-container": "#ffdad6", "on-primary-fixed": "#002112", "primary": "#6dffba", "secondary-container": "#00b2d6", "on-surface": "#d4e4fa", "text-tertiary": "#475569", "tertiary": "#72fec0", "secondary": "#4cd6fb", "on-secondary-fixed": "#001f27", "system-cyan-glow": "rgba(0, 180, 216, 0.14)", "surface-tint": "#00e297", "outline": "#849589", "on-secondary-container": "#003f4e", "secondary-fixed": "#b3ebff", "surface": "#051424", "border-highlight": "rgba(0, 229, 153, 0.35)", "background": "#051424", "on-primary-container": "#00613e", "surface-container-high": "#1c2b3c", "surface-container": "#122131", "inverse-primary": "#006c46", "surface-container-low": "#0d1c2d", "on-tertiary-fixed-variant": "#005236", "inverse-surface": "#d4e4fa", "text-primary": "#F1F5F9", "bg-surface-elevated": "#10171B", "system-emerald-glow": "rgba(0, 229, 153, 0.12)", "secondary-fixed-dim": "#4cd6fb", "surface-container-highest": "#273647", "tertiary-container": "#51e1a5", "bg-surface-base": "#0B0F12", "primary-fixed": "#4dffb2", "on-tertiary-fixed": "#002113", "on-secondary-fixed-variant": "#004e5f", "primary-fixed-dim": "#00e297", "text-secondary": "#94A3B8", "on-primary-fixed-variant": "#005234", "outline-variant": "#3b4a41", "inverse-on-surface": "#233143", "bg-canvas": "#080C0E", "error": "#ffb4ab", "on-primary": "#003822" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2.5rem", "gutter": "1.5rem", "margin": "3rem", "space-md": "1rem", "gutter-mobile": "1rem", "margin-mobile": "1.25rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-md": [ "Geist" ], "label-telemetry": [ "JetBrains Mono" ], "label-code": [ "JetBrains Mono" ], "headline-lg-mobile": [ "Geist" ], "body-md": [ "Inter" ], "display-mobile": [ "Geist" ], "display": [ "Geist" ], "body-sm": [ "Inter" ], "headline-lg": [ "Geist" ], "headline-sm": [ "Geist" ], "label-counter": [ "JetBrains Mono" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-md": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "label-telemetry": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "label-code": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "display-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "display": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "body-sm": [ "13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-counter": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.08)]"><div class="h-20 w-full px-gutter md:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-2xl">terminal</span><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">CÓDIGO BINÁRIO</span><span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// AI &amp; SYSTEM ARCHITECTURE</span></div></div><div class="hidden xl:flex items-center gap-space-sm px-space-sm py-space-xs rounded bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-telemetry text-label-telemetry text-on-surface-variant tracking-wider uppercase">KERNEL: OPERATIONAL // SYSTEM: READY</span></div></div><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="text-primary font-bold"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="inicio" href="#">Início</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="solucoes" href="#">Soluções</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="projetos" href="#">Projetos</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="developers" href="#">Developers</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="diagnostico" href="#">Diagnóstico</a></nav><div class="flex items-center gap-space-md"><a class="inline-flex items-center justify-center px-space-md py-space-xs rounded bg-primary-container text-on-primary-container font-label-code text-label-code uppercase tracking-wider hover:bg-primary transition-colors shadow-[0_0_16px_rgba(0,229,153,0.2)]" data-path="diagnostico" href="#">[INICIAR DIAGNÓSTICO →]</a><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WXVvggSJURYpSJjJwtrvCgIkyl9aOVFF0kzlkk2jh4QVd3l94b1gIjKy8pwAMhCMeiCyOAeopF_tMvsQCfHl7q5vGwPa8VVgjxzNNukAwRUU7pUW_g-PFoaAkw_VkuxERDqYFLmGM-eiQ0DImoi_caCzQ90Ehn72ceIXfpYCJikUFvpKxfsRNUoXPQDkJfoxVAXkhlq8pz3qiXAPjHvqLky-tnRJ_Jue-TbqKFroYorxt3mLqqJbM_1hHZAz0hrqmSprpnwhBRow"/></div></div></header><main class="w-full pt-20 bg-surface"><div class="flex flex-col w-full">
+<div class="w-full max-w-7xl mx-auto px-gutter md:px-margin py-space-xl flex flex-col gap-space-xl">
+<!-- Top Meta Breadcrumb & Back Navigation -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-text-secondary tracking-widest uppercase">
+<span class="text-primary">//</span>
+<span>EQUIPE DE ENGENHARIA</span>
+<span class="text-text-tertiary">&gt;</span>
+<span>PERFIL DE SISTEMA</span>
+<span class="text-text-tertiary">&gt;</span>
+<span class="text-on-surface">[MBUMBA GUILHERME]</span>
+</div>
+<a class="inline-flex items-center gap-space-xs font-label-code text-label-code text-primary hover:text-tertiary transition-colors" data-path="developers" href="#">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<span>Voltar para Equipe</span>
+</a>
+</div>
+<!-- Hero / Dossier Profile Header Section -->
+<div class="relative bg-bg-surface-elevated rounded-xl p-space-md md:p-space-xl shadow-xl overflow-hidden">
+<!-- Background Ambient Specular Glow -->
+<div class="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-0 right-0 w-64 h-64 bg-secondary-container/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="relative grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Left: Systems Framing Photo Profile -->
+<div class="lg:col-span-4 flex flex-col gap-space-md">
+<div class="relative rounded-lg overflow-hidden bg-bg-surface-base shadow-2xl group">
+<!-- Frame Header Strip -->
+<div class="bg-surface-container-high px-space-md py-space-xs flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider text-primary">LIVE PROFILE FEED</span>
+</div>
+<span class="font-label-code text-label-code text-text-secondary">FRAME_SPEC: 1070x1427</span>
+</div>
+<!-- Image Asset Presentation -->
+<div class="relative aspect-[3/4] w-full overflow-hidden bg-surface-container-lowest">
+<img alt="Mbumba Guilherme - Frontend Developer e Engenheiro Informático na Código Binário" class="w-full h-full object-cover grayscale-[15%] contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDp94UyBbq6sRQvrrbeA-WJsuxyR-sdPoWOp-VYMx0QdNpRGd-QfaWHYnLTVaCljGdJB_yz1BmxBPgXYW3dX5HGhhVoPeDQ3-mz3qAwABvUmaCfiDr90THJP919ZpRh7g-MvXDy8qPOLsPeNnb_tCMXkzvKAZ0hjgy8miuQCV-8uRRf1WHNNELLkfK0j3QJvWe7kbNO_1dJ6R6tPSvR-3Nj7TWHqB1FHAmYV3weOn8RbbxWfzjihRh7QNDflpCPQPP4kQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-bg-surface-base via-transparent to-transparent opacity-80 pointer-events-none"></div>
+<!-- Bottom Overlaid Telemetry Overlay -->
+<div class="absolute bottom-space-md left-space-md right-space-md flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-lowest/90 backdrop-blur-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-telemetry text-label-telemetry text-primary-fixed tracking-wider uppercase">NODE: CB-DEV-03 // ACTIVE</span>
+</div>
+<div class="font-label-code text-label-code text-text-primary px-space-xs">
+                  AUTH_ROLE: CORE_FRONTEND_ENGINEER
+                </div>
+</div>
+</div>
+<!-- Frame Footer Ribbon -->
+<div class="bg-bg-surface-base px-space-md py-space-sm flex items-center justify-between">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary">// CRYPTO ID</span>
+<span class="font-label-code text-label-code text-on-surface-variant tracking-widest">0x8B49...F1E7</span>
+</div>
+</div>
+<!-- Internal Channel Badging (No External Links Policy) -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// CANAL INTERNO HOMOLOGADO</span>
+<span class="material-symbols-outlined text-primary text-base">verified_user</span>
+</div>
+<div class="font-label-code text-label-code text-text-primary">
+              INTERNAL DISPATCH: <span class="text-primary">#eng-frontend-core</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">
+              Comunicação direta roteada via barramento de engenharia soberana da Código Binário.
+            </p>
+</div>
+</div>
+<!-- Right: Executive & Technical Dossier -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- State Label & Cluster -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container font-label-telemetry text-label-telemetry text-primary shadow-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span>STATUS: ACTIVE // CLUSTER: FRONTEND &amp; UX INTERFACES</span>
+</div>
+<div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-high font-label-telemetry text-label-telemetry text-secondary">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span>DEV_SLOT: 03</span>
+</div>
+</div>
+<!-- Name & Role Title -->
+<div class="flex flex-col gap-space-xs">
+<div class="font-label-telemetry text-label-telemetry text-text-secondary uppercase tracking-widest">// SYSTEM SPECIALIST SPECIFICATION</div>
+<h1 class="font-display text-display text-text-primary tracking-tight">Mbumba Guilherme</h1>
+<p class="font-headline-sm text-headline-sm text-primary font-medium tracking-normal">
+              Frontend Developer · Engenheiro Informático
+            </p>
+</div>
+<!-- Technical Summary -->
+<div class="bg-surface-container-low p-space-lg rounded-lg shadow-sm">
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+              “Engenheiro focado na materialização de interfaces precisas, acessíveis e orientadas a desempenho, traduzindo regras de negócio complexas e telemetria de sistemas em produtos digitais de uso intuitivo e imediato.”
+            </p>
+</div>
+<!-- Metadata Architecture Matrix -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="bg-surface-container p-space-md rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// NODE IDENTIFIER</span>
+<span class="font-label-code text-label-code text-primary font-bold tracking-wider">CB-DEV-03</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Registro Primário de Nó de Engenharia</span>
+</div>
+<div class="bg-surface-container p-space-md rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// BASE OPERACIONAL</span>
+<span class="font-label-code text-label-code text-text-primary tracking-wide">São Paulo // Remoto Distribuído</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sincronização com Clustered Core</span>
+</div>
+<div class="bg-surface-container p-space-md rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// FORMAÇÃO ACADÊMICA</span>
+<span class="font-label-code text-label-code text-text-primary tracking-wide">Engenharia Informática</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Base analítica em computação distribuída</span>
+</div>
+<div class="bg-surface-container p-space-md rounded-lg flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// FOCO PRINCIPAL</span>
+<span class="font-label-code text-label-code text-primary tracking-wide">Frontend, Reactive UI &amp; Design Systems</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Sistemas de design escaláveis &amp; UX rigorosa</span>
+</div>
+</div>
+<!-- Micro-Telemetry Indicators Strip -->
+<div class="bg-bg-surface-base p-space-md rounded-lg flex flex-wrap items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-xl">speed</span>
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">CORE WEB VITALS BENCHMARK</span>
+<span class="font-label-code text-label-code text-text-primary">LCP: 0.8s · FID: &lt;10ms · CLS: 0.00</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-xl">dataset</span>
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">PIPELINE EXECUTION</span>
+<span class="font-label-code text-label-code text-text-primary">ZERO RUNTIME CSS // A11Y AAA COMPLIANT</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Core Competencies Section -->
+<div class="flex flex-col gap-space-lg pt-space-md">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase tracking-widest">// DOMÍNIOS DE EXECUÇÃO</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary">Competências Técnicas &amp; Domínios</h2>
+</div>
+<span class="font-label-code text-label-code text-text-secondary">[TOTAL_DOMAINS: 06 // ACTIVE_INDEX: 100%]</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Competency Card 01 -->
+<div class="bg-surface-container p-space-lg rounded-lg flex flex-col justify-between gap-space-md shadow-md hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-2xl">web</span>
+<span class="font-label-counter text-label-counter text-text-secondary">01</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Frontend Engineering &amp; Aplicações Web</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Arquitetura de frontends resilientes, orientados a microsserviços e componentização modular estruturada para suportar alto volume de tráfego corporativo.
+            </p>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-primary uppercase">// MODULAR ARCHITECTURE · HIGH COHESION</div>
+</div>
+<!-- Competency Card 02 -->
+<div class="bg-surface-container p-space-lg rounded-lg flex flex-col justify-between gap-space-md shadow-md hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary text-2xl">insights</span>
+<span class="font-label-counter text-label-counter text-text-secondary">02</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Interfaces Reativas &amp; Painéis em Tempo Real</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Renderização contínua de telemetria, streaming de dados sem latência perceptível e orquestração de estados assíncronos de alta volatilidade.
+            </p>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-secondary uppercase">// ZERO BUFFERING · SUB-FRAME TELEMETRY</div>
+</div>
+<!-- Competency Card 03 -->
+<div class="bg-surface-container p-space-lg rounded-lg flex flex-col justify-between gap-space-md shadow-md hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-tertiary text-2xl">accessibility_new</span>
+<span class="font-label-counter text-label-counter text-text-secondary">03</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Experiência do Utilizador (UX) &amp; Acessibilidade (a11y)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Conformidade rigorosa com diretrizes WCAG 2.1 AAA, desenho de fluxos sem atrito cognitivo e ergonomia perceptual para decisões críticas.
+            </p>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-tertiary uppercase">// WCAG 2.1 AAA · REDUCED COGNITIVE LOAD</div>
+</div>
+<!-- Competency Card 04 -->
+<div class="bg-surface-container p-space-lg rounded-lg flex flex-col justify-between gap-space-md shadow-md hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary-container text-2xl">sync_alt</span>
+<span class="font-label-counter text-label-counter text-text-secondary">04</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Integração Frontend/Backend &amp; State</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Consumo otimizado de APIs REST e WebSockets, gerenciamento de estado previsível e desacoplamento defensivo contra falhas de rede.
+            </p>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-primary-container uppercase">// OPTIMISTIC UPDATES · DEFENSIVE NETWORKING</div>
+</div>
+<!-- Competency Card 05 -->
+<div class="bg-surface-container p-space-lg rounded-lg flex flex-col justify-between gap-space-md shadow-md hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary-fixed text-2xl">dashboard_customize</span>
+<span class="font-label-counter text-label-counter text-text-secondary">05</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Design Systems Escaláveis</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Criação e governança de tokens de design, componentes canônicos reutilizáveis e documentação rigorosa com integração a ferramentas de prototipação.
+            </p>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-secondary-fixed uppercase">// SYSTEM TOKENS · ATOMIC CONSISTENCY</div>
+</div>
+<!-- Competency Card 06 -->
+<div class="bg-surface-container p-space-lg rounded-lg flex flex-col justify-between gap-space-md shadow-md hover:bg-surface-container-high transition-colors">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-tertiary-fixed text-2xl">rocket_launch</span>
+<span class="font-label-counter text-label-counter text-text-secondary">06</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-text-primary">Otimização de Performance Web</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Maximização de Core Web Vitals, SSR/SSG balanceado, code splitting refinado e minificação granular de pacotes para velocidade de carregamento instantânea.
+            </p>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-tertiary-fixed uppercase">// ZERO BLOAT · TURBO SSR · SUB-SECOND HYDRATION</div>
+</div>
+</div>
+</div>
+<!-- Mastered Stacks & Technologies -->
+<div class="flex flex-col gap-space-lg pt-space-md">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-xs">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-secondary uppercase tracking-widest">// MATRIX DE FERRAMENTAL</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary">Stacks &amp; Tecnologias Dominadas</h2>
+</div>
+<span class="font-label-code text-label-code text-text-secondary">[STACK_VERIFIED: LEVEL_PRODUCTION]</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Stack Item 1 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">TypeScript &amp; ESNext</span>
+<span class="font-label-telemetry text-label-telemetry px-space-xs py-space-xs rounded bg-surface-container-high text-primary">CORE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Tipagem estrita, inferência avançada de tipos, utilitários funcionais e compilação de alta confiabilidade operacional.
+          </p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-primary h-full w-[95%]"></div>
+</div>
+</div>
+<!-- Stack Item 2 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">Next.js &amp; React Core</span>
+<span class="font-label-telemetry text-label-telemetry px-space-xs py-space-xs rounded bg-surface-container-high text-secondary">FRAMEWORK</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            App Router, Server Components, rotas dinâmicas, streaming SSR e hidratação seletiva de componentes client-side.
+          </p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-secondary h-full w-[96%]"></div>
+</div>
+</div>
+<!-- Stack Item 3 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">Tailwind CSS &amp; Design Tokens</span>
+<span class="font-label-telemetry text-label-telemetry px-space-xs py-space-xs rounded bg-surface-container-high text-tertiary">STYLING</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Arquitetura orientada a tokens semânticos, zero-runtime overhead, temas cybernetic precisos e consistência visual rigorosa.
+          </p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-tertiary h-full w-[98%]"></div>
+</div>
+</div>
+<!-- Stack Item 4 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">WebSockets &amp; Streaming UI</span>
+<span class="font-label-telemetry text-label-telemetry px-space-xs py-space-xs rounded bg-surface-container-high text-primary-container">DATA FLOW</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Sockets bidirecionais resilientes, buffer de eventos em memória local e reconstituição imediata de interfaces de telemetria.
+          </p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-primary-container h-full w-[90%]"></div>
+</div>
+</div>
+<!-- Stack Item 5 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">Component Systems &amp; Storybook</span>
+<span class="font-label-telemetry text-label-telemetry px-space-xs py-space-xs rounded bg-surface-container-high text-secondary-container">CATALOG</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Isolamento de micro-componentes, testes visuais de regressão e documentação viva de design tokens para equipes multidisciplinares.
+          </p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-secondary-container h-full w-[92%]"></div>
+</div>
+</div>
+<!-- Stack Item 6 -->
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-text-primary">Vite &amp; Build Tooling Moderno</span>
+<span class="font-label-telemetry text-label-telemetry px-space-xs py-space-xs rounded bg-surface-container-high text-tertiary-fixed-dim">TOOLING</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Hot Module Replacement sub-segundo, rollups customizados, bundling otimizado e integração estreita com esteiras de CI/CD.
+          </p>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden mt-space-xs">
+<div class="bg-tertiary-fixed-dim h-full w-[94%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Architectural Contributions & Highlight Cases -->
+<div class="flex flex-col gap-space-lg pt-space-md">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase tracking-widest">// REGISTROS DE ENGENHARIA APLICADA</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary">Contribuições &amp; Arquiteturas de Destaque na Código Binário</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- Case A -->
+<div class="bg-bg-surface-elevated p-space-lg rounded-xl flex flex-col justify-between gap-space-lg shadow-xl relative overflow-hidden group">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase">[CASE REF: ARCH-01]</span>
+<span class="material-symbols-outlined text-primary text-xl">query_stats</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-text-primary">Binary Diagnostic Interativo &amp; Telemetria</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Arquitetura ponta a ponta do pipeline de diagnóstico autônomo da Código Binário. O sistema calcula a maturidade de IA em tempo real com renderização reativa sem recarregar a página.
+            </p>
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col gap-space-xs font-label-code text-label-code">
+<span class="text-text-secondary">// IMPACT METRICS</span>
+<span class="text-primary">&gt; 99.8% Completion Rate</span>
+<span class="text-on-surface">&gt; Latência de Avaliação: 18ms</span>
+</div>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">
+            STACK // NEXT.JS, REACT STATE, TAILWIND TOKENS
+          </div>
+</div>
+<!-- Case B -->
+<div class="bg-bg-surface-elevated p-space-lg rounded-xl flex flex-col justify-between gap-space-lg shadow-xl relative overflow-hidden group">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-telemetry text-label-telemetry text-secondary uppercase">[CASE REF: ARCH-02]</span>
+<span class="material-symbols-outlined text-secondary text-xl">view_in_ar</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-text-primary">Biblioteca de Componentes Instantâneos</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Desenvolvimento de um sistema canônico de componentes de missão crítica, com bundle zero-fat, tempo de hidratação sub-100ms e controle granular de estados de erro sistêmicos.
+            </p>
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col gap-space-xs font-label-code text-label-code">
+<span class="text-text-secondary">// IMPACT METRICS</span>
+<span class="text-secondary">&gt; Bundle Size Reduction: -42%</span>
+<span class="text-on-surface">&gt; 100% Reusabilidade em Produtos</span>
+</div>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">
+            STACK // TYPESCRIPT, STORYBOOK, TAILWIND ENGINE
+          </div>
+</div>
+<!-- Case C -->
+<div class="bg-bg-surface-elevated p-space-lg rounded-xl flex flex-col justify-between gap-space-lg shadow-xl relative overflow-hidden group">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-telemetry text-label-telemetry text-tertiary uppercase">[CASE REF: ARCH-03]</span>
+<span class="material-symbols-outlined text-tertiary text-xl">stream</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-text-primary">Interface de Streaming de Dados em Tempo Real</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+              Construção do painel de controle operacional de nós neurais com fluxo contínuo via WebSockets, atualizações em tela a 60fps sem engasgos de processamento no navegador.
+            </p>
+<div class="bg-surface-container-lowest p-space-md rounded-lg flex flex-col gap-space-xs font-label-code text-label-code">
+<span class="text-text-secondary">// IMPACT METRICS</span>
+<span class="text-tertiary">&gt; Zero Frame Drops a 60 FPS</span>
+<span class="text-on-surface">&gt; WebSockets Resilientes com Reconexão Instantânea</span>
+</div>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">
+            STACK // WEBSOCKETS, REACT CONCURRENCY, TS
+          </div>
+</div>
+</div>
+</div>
+<!-- Targeted System CTA -->
+<div class="relative bg-bg-surface-elevated rounded-xl p-space-xl overflow-hidden shadow-2xl mt-space-md">
+<div class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-xl">
+<div class="flex flex-col gap-space-sm max-w-2xl">
+<div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-primary uppercase">
+<span class="material-symbols-outlined text-sm">precision_manufacturing</span>
+<span>ENGENHARIA DE PRODUTO &amp; INTERFACES AVANÇADAS</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+            Quer transformar dados e sistemas complexos em uma interface que seus usuários realmente usam?
+          </h2>
+<p class="font-body-md text-body-md text-text-secondary">
+            Avalie a eficiência da sua camada de frontend, seus sistemas de design e a ergonomia operacional das suas plataformas com o núcleo de arquitetura da Código Binário.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md w-full lg:w-auto">
+<a class="inline-flex items-center justify-center px-space-xl py-space-md rounded bg-primary-container text-on-primary-container font-headline-sm text-headline-sm font-semibold uppercase tracking-wider hover:bg-primary transition-all duration-200 shadow-[0_0_24px_rgba(0,229,153,0.25)] text-center" data-path="diagnostico" href="#">
+            [INICIAR DIAGNÓSTICO DE PRODUTO &amp; FRONTEND →]
+          </a>
+</div>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full bg-surface-container-low mt-space-xl"><div class="w-full px-gutter md:px-margin py-space-xl flex flex-col gap-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary">dns</span><span class="font-headline-sm text-headline-sm text-on-surface">CÓDIGO BINÁRIO</span></div><p class="font-body-sm text-body-sm text-text-secondary">Engenharia de sistemas soberanos, modelos autônomos e infraestrutura digital de alta precisão.</p><div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span>LATENCY: 12ms // ALL NODES SYNCHRONIZED</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// NAVEGAÇÃO</span><nav class="flex flex-col gap-space-xs" data-active-classes="text-primary font-bold"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="inicio" href="#">Início</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="solucoes" href="#">Soluções</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="projetos" href="#">Projetos</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="developers" href="#">Developers</a></nav></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// ARQUITETURA &amp; STACK</span><ul class="flex flex-col gap-space-xs font-label-code text-label-code text-on-surface-variant"><li>&gt; Autonomous AI Engines</li><li>&gt; Distributed Low-Latency Systems</li><li>&gt; Edge Computing Protocols</li><li>&gt; Sovereign Security Enclaves</li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// CONEXÃO DIRETA</span><span class="font-label-code text-label-code text-on-surface">eng@codigobinario.io</span><span class="font-body-sm text-body-sm text-text-secondary">São Paulo // Global Command Core</span><a class="font-label-telemetry text-label-telemetry text-primary hover:text-tertiary transition-colors uppercase" data-path="diagnostico" href="#">[/diagnostic_request →]</a></div></div><div class="pt-space-md flex flex-col md:flex-row items-center justify-between gap-space-md font-label-telemetry text-label-telemetry text-text-secondary"><div class="flex items-center gap-space-sm"><span>© 2026 CÓDIGO BINÁRIO // ALL SYSTEMS OPERATIONAL</span></div><div class="flex items-center gap-space-lg"><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacidade" href="#">PRIVACIDADE</a><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="termos" href="#">TERMOS DE SERVIÇO</a><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="telemetria" href="#">STATUS DO SISTEMA</a></div></div></div></footer></body></html>

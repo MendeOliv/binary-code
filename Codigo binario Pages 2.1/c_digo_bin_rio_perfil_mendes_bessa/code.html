@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#4edea3", "on-secondary": "#003642", "on-background": "#d4e4fa", "on-error": "#690005", "border-subtle": "rgba(255, 255, 255, 0.08)", "on-tertiary-container": "#006141", "surface-variant": "#273647", "surface-bright": "#2c3a4c", "primary-container": "#00e599", "on-surface-variant": "#bacbbe", "error-container": "#93000a", "surface-dim": "#051424", "tertiary-fixed": "#6ffbbe", "on-tertiary": "#003824", "surface-container-lowest": "#010f1f", "bg-surface-overlay": "#162026", "on-error-container": "#ffdad6", "on-primary-fixed": "#002112", "primary": "#6dffba", "secondary-container": "#00b2d6", "on-surface": "#d4e4fa", "text-tertiary": "#475569", "tertiary": "#72fec0", "secondary": "#4cd6fb", "on-secondary-fixed": "#001f27", "system-cyan-glow": "rgba(0, 180, 216, 0.14)", "surface-tint": "#00e297", "outline": "#849589", "on-secondary-container": "#003f4e", "secondary-fixed": "#b3ebff", "surface": "#051424", "border-highlight": "rgba(0, 229, 153, 0.35)", "background": "#051424", "on-primary-container": "#00613e", "surface-container-high": "#1c2b3c", "surface-container": "#122131", "inverse-primary": "#006c46", "surface-container-low": "#0d1c2d", "on-tertiary-fixed-variant": "#005236", "inverse-surface": "#d4e4fa", "text-primary": "#F1F5F9", "bg-surface-elevated": "#10171B", "system-emerald-glow": "rgba(0, 229, 153, 0.12)", "secondary-fixed-dim": "#4cd6fb", "surface-container-highest": "#273647", "tertiary-container": "#51e1a5", "bg-surface-base": "#0B0F12", "primary-fixed": "#4dffb2", "on-tertiary-fixed": "#002113", "on-secondary-fixed-variant": "#004e5f", "primary-fixed-dim": "#00e297", "text-secondary": "#94A3B8", "on-primary-fixed-variant": "#005234", "outline-variant": "#3b4a41", "inverse-on-surface": "#233143", "bg-canvas": "#080C0E", "error": "#ffb4ab", "on-primary": "#003822" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2.5rem", "gutter": "1.5rem", "margin": "3rem", "space-md": "1rem", "gutter-mobile": "1rem", "margin-mobile": "1.25rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-md": [ "Geist" ], "label-telemetry": [ "JetBrains Mono" ], "label-code": [ "JetBrains Mono" ], "headline-lg-mobile": [ "Geist" ], "body-md": [ "Inter" ], "display-mobile": [ "Geist" ], "display": [ "Geist" ], "body-sm": [ "Inter" ], "headline-lg": [ "Geist" ], "headline-sm": [ "Geist" ], "label-counter": [ "JetBrains Mono" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-md": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "label-telemetry": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "label-code": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "display-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "display": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "body-sm": [ "13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-counter": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.08)]"><div class="h-20 w-full px-gutter md:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-2xl">terminal</span><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">CÓDIGO BINÁRIO</span><span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// AI &amp; SYSTEM ARCHITECTURE</span></div></div><div class="hidden xl:flex items-center gap-space-sm px-space-sm py-space-xs rounded bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-telemetry text-label-telemetry text-on-surface-variant tracking-wider uppercase">KERNEL: OPERATIONAL // SYSTEM: READY</span></div></div><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="text-primary font-bold"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="inicio" href="#">Início</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="solucoes" href="#">Soluções</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="projetos" href="#">Projetos</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="developers" href="#">Developers</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="diagnostico" href="#">Diagnóstico</a></nav><div class="flex items-center gap-space-md"><a class="inline-flex items-center justify-center px-space-md py-space-xs rounded bg-primary-container text-on-primary-container font-label-code text-label-code uppercase tracking-wider hover:bg-primary transition-colors shadow-[0_0_16px_rgba(0,229,153,0.2)]" data-path="diagnostico" href="#">[INICIAR DIAGNÓSTICO →]</a><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WXVvggSJURYpSJjJwtrvCgIkyl9aOVFF0kzlkk2jh4QVd3l94b1gIjKy8pwAMhCMeiCyOAeopF_tMvsQCfHl7q5vGwPa8VVgjxzNNukAwRUU7pUW_g-PFoaAkw_VkuxERDqYFLmGM-eiQ0DImoi_caCzQ90Ehn72ceIXfpYCJikUFvpKxfsRNUoXPQDkJfoxVAXkhlq8pz3qiXAPjHvqLky-tnRJ_Jue-TbqKFroYorxt3mLqqJbM_1hHZAz0hrqmSprpnwhBRow"/></div></div></header><main class="w-full pt-20 bg-surface"><div class="flex flex-col w-full">
+<!-- SYSTEM NAVIGATION & BREADCRUMB STRIP -->
+<section class="w-full px-gutter md:px-margin pt-space-lg pb-space-md bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm font-label-telemetry text-label-telemetry tracking-widest text-text-secondary">
+<span class="text-on-surface-variant">// EQUIPE DE ENGENHARIA</span>
+<span class="text-text-tertiary">&gt;</span>
+<span class="text-on-surface-variant">PERFIL DE SISTEMA</span>
+<span class="text-text-tertiary">&gt;</span>
+<span class="text-primary font-bold">[MENDES BESSA]</span>
+</div>
+<a class="inline-flex items-center gap-space-xs font-label-code text-label-code text-primary hover:text-tertiary transition-colors group" data-path="developers" href="#">
+<span class="transition-transform group-hover:-translate-x-1">←</span>
+<span>Voltar para Equipe</span>
+</a>
+</div>
+</section>
+<!-- HERO SECTION: PROFILE CORE & TELEMETRY IDENTITY -->
+<section class="w-full px-gutter md:px-margin py-space-xl bg-surface">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- AVATAR & TECHNICAL OPERATOR MATRIX -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="relative bg-surface-container-low rounded-lg p-space-md overflow-hidden shadow-2xl">
+<!-- Specular corner indicator -->
+<div class="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary-container/15 via-transparent to-transparent pointer-events-none"></div>
+<div class="flex items-center justify-between font-label-telemetry text-label-telemetry text-text-secondary pb-space-sm">
+<span class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+              STATUS: ACTIVE
+            </span>
+<span class="text-primary font-label-code tracking-wider">[SYS-AUTH: VERIFIED]</span>
+</div>
+<!-- Official Photo with Cybernetic Frame -->
+<div class="relative w-full aspect-square rounded overflow-hidden bg-bg-surface-base shadow-inner">
+<img alt="Mendes Bessa - AI &amp; Systems Developer" class="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8XKLRpp_9RgQKve7r6bU8tgDeTjSQnMuifD8QE_EPd_Mo95npZstyUtrWhOg23TpTEuv1QWsjBXzSreRXRmdAPogkrrxmHV93c3sUN9f5FAwe8cQyxAAdRWhCCGMNCXRhlaH4cTutgt24m7KFj_8IPZMJ8IWQo-Q0OIaYrSE4mNAjzJ74_cJ3iNptCRtREEBQBwfDMmLsLkRkuuAUhzff9M237baEnsKIiK__sswB1eR2spcsGzXRdGS2cLz2h5GZlQ"/>
+<!-- Scanline / Telemetry overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-bg-surface-base via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-space-sm left-space-sm right-space-sm flex items-center justify-between font-label-telemetry text-label-telemetry">
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base/90 text-primary uppercase font-bold tracking-wider">NODE // CB-DEV-02</span>
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high/90 text-on-surface-variant">LATENCY &lt; 8ms</span>
+</div>
+</div>
+<!-- Verified Hardware & System Nodes -->
+<div class="mt-space-md flex flex-col gap-space-xs bg-bg-surface-elevated p-space-sm rounded font-label-telemetry text-label-telemetry text-text-secondary">
+<div class="flex items-center justify-between">
+<span class="text-text-tertiary uppercase">// CLUSTER:</span>
+<span class="text-on-surface font-semibold">AI &amp; CORE ARCHITECTURE</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-text-tertiary uppercase">// THREADS:</span>
+<span class="text-primary font-label-code">DETERMINISTIC_RUNTIME</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-text-tertiary uppercase">// SECURITY PROTOCOL:</span>
+<span class="text-on-surface-variant">ENCLAVE-ISOLATED</span>
+</div>
+</div>
+<!-- Redes Sociais Oficiais -->
+<div class="mt-space-md pt-space-sm flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase tracking-widest">// COMUNICAÇÃO &amp; CANAIS OFICIAIS</span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-xs pt-space-xs">
+<a class="flex items-center justify-center gap-1.5 px-space-sm py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary transition-colors font-label-code text-label-code" href="https://github.com/MendeOliv" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-sm">code</span>
+<span>GitHub</span>
+</a>
+<a class="flex items-center justify-center gap-1.5 px-space-sm py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary transition-colors font-label-code text-label-code" href="https://www.linkedin.com/in/fábio-bessa-de-oliveira-aa8956388/" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-sm">badge</span>
+<span>LinkedIn</span>
+</a>
+<a class="flex items-center justify-center gap-1.5 px-space-sm py-space-xs rounded bg-surface-container hover:bg-surface-container-high text-on-surface hover:text-primary transition-colors font-label-code text-label-code" href="https://www.instagram.com/oliver_fbo7/" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-sm">alternate_email</span>
+<span>Instagram</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- PROFILE HEADER & TECHNICAL ABSTRACT -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<div class="inline-flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-primary tracking-widest uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+            SYSTEMS ARCHITECT • SOVEREIGN CORE
+          </div>
+<h1 class="font-display text-display text-text-primary tracking-tight">Mendes Bessa</h1>
+<p class="font-headline-sm text-headline-sm text-secondary tracking-normal">
+            AI &amp; Systems Developer • Engenheiro Informático
+          </p>
+</div>
+<!-- Resumo Técnico Box -->
+<div class="bg-surface-container-low p-space-lg rounded-lg shadow-md relative overflow-hidden">
+<div class="absolute top-0 right-0 p-space-sm font-label-counter text-label-counter text-text-tertiary">01 / OVERVIEW</div>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed">
+            Engenheiro focado em transformar problemas abstratos em sistemas determinísticos, agentes autônomos e pipelines de alta velocidade e automação integrada. Constrói a ponte entre a inteligência computacional e a infraestrutura corporativa resiliente.
+          </p>
+</div>
+<!-- Telemetry Metadata Quad -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="bg-bg-surface-elevated p-space-md rounded">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// IDENTIFICADOR DE NÓ</span>
+<div class="font-label-counter text-label-counter text-primary mt-1">CB-DEV-02</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Nó Central de Engenharia de Automação</p>
+</div>
+<div class="bg-bg-surface-elevated p-space-md rounded">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// TOPOLOGIA GEOGRÁFICA</span>
+<div class="font-label-counter text-label-counter text-on-surface mt-1">São Paulo / Remoto Distribuído</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Cobertura Global de Fuso Horário</p>
+</div>
+<div class="bg-bg-surface-elevated p-space-md rounded">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// FORMAÇÃO ACADÊMICA</span>
+<div class="font-label-counter text-label-counter text-on-surface mt-1">Engenharia Informática</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Foco em Computação Distribuída e Algoritmos</p>
+</div>
+<div class="bg-bg-surface-elevated p-space-md rounded">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// VETOR ESTRATÉGICO</span>
+<div class="font-label-counter text-label-counter text-primary mt-1">AI &amp; Automação Soberana</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Pipelines de Decisão e Agentes Inteligentes</p>
+</div>
+</div>
+<!-- Direct Action Bar -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center justify-center gap-space-sm px-space-lg py-space-sm rounded bg-primary-container text-on-primary-container font-label-code text-label-code uppercase tracking-wider hover:bg-primary transition-all shadow-[0_0_20px_rgba(0,229,153,0.25)] font-bold" href="#cta-diagnostic">
+<span>[SOLICITAR SESSÃO COM MENDES →]</span>
+</a>
+<div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-text-secondary">
+<span class="material-symbols-outlined text-primary text-base">verified_user</span>
+<span>CAPACIDADE ATIVA: PROJETOS CRÍTICOS &amp; RAG</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- TECHNICAL DOMAINS & SYSTEM ARCHITECTURE MATRIX -->
+<section class="w-full px-gutter md:px-margin py-space-xl bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm pb-space-sm">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase tracking-widest">// DOMÍNIOS DE ATUAÇÃO DETERMINÍSTICA</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Competências Técnicas &amp; Domínios</h2>
+</div>
+<div class="font-label-telemetry text-label-telemetry text-text-secondary">
+          ESFERA OPERACIONAL: PRODUTO • MODELO • INFRA
+        </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Domain 1: AI & LLMs -->
+<div class="bg-surface-container-low p-space-lg rounded flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-2xl">neurology</span>
+<span class="font-label-counter text-label-counter text-text-tertiary">01</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Inteligência Artificial &amp; LLMs</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Desenvolvimento de arquiteturas RAG de alta fidelidade, embeddings semânticos em bancos vetoriais, fine-tuning contextual e orquestração de agentes com árvores de raciocínio determinísticas.
+            </p>
+</div>
+<div class="pt-space-md mt-space-md flex flex-wrap gap-1">
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-primary font-label-telemetry text-label-telemetry">RAG</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">FINE-TUNING</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">AGENTS</span>
+</div>
+</div>
+<!-- Domain 2: Automation & Workflows -->
+<div class="bg-surface-container-low p-space-lg rounded flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary text-2xl">account_tree</span>
+<span class="font-label-counter text-label-counter text-text-tertiary">02</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Automação de Workflows Complexos</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Integração extensiva via n8n autônomo, barramentos de mensageria, webhooks assíncronos, WhatsApp Cloud API oficial e pontes resilientes com ERPs corporativos legados.
+            </p>
+</div>
+<div class="pt-space-md mt-space-md flex flex-wrap gap-1">
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-secondary font-label-telemetry text-label-telemetry">n8n</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">REST APIS</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">WEBHOOKS</span>
+</div>
+</div>
+<!-- Domain 3: Software Engineering -->
+<div class="bg-surface-container-low p-space-lg rounded flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-tertiary text-2xl">terminal</span>
+<span class="font-label-counter text-label-counter text-text-tertiary">03</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Software Engineering de Precisão</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Construção em Python, C++ e scripts determinísticos em MQL5. Criação de backends de ultra-baixa latência, estruturas concorrentes e tratamento estrito de dados financeiros e operacionais.
+            </p>
+</div>
+<div class="pt-space-md mt-space-md flex flex-wrap gap-1">
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-tertiary font-label-telemetry text-label-telemetry">PYTHON</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">C++</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">MQL5</span>
+</div>
+</div>
+<!-- Domain 4: Infrastructure & Enclaves -->
+<div class="bg-surface-container-low p-space-lg rounded flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-2xl">dns</span>
+<span class="font-label-counter text-label-counter text-text-tertiary">04</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Infraestrutura &amp; Enclaves Linux</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Implantação e gestão de ambientes bare-metal, conteinerização avançada com Docker, segurança de chaves e orquestração soberana de instâncias locais de inferência de IA.
+            </p>
+</div>
+<div class="pt-space-md mt-space-md flex flex-wrap gap-1">
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-primary font-label-telemetry text-label-telemetry">DOCKER</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">LINUX</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">SOVEREIGN OLLAMA</span>
+</div>
+</div>
+<!-- Domain 5: Cognitive Architecture -->
+<div class="bg-surface-container-low p-space-lg rounded flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-secondary text-2xl">psychology_alt</span>
+<span class="font-label-counter text-label-counter text-text-tertiary">05</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Prompt Engineering &amp; Cognição</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Design estruturado de prompts de sistema com garantia de esquemas JSON restritivos, prevenção ativa de alucinações e encadeamento lógico via Few-Shot e Chain-of-Thought formal.
+            </p>
+</div>
+<div class="pt-space-md mt-space-md flex flex-wrap gap-1">
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-secondary font-label-telemetry text-label-telemetry">CHAIN-OF-THOUGHT</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">STRUCTURED JSON</span>
+</div>
+</div>
+<!-- Domain 6: Digital Products & MVPs -->
+<div class="bg-surface-container-low p-space-lg rounded flex flex-col justify-between group hover:bg-surface-container transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary-container text-2xl">rocket_launch</span>
+<span class="font-label-counter text-label-counter text-text-tertiary">06</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Produtos Digitais &amp; MVPs</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Velocidade extrema de prototipação de sistemas de alto impacto. Transformação de teses de negócio técnico em plataformas funcionais prontas para validação de mercado em dias, não meses.
+            </p>
+</div>
+<div class="pt-space-md mt-space-md flex flex-wrap gap-1">
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-primary-container font-label-telemetry text-label-telemetry">RAPID PROTOTYPING</span>
+<span class="px-space-xs py-0.5 rounded bg-bg-surface-base text-on-surface-variant font-label-telemetry text-label-telemetry">ENTERPRISE MVP</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- STACKS & PRODUCTION PROFICIENCY (TELEMETRY BADGES) -->
+<section class="w-full px-gutter md:px-margin py-space-xl bg-surface">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase tracking-widest">// MATRIZ DE DOMÍNIO TÉCNICO</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Stacks &amp; Ferramentas em Produção</h2>
+<p class="font-body-md text-body-md text-text-secondary max-w-2xl">
+          Tecnologias testadas em carga contínua e pipelines de missão crítica com telemetria monitorada.
+        </p>
+</div>
+<!-- Telemetry Data Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+<!-- Stack 1 -->
+<div class="bg-surface-container-high p-space-md rounded flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">code_blocks</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Python Engine</span>
+</div>
+<span class="font-label-code text-label-code text-primary bg-bg-surface-base px-2 py-0.5 rounded">98% PROFICIENT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">FastAPI, LangChain, LlamaIndex, Pydantic, AsyncIO.</p>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden mt-1">
+<div class="bg-primary-container h-full w-[98%]"></div>
+</div>
+<div class="flex justify-between items-center font-label-telemetry text-label-telemetry text-text-tertiary">
+<span>EXPERIÊNCIA: 4+ ANOS</span>
+<span class="text-primary font-bold">[CORE DRIVER]</span>
+</div>
+</div>
+<!-- Stack 2 -->
+<div class="bg-surface-container-high p-space-md rounded flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-xl">precision_manufacturing</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">C++ &amp; MQL5</span>
+</div>
+<span class="font-label-code text-label-code text-secondary bg-bg-surface-base px-2 py-0.5 rounded">92% PROFICIENT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">Sistemas algorítmicos, motores de execução determinística e análise quantitativa.</p>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden mt-1">
+<div class="bg-secondary-container h-full w-[92%]"></div>
+</div>
+<div class="flex justify-between items-center font-label-telemetry text-label-telemetry text-text-tertiary">
+<span>EXPERIÊNCIA: 3+ ANOS</span>
+<span class="text-secondary font-bold">[DETERMINISTIC]</span>
+</div>
+</div>
+<!-- Stack 3 -->
+<div class="bg-surface-container-high p-space-md rounded flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-xl">sync_alt</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">n8n &amp; Workflows</span>
+</div>
+<span class="font-label-code text-label-code text-tertiary bg-bg-surface-base px-2 py-0.5 rounded">99% PROFICIENT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">Automações autônomas, triggers assíncronos, pipelines multietapa com fallback.</p>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden mt-1">
+<div class="bg-tertiary h-full w-[99%]"></div>
+</div>
+<div class="flex justify-between items-center font-label-telemetry text-label-telemetry text-text-tertiary">
+<span>EXPERIÊNCIA: PRODUÇÃO ENTERPRISE</span>
+<span class="text-tertiary font-bold">[ORCHESTRATOR]</span>
+</div>
+</div>
+<!-- Stack 4 -->
+<div class="bg-surface-container-high p-space-md rounded flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-xl">database</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Vector Databases</span>
+</div>
+<span class="font-label-code text-label-code text-primary bg-bg-surface-base px-2 py-0.5 rounded">94% PROFICIENT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">Qdrant, Pinecone, ChromaDB, PGVector. Otimização de distância de cosseno e HNSW.</p>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden mt-1">
+<div class="bg-primary-container h-full w-[94%]"></div>
+</div>
+<div class="flex justify-between items-center font-label-telemetry text-label-telemetry text-text-tertiary">
+<span>RETRIEVAL OPTIMIZATION</span>
+<span class="text-primary font-bold">[SEMANTIC CORE]</span>
+</div>
+</div>
+<!-- Stack 5 -->
+<div class="bg-surface-container-high p-space-md rounded flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-xl">smart_toy</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">LLMs &amp; SLMs</span>
+</div>
+<span class="font-label-code text-label-code text-secondary bg-bg-surface-base px-2 py-0.5 rounded">96% PROFICIENT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">OpenAI Enterprise, Meta Llama 3, Mistral, Ollama em hardware local soberano.</p>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden mt-1">
+<div class="bg-secondary-container h-full w-[96%]"></div>
+</div>
+<div class="flex justify-between items-center font-label-telemetry text-label-telemetry text-text-tertiary">
+<span>LOCAL + HYBRID CLOUD</span>
+<span class="text-secondary font-bold">[COGNITIVE RUNTIME]</span>
+</div>
+</div>
+<!-- Stack 6 -->
+<div class="bg-surface-container-high p-space-md rounded flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-tertiary text-xl">deployed_code</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Docker &amp; Linux Enclaves</span>
+</div>
+<span class="font-label-code text-label-code text-tertiary bg-bg-surface-base px-2 py-0.5 rounded">95% PROFICIENT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-secondary">Orquestração de containers, otimização de imagens CUDA e pipelines CI/CD seguros.</p>
+<div class="w-full bg-surface-container-lowest h-1.5 rounded overflow-hidden mt-1">
+<div class="bg-tertiary h-full w-[95%]"></div>
+</div>
+<div class="flex justify-between items-center font-label-telemetry text-label-telemetry text-text-tertiary">
+<span>HARDENED LINUX</span>
+<span class="text-tertiary font-bold">[INFRA ENCLAVE]</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- HIGHLIGHT ARCHITECTURES & PRODUCTION CASES AT CÓDIGO BINÁRIO -->
+<section class="w-full px-gutter md:px-margin py-space-xl bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase tracking-widest">// ENGENHARIA APLICADA NA CÓDIGO BINÁRIO</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">Contribuições &amp; Arquiteturas de Destaque</h2>
+<p class="font-body-md text-body-md text-text-secondary max-w-2xl">
+          Sistemas concebidos e implementados sob a liderança técnica de Mendes Bessa para operações de grande escala.
+        </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-lg">
+<!-- Case A -->
+<div class="bg-surface p-space-lg rounded-lg flex flex-col justify-between shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-space-sm font-label-counter text-label-counter text-primary">CASE // 01</div>
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs text-primary font-label-telemetry text-label-telemetry">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+              DIAGNOSTIC ENGINE
+            </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Arquitetura do Binary Diagnostic</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Motor de classificação avançada de escopo com raciocínio guiado. O sistema avalia a maturidade tecnológica corporativa, pondera gargalos operacionais e formula um roadmap de execução matematicamente estruturado.
+            </p>
+<div class="bg-bg-surface-elevated p-space-sm rounded font-label-code text-label-code text-on-surface-variant flex flex-col gap-1">
+<div class="text-text-tertiary">// TELEMETRIA DO SISTEMA</div>
+<div>&gt; Raciocínio: Zero-shot + Chain-of-Thought</div>
+<div>&gt; Latência média: 480ms / step</div>
+<div>&gt; Acurácia de Classificação: 99.4%</div>
+</div>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between font-label-telemetry text-label-telemetry text-text-secondary">
+<span>STACK: PYTHON / LLAMAINDEX / FASTAPI</span>
+<span class="text-primary font-bold">[PRODUÇÃO]</span>
+</div>
+</div>
+<!-- Case B -->
+<div class="bg-surface p-space-lg rounded-lg flex flex-col justify-between shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-space-sm font-label-counter text-label-counter text-secondary">CASE // 02</div>
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs text-secondary font-label-telemetry text-label-telemetry">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+              DATA EXTRACTION PIPELINE
+            </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pipeline de Agentes para Documentos</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Rede de agentes autônomos para ingestão, higienização e extração normalizada de contratos, demonstrativos financeiros e documentações não estruturadas em larga escala, com zero vazamento de dados.
+            </p>
+<div class="bg-bg-surface-elevated p-space-sm rounded font-label-code text-label-code text-on-surface-variant flex flex-col gap-1">
+<div class="text-text-tertiary">// TELEMETRIA DO SISTEMA</div>
+<div>&gt; Agentes concorrentes: 16 threads</div>
+<div>&gt; Parsing: OCR multimodal + LLM local</div>
+<div>&gt; Schema: Validação rígida via Pydantic</div>
+</div>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between font-label-telemetry text-label-telemetry text-text-secondary">
+<span>STACK: OLLAMA / QDRANT / DOCKER</span>
+<span class="text-secondary font-bold">[PRODUÇÃO]</span>
+</div>
+</div>
+<!-- Case C -->
+<div class="bg-surface p-space-lg rounded-lg flex flex-col justify-between shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-space-sm font-label-counter text-label-counter text-tertiary">CASE // 03</div>
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs text-tertiary font-label-telemetry text-label-telemetry">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+              ENTERPRISE DISPATCHER
+            </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Barramento de Automação em Tempo Real</h3>
+<p class="font-body-sm text-body-sm text-text-secondary leading-relaxed">
+              Infraestrutura orquestrada via n8n e gateways dedicados para atendimento crítico omnichannel e sincronização bidirecional com sistemas legado SAP e Salesforce sem intervenção manual.
+            </p>
+<div class="bg-bg-surface-elevated p-space-sm rounded font-label-code text-label-code text-on-surface-variant flex flex-col gap-1">
+<div class="text-text-tertiary">// TELEMETRIA DO SISTEMA</div>
+<div>&gt; Vazão: +120k requisições/dia</div>
+<div>&gt; Uptime sustentado: 99.98%</div>
+<div>&gt; Fallback autônomo por Dead Letter Queue</div>
+</div>
+</div>
+<div class="pt-space-md mt-space-md flex items-center justify-between font-label-telemetry text-label-telemetry text-text-secondary">
+<span>STACK: n8n / REDIS / WEBHOOK BUS</span>
+<span class="text-tertiary font-bold">[PRODUÇÃO]</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- EXECUTIVE CALL TO ACTION: INITIATE SINK/SESSION -->
+<section class="w-full px-gutter md:px-margin py-space-xl bg-surface" id="cta-diagnostic">
+<div class="max-w-5xl mx-auto bg-surface-container-low rounded-lg p-space-xl relative overflow-hidden shadow-2xl">
+<!-- Specular glow & background accent -->
+<div class="absolute top-0 right-0 w-80 h-80 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-center text-center gap-space-md">
+<div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-primary uppercase tracking-widest">
+<span class="material-symbols-outlined text-base">psychology</span>
+<span>// SESSÃO TÉCNICA DIRETA COM MENDES BESSA</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight max-w-2xl">
+          Deseja discutir a viabilidade de IA e automação para o seu projeto diretamente com Mendes Bessa?
+        </h2>
+<p class="font-body-md text-body-md text-text-secondary max-w-xl">
+          Submeta o diagnóstico inicial da sua operação tecnológica. Mapeamos os gargalos determinísticos e definimos se uma solução de agentes de IA é viavel e soberana para seu caso.
+        </p>
+<div class="pt-space-sm flex flex-col sm:flex-row items-center gap-space-md">
+<a class="inline-flex items-center justify-center gap-space-sm px-space-xl py-space-md rounded bg-primary-container text-on-primary-container font-headline-sm text-headline-sm uppercase tracking-wider hover:bg-primary transition-all shadow-[0_0_24px_rgba(0,229,153,0.3)] font-bold" data-path="diagnostico" href="#">
+<span>[INICIAR DIAGNÓSTICO COM FOCO EM IA &amp; AUTOMAÇÃO →]</span>
+</a>
+</div>
+<div class="pt-space-sm flex flex-wrap justify-center items-center gap-space-lg font-label-telemetry text-label-telemetry text-text-tertiary">
+<span>• SEM REUNIÕES DE VENDAS DESNECESSÁRIAS</span>
+<span>• ANÁLISE DIRETA POR ENGENHEIRO DE SISTEMAS</span>
+<span>• SIGILO E ENCLAVE GARANTIDOS</span>
+</div>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-low mt-space-xl"><div class="w-full px-gutter md:px-margin py-space-xl flex flex-col gap-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary">dns</span><span class="font-headline-sm text-headline-sm text-on-surface">CÓDIGO BINÁRIO</span></div><p class="font-body-sm text-body-sm text-text-secondary">Engenharia de sistemas soberanos, modelos autônomos e infraestrutura digital de alta precisão.</p><div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span>LATENCY: 12ms // ALL NODES SYNCHRONIZED</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// NAVEGAÇÃO</span><nav class="flex flex-col gap-space-xs" data-active-classes="text-primary font-bold"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="inicio" href="#">Início</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="solucoes" href="#">Soluções</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="projetos" href="#">Projetos</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="developers" href="#">Developers</a></nav></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// ARQUITETURA &amp; STACK</span><ul class="flex flex-col gap-space-xs font-label-code text-label-code text-on-surface-variant"><li>&gt; Autonomous AI Engines</li><li>&gt; Distributed Low-Latency Systems</li><li>&gt; Edge Computing Protocols</li><li>&gt; Sovereign Security Enclaves</li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// CONEXÃO DIRETA</span><span class="font-label-code text-label-code text-on-surface">eng@codigobinario.io</span><span class="font-body-sm text-body-sm text-text-secondary">São Paulo // Global Command Core</span><a class="font-label-telemetry text-label-telemetry text-primary hover:text-tertiary transition-colors uppercase" data-path="diagnostico" href="#">[/diagnostic_request →]</a></div></div><div class="pt-space-md flex flex-col md:flex-row items-center justify-between gap-space-md font-label-telemetry text-label-telemetry text-text-secondary"><div class="flex items-center gap-space-sm"><span>© 2026 CÓDIGO BINÁRIO // ALL SYSTEMS OPERATIONAL</span></div><div class="flex items-center gap-space-lg"><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacidade" href="#">PRIVACIDADE</a><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="termos" href="#">TERMOS DE SERVIÇO</a><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="telemetria" href="#">STATUS DO SISTEMA</a></div></div></div></footer></body></html>

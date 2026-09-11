@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "tertiary-fixed-dim": "#4edea3", "on-secondary": "#003642", "on-background": "#d4e4fa", "on-error": "#690005", "border-subtle": "rgba(255, 255, 255, 0.08)", "on-tertiary-container": "#006141", "surface-variant": "#273647", "surface-bright": "#2c3a4c", "primary-container": "#00e599", "on-surface-variant": "#bacbbe", "error-container": "#93000a", "surface-dim": "#051424", "tertiary-fixed": "#6ffbbe", "on-tertiary": "#003824", "surface-container-lowest": "#010f1f", "bg-surface-overlay": "#162026", "on-error-container": "#ffdad6", "on-primary-fixed": "#002112", "primary": "#6dffba", "secondary-container": "#00b2d6", "on-surface": "#d4e4fa", "text-tertiary": "#475569", "tertiary": "#72fec0", "secondary": "#4cd6fb", "on-secondary-fixed": "#001f27", "system-cyan-glow": "rgba(0, 180, 216, 0.14)", "surface-tint": "#00e297", "outline": "#849589", "on-secondary-container": "#003f4e", "secondary-fixed": "#b3ebff", "surface": "#051424", "border-highlight": "rgba(0, 229, 153, 0.35)", "background": "#051424", "on-primary-container": "#00613e", "surface-container-high": "#1c2b3c", "surface-container": "#122131", "inverse-primary": "#006c46", "surface-container-low": "#0d1c2d", "on-tertiary-fixed-variant": "#005236", "inverse-surface": "#d4e4fa", "text-primary": "#F1F5F9", "bg-surface-elevated": "#10171B", "system-emerald-glow": "rgba(0, 229, 153, 0.12)", "secondary-fixed-dim": "#4cd6fb", "surface-container-highest": "#273647", "tertiary-container": "#51e1a5", "bg-surface-base": "#0B0F12", "primary-fixed": "#4dffb2", "on-tertiary-fixed": "#002113", "on-secondary-fixed-variant": "#004e5f", "primary-fixed-dim": "#00e297", "text-secondary": "#94A3B8", "on-primary-fixed-variant": "#005234", "outline-variant": "#3b4a41", "inverse-on-surface": "#233143", "bg-canvas": "#080C0E", "error": "#ffb4ab", "on-primary": "#003822" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "2.5rem", "gutter": "1.5rem", "margin": "3rem", "space-md": "1rem", "gutter-mobile": "1rem", "margin-mobile": "1.25rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-md": [ "Geist" ], "label-telemetry": [ "JetBrains Mono" ], "label-code": [ "JetBrains Mono" ], "headline-lg-mobile": [ "Geist" ], "body-md": [ "Inter" ], "display-mobile": [ "Geist" ], "display": [ "Geist" ], "body-sm": [ "Inter" ], "headline-lg": [ "Geist" ], "headline-sm": [ "Geist" ], "label-counter": [ "JetBrains Mono" ], "body-lg": [ "Inter" ] }, "fontSize": { "headline-md": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.015em", "fontWeight": "600" } ], "label-telemetry": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "600" } ], "label-code": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "body-md": [ "15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "display-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "display": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "body-sm": [ "13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ], "headline-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "600" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "label-counter": [ "14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "700" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container"><header class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.08)]"><div class="h-20 w-full px-gutter md:px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-2xl">terminal</span><div class="flex flex-col"><span class="font-headline-sm text-headline-sm tracking-tight text-on-surface">CÓDIGO BINÁRIO</span><span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// AI &amp; SYSTEM ARCHITECTURE</span></div></div><div class="hidden xl:flex items-center gap-space-sm px-space-sm py-space-xs rounded bg-surface-container-low"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span><span class="font-label-telemetry text-label-telemetry text-on-surface-variant tracking-wider uppercase">KERNEL: OPERATIONAL // SYSTEM: READY</span></div></div><nav class="hidden lg:flex items-center gap-space-lg" data-active-classes="text-primary font-bold"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="inicio" href="#">Início</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="solucoes" href="#">Soluções</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="projetos" href="#">Projetos</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="developers" href="#">Developers</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="diagnostico" href="#">Diagnóstico</a></nav><div class="flex items-center gap-space-md"><a class="inline-flex items-center justify-center px-space-md py-space-xs rounded bg-primary-container text-on-primary-container font-label-code text-label-code uppercase tracking-wider hover:bg-primary transition-colors shadow-[0_0_16px_rgba(0,229,153,0.2)]" data-path="diagnostico" href="#">[INICIAR DIAGNÓSTICO →]</a><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1WXVvggSJURYpSJjJwtrvCgIkyl9aOVFF0kzlkk2jh4QVd3l94b1gIjKy8pwAMhCMeiCyOAeopF_tMvsQCfHl7q5vGwPa8VVgjxzNNukAwRUU7pUW_g-PFoaAkw_VkuxERDqYFLmGM-eiQ0DImoi_caCzQ90Ehn72ceIXfpYCJikUFvpKxfsRNUoXPQDkJfoxVAXkhlq8pz3qiXAPjHvqLky-tnRJ_Jue-TbqKFroYorxt3mLqqJbM_1hHZAz0hrqmSprpnwhBRow"/></div></div></header><main class="w-full pt-20 bg-surface"><div class="flex flex-col w-full">
+<!-- SECTION: HERO & REPOSITORY SPECS -->
+<section class="relative w-full px-gutter md:px-margin pt-space-lg pb-space-xl overflow-hidden">
+<!-- Specular ambient gradient overlay -->
+<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-primary/5 blur-[120px] pointer-events-none"></div>
+<div class="absolute top-1/4 right-0 w-80 h-80 rounded-full bg-secondary/5 blur-[100px] pointer-events-none"></div>
+<div class="max-w-7xl mx-auto flex flex-col gap-space-lg relative z-10">
+<!-- Eyebrow telemetry ribbon -->
+<div class="flex flex-wrap items-center gap-space-sm font-label-telemetry text-label-telemetry">
+<span class="px-space-sm py-0.5 rounded bg-surface-container-high text-primary tracking-widest uppercase flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+          // ARCHITECTURE DEPLOYMENTS &amp; CASES
+        </span>
+<span class="text-text-tertiary">/</span>
+<span class="text-on-surface-variant uppercase tracking-wider">SEC_ENV: PRODUCTION SOVEREIGN</span>
+<span class="text-text-tertiary">/</span>
+<span class="text-secondary-fixed-dim uppercase tracking-wider">VERIFIED DEPLOYMENTS: 04 ACTIVE</span>
+</div>
+<!-- Hero Title with controlled brutalism scale -->
+<div class="flex flex-col gap-space-sm max-w-5xl">
+<h1 class="font-display text-headline-lg md:text-display text-text-primary tracking-tight">
+          Engenharia em Produção: Sistemas, IA e Automação de Alto Impacto.
+        </h1>
+<p class="font-body-lg text-body-lg text-text-secondary max-w-4xl leading-relaxed">
+          Portfólio de arquitetura aplicada. Não apresentamos protótipos de laboratório ou telas ilustrativas — cada case documenta a resolução determinística de gargalos reais de negócio com telemetria, segurança e desempenho comprovados.
+        </p>
+</div>
+<!-- Live Pipeline Overview Metric strip -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm p-space-sm bg-surface-container-low rounded">
+<div class="flex flex-col p-space-sm bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// UPTIME MÉDIO CONSOLIDADO</span>
+<span class="font-label-counter text-label-counter text-primary mt-1">99.985%</span>
+<span class="font-body-sm text-body-sm text-text-tertiary">Monitoramento contínuo L0/L1</span>
+</div>
+<div class="flex flex-col p-space-sm bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// TEMPO DE RESPOSTA P95</span>
+<span class="font-label-counter text-label-counter text-secondary mt-1">&lt; 150ms</span>
+<span class="font-body-sm text-body-sm text-text-tertiary">Edge &amp; In-Memory Routing</span>
+</div>
+<div class="flex flex-col p-space-sm bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// REDUÇÃO DE CUSTO MÉDIA</span>
+<span class="font-label-counter text-label-counter text-primary mt-1">-68.4%</span>
+<span class="font-body-sm text-body-sm text-text-tertiary">Migração Bare-Metal &amp; RAG</span>
+</div>
+<div class="flex flex-col p-space-sm bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// EXECUÇÃO DETERMINÍSTICA</span>
+<span class="font-label-counter text-label-counter text-on-surface mt-1">100% AUDITADA</span>
+<span class="font-body-sm text-body-sm text-text-tertiary">Enclaves de execução isolados</span>
+</div>
+</div>
+<!-- Tactical Category Filters -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-xs" id="filter-bar">
+<button class="filter-btn px-space-md py-space-xs rounded bg-primary text-on-primary font-label-code text-label-code uppercase tracking-wider transition-all" data-filter="all" type="button">
+          [TODOS OS SISTEMAS]
+        </button>
+<button class="filter-btn px-space-md py-space-xs rounded bg-surface-container-high text-on-surface-variant hover:text-text-primary hover:bg-surface-variant font-label-code text-label-code uppercase tracking-wider transition-all" data-filter="ai-rag" type="button">
+          [AI &amp; RAG]
+        </button>
+<button class="filter-btn px-space-md py-space-xs rounded bg-surface-container-high text-on-surface-variant hover:text-text-primary hover:bg-surface-variant font-label-code text-label-code uppercase tracking-wider transition-all" data-filter="software-critico" type="button">
+          [SOFTWARE CRÍTICO]
+        </button>
+<button class="filter-btn px-space-md py-space-xs rounded bg-surface-container-high text-on-surface-variant hover:text-text-primary hover:bg-surface-variant font-label-code text-label-code uppercase tracking-wider transition-all" data-filter="automacao-workflows" type="button">
+          [AUTOMAÇÃO &amp; WORKFLOWS]
+        </button>
+<button class="filter-btn px-space-md py-space-xs rounded bg-surface-container-high text-on-surface-variant hover:text-text-primary hover:bg-surface-variant font-label-code text-label-code uppercase tracking-wider transition-all" data-filter="infra-linux" type="button">
+          [INFRAESTRUTURA &amp; LINUX]
+        </button>
+</div>
+</div>
+</section>
+<!-- SECTION: DETAILED CASE REPOSITORIES (TECHNICAL SPEC FORMAT) -->
+<section class="w-full px-gutter md:px-margin py-space-lg">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-xl" id="cases-container">
+<!-- CASE 01: AI & RAG -->
+<article class="case-item flex flex-col bg-surface-container-low rounded overflow-hidden shadow-xl transition-all duration-300 hover:bg-surface-container" data-category="ai-rag">
+<!-- Module Header Bar -->
+<div class="px-space-md py-space-sm bg-surface-container-high flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-counter text-label-counter text-primary">CASE // 01</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant uppercase px-space-xs py-0.5 rounded bg-surface-container-lowest">
+              SETOR: FINANÇAS &amp; CRÉDITO CORPORATIVO
+            </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase">STATUS: DEPLOYED // PRODUCTION SLA 99.98%</span>
+</div>
+</div>
+<!-- Main Content Matrix -->
+<div class="p-space-lg md:p-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left Specs Column (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// DOCUMENTAL VECTOR ARCHITECTURE</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+                Pipeline Inteligente de RAG &amp; Análise Documental Regulatória
+              </h2>
+</div>
+<!-- Problem / Solution Flow -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<!-- Problem Block -->
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-error">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">GARGALO IDENTIFICADO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Análise manual de centenas de balanços, certidões e contratos gerava fila de espera de 72 horas e custo operacional insustentável.
+                </p>
+</div>
+<!-- Solution Block -->
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">SOLUÇÃO IMPLEMENTADA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Pipeline autônomo com ingestão multiformato (OCR/VLM), chunking semântico contextual e cluster de busca vetorial soberano com validação de citações.
+                </p>
+</div>
+</div>
+<!-- Execution Role -->
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-secondary-fixed-dim uppercase tracking-wider">// PAPEL DA CÓDIGO BINÁRIO</span>
+<p class="font-body-md text-body-md text-text-secondary leading-relaxed">
+                Arquitetura completa da solução, fine-tuning de embeddings para termos tributários brasileiros, integração direta via adaptadores ao ERP legado e hardening de segurança com isolamento em enclaves locais.
+              </p>
+</div>
+<!-- Telemetry Graph / Sparkline Visual -->
+<div class="p-space-md bg-surface-container-lowest rounded flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary uppercase">// LATÊNCIA DE INFERÊNCIA &amp; RECUPERAÇÃO SEMÂNTICA (P99)</span>
+<span class="font-label-code text-label-code text-primary">AVG: 1.18s</span>
+</div>
+<div class="h-12 w-full flex items-end gap-1 pt-2">
+<div class="flex-1 bg-surface-variant h-8 rounded-t hover:bg-primary transition-colors" title="Chunking: 280ms"></div>
+<div class="flex-1 bg-surface-variant h-6 rounded-t hover:bg-primary transition-colors" title="Embedding: 210ms"></div>
+<div class="flex-1 bg-surface-variant h-10 rounded-t hover:bg-primary transition-colors" title="Qdrant Query: 95ms"></div>
+<div class="flex-1 bg-primary-container h-12 rounded-t hover:bg-primary transition-colors" title="Llama-3 Gen: 580ms"></div>
+<div class="flex-1 bg-surface-variant h-4 rounded-t hover:bg-primary transition-colors" title="Citation Check: 40ms"></div>
+<div class="flex-1 bg-surface-variant h-5 rounded-t hover:bg-primary transition-colors" title="ERP Dispatch: 45ms"></div>
+</div>
+</div>
+</div>
+<!-- Right Telemetry & Results Column (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-lg">
+<!-- Visual Asset Preview -->
+<div class="relative w-full h-52 rounded overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:opacity-100 transition-opacity" data-alt="Futuristic dark terminal screen exhibiting dense green code metrics, vector similarity distance clusters, and automated financial document analysis logs in high resolution with subtle cybernetic teal lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDli_L9oJfAHSTa2PsFLvOV-XhrRpmxBJyaO5UB4EWdNE5v8Mle5UyZE38RPVqxvIr8CEFEUS_IjFILcEjXoyyw0LBCSzRs35_4KcFemoD0v9cRYBZRxpHAXwGhpPJ1pDx_JKzqG60Sd2X91iy-BgXK0_o6f3F7fpd26SOK8pyJaLvzZao-6otTke82k_WamkTt5RdkJpWJluRbhZvAzpL-o53Hx988PS4Zlz408xTKhrHWiBZ27fmt"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute bottom-2 left-3 flex items-center gap-1.5 font-label-telemetry text-label-telemetry text-primary">
+<span class="material-symbols-outlined text-xs">verified</span>
+<span>EMBEDDING_VECTOR: COSINE_DIST_0.942</span>
+</div>
+</div>
+<!-- Proven Business Impact KPIs -->
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// IMPACTO DETERMINÍSTICO MENSURADO</span>
+<div class="grid grid-cols-3 gap-space-xs">
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">4.8x</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Vazão de Contratos</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-secondary tracking-tight">&lt; 1.2s</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Tempo Médio P90</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">-91%</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Fila de Triagem</span>
+</div>
+</div>
+</div>
+<!-- Engineering Stack Breakdown -->
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// STACK &amp; AMBIENTE TÉCNICO</span>
+<div class="flex flex-wrap gap-space-xs pt-1">
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Python</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">FastAPI</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-primary">Llama-3</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-secondary">Qdrant Vector DB</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Docker</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Redis</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- CASE 02: SOFTWARE CRÍTICO -->
+<article class="case-item flex flex-col bg-surface-container-low rounded overflow-hidden shadow-xl transition-all duration-300 hover:bg-surface-container" data-category="software-critico">
+<!-- Module Header Bar -->
+<div class="px-space-md py-space-sm bg-surface-container-high flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-counter text-label-counter text-secondary">CASE // 02</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant uppercase px-space-xs py-0.5 rounded bg-surface-container-lowest">
+              SETOR: LOGÍSTICA &amp; DISTRIBUIÇÃO B2B
+            </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span>
+<span class="font-label-telemetry text-label-telemetry text-secondary uppercase">STATUS: DEPLOYED // PRODUCTION CLUSTER</span>
+</div>
+</div>
+<!-- Main Content Matrix -->
+<div class="p-space-lg md:p-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left Specs Column (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// DISTRIBUTED CONCURRENT TELEMETRY BUS</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+                Plataforma de Roteamento Logístico &amp; Telemetria em Tempo Real
+              </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-error">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">GARGALO IDENTIFICADO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Dispersão de frotas e despachos sem visão unificada, com perdas por desvios de rota e latência de comunicação de mais de 15 minutos.
+                </p>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-sm">hub</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">SOLUÇÃO IMPLEMENTADA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Barramento de eventos distribuídos de alta concorrência com telemetria via WebSockets, painel de comando tático e engine matemática de otimização viária.
+                </p>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-secondary-fixed-dim uppercase tracking-wider">// PAPEL DA CÓDIGO BINÁRIO</span>
+<p class="font-body-md text-body-md text-text-secondary leading-relaxed">
+                Modelagem do banco de dados relacional e série temporal particionado (TimescaleDB), desenvolvimento do backend assíncrono em Golang para vazão de 20k msgs/s e cockpit reativo em Next.js para controle operacional.
+              </p>
+</div>
+<!-- Route Latency Real-time Feed Visualization -->
+<div class="p-space-md bg-surface-container-lowest rounded flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary uppercase">// RADAR DISPATCH FEED // WEBSOCKET_SOCKET_ID: #89201</span>
+<span class="font-label-code text-label-code text-secondary">SYNC: 128ms</span>
+</div>
+<div class="flex items-center gap-space-md py-1 overflow-x-auto">
+<div class="flex items-center gap-2 px-space-sm py-1 bg-surface-container rounded min-w-max">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-telemetry text-label-telemetry text-text-secondary">NODE_SPO_01 → NODE_CUR_04: 114ms</span>
+</div>
+<div class="flex items-center gap-2 px-space-sm py-1 bg-surface-container rounded min-w-max">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-telemetry text-label-telemetry text-text-secondary">NODE_BH_09 → NODE_RIO_02: 142ms</span>
+</div>
+<div class="flex items-center gap-2 px-space-sm py-1 bg-surface-container rounded min-w-max">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-telemetry text-label-telemetry text-text-secondary">GEO_HASH_VERIFY: OK</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Telemetry & Results Column (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-lg">
+<div class="relative w-full h-52 rounded overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:opacity-100 transition-opacity" data-alt="Modern dark cybernetic logistics dashboard UI showing interactive map nodes, real-time vehicle route trajectories in cyan lines, telemetry status widgets, and low latency server metrics on an ultra dark slate monitor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPpFJOdwA0rwc6YFbeKHI5NTLVG8wa84ix5Xf7DM5OWgbzPxNzwgJCHzI_V4Q9jmpFbkNyiSDLu8-gZO9utAZhnIGRYuZcWSPEa-yiEnozytndZ5A8ltwoxkqFaRbPgqlmR0bopsl6oUEsDk-1Dg3oZjOA3rDo_K15CUjxvJygQPnmGsAZ0roql6DQRg4fxWR0amsyJFfsDDN9I-wl3xCrOMkQH7XVqZkYfX9WDg-JKbdfjK0g_p15"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute bottom-2 left-3 flex items-center gap-1.5 font-label-telemetry text-label-telemetry text-secondary">
+<span class="material-symbols-outlined text-xs">satellite_alt</span>
+<span>GEO_TELEMETRY: CONCURRENT_TRACKING_12.4k</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// IMPACTO DETERMINÍSTICO MENSURADO</span>
+<div class="grid grid-cols-3 gap-space-xs">
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-secondary tracking-tight">-22%</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Combustível/Km</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">&lt; 150ms</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Push Telemetria</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface tracking-tight">100%</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Disponibilidade</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// STACK &amp; AMBIENTE TÉCNICO</span>
+<div class="flex flex-wrap gap-space-xs pt-1">
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-primary">Go (Golang)</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">TypeScript</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Next.js</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-secondary">TimescaleDB</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">RabbitMQ</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Docker Swarm</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- CASE 03: AUTOMAÇÃO & WORKFLOWS -->
+<article class="case-item flex flex-col bg-surface-container-low rounded overflow-hidden shadow-xl transition-all duration-300 hover:bg-surface-container" data-category="automacao-workflows">
+<!-- Module Header Bar -->
+<div class="px-space-md py-space-sm bg-surface-container-high flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-counter text-label-counter text-primary">CASE // 03</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant uppercase px-space-xs py-0.5 rounded bg-surface-container-lowest">
+              SETOR: SERVIÇOS CORPORATIVOS &amp; ATENDIMENTO
+            </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase">STATUS: ACTIVE RUNTIME</span>
+</div>
+</div>
+<!-- Main Content Matrix -->
+<div class="p-space-lg md:p-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left Specs Column (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// OMNICHANNEL TRANSACTION AGENTS</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+                Automação Transacional Omnichannel &amp; Assistente Operacional
+              </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-error">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">GARGALO IDENTIFICADO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  80% das interações de clientes eram solicitações repetitivas de segunda via, status de pedidos e agendamentos, sobrecarregando 14 analistas.
+                </p>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-sm">schema</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">SOLUÇÃO IMPLEMENTADA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Sistema de automação inteligente integrado à API Oficial do WhatsApp com agentes determinísticos e orquestração n8n enterprise auto-hospedada.
+                </p>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-secondary-fixed-dim uppercase tracking-wider">// PAPEL DA CÓDIGO BINÁRIO</span>
+<p class="font-body-md text-body-md text-text-secondary leading-relaxed">
+                Engenharia de prompts para agentes de triagem sem alucinação, mapeamento de grafos de decisão, integração segura de webhooks bidirecionais ao CRM e painel analítico de conversão com fallback transparente.
+              </p>
+</div>
+<!-- Workflow Graph SVG Visual -->
+<div class="p-space-md bg-surface-container-lowest rounded flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary uppercase">// PIPELINE DE EXECUÇÃO DETERMINÍSTICA (N8N ENTERPRISE CLUSTER)</span>
+<div class="flex items-center justify-between text-center gap-1 pt-1 font-label-telemetry text-label-telemetry">
+<div class="p-2 bg-surface-container rounded flex-1">WHATSAPP WEBHOOK</div>
+<span class="text-primary">→</span>
+<div class="p-2 bg-surface-container rounded flex-1 text-secondary">DISPATCHER AGENT</div>
+<span class="text-primary">→</span>
+<div class="p-2 bg-surface-container rounded flex-1">SQL QUERY RUNTIME</div>
+<span class="text-primary">→</span>
+<div class="p-2 bg-primary text-on-primary rounded flex-1">PAYLOAD EMIT</div>
+</div>
+</div>
+</div>
+<!-- Right Telemetry & Results Column (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-lg">
+<div class="relative w-full h-52 rounded overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:opacity-100 transition-opacity" data-alt="Complex nodal workflow orchestration graph interface with luminous connection nodes, automated webhook trigger indicators, and message pipeline diagnostics on a dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqZ3vWgS2n_jxGOfmHXQAu68ut0qSGw99oBL8KeGPC5KGupjQGXn5P1vUVdnwdy4sFUKHTgGlIzyGpQuyaxbHqymelKhOAz5GSsbRC7lzKz6TtFod1doIp1I-bz6ohsoXL1Q4wVFxcGghsUleDTakGjBNPVG9Wy-yp4_eP5r6tyQlk7pFmR8xH9ZF16xDBCRRwwbM5cg69gsNaxAxjU9389ERcwsm20qscFl-VGIkkbQyOKBEtd1Y_"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute bottom-2 left-3 flex items-center gap-1.5 font-label-telemetry text-label-telemetry text-primary">
+<span class="material-symbols-outlined text-xs">bolt</span>
+<span>AUTONOMOUS_EXECUTION: 84% RESOLUTION</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// IMPACTO DETERMINÍSTICO MENSURADO</span>
+<div class="grid grid-cols-3 gap-space-xs">
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">84%</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Resolução Sem Humano</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-secondary tracking-tight">94.6%</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">CSAT Satisfação</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">180h</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Economia/mês/op</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// STACK &amp; AMBIENTE TÉCNICO</span>
+<div class="flex flex-wrap gap-space-xs pt-1">
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Node.js</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-primary">n8n Enterprise</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-secondary">WhatsApp Cloud API</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">PostgreSQL</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Webhooks</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+<!-- CASE 04: INFRAESTRUTURA & LINUX -->
+<article class="case-item flex flex-col bg-surface-container-low rounded overflow-hidden shadow-xl transition-all duration-300 hover:bg-surface-container" data-category="infra-linux">
+<!-- Module Header Bar -->
+<div class="px-space-md py-space-sm bg-surface-container-high flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-counter text-label-counter text-secondary">CASE // 04</span>
+<span class="font-label-telemetry text-label-telemetry text-on-surface-variant uppercase px-space-xs py-0.5 rounded bg-surface-container-lowest">
+              SETOR: MANUFATURA &amp; INDÚSTRIA PESADA
+            </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-telemetry text-label-telemetry text-primary uppercase">STATUS: HARDENED ENVIRONMENT</span>
+</div>
+</div>
+<!-- Main Content Matrix -->
+<div class="p-space-lg md:p-space-xl grid grid-cols-1 lg:grid-cols-12 gap-space-xl">
+<!-- Left Specs Column (7 Cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// BARE-METAL SOVEREIGN ARCHITECTURE</span>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+                Infraestrutura Soberana de Servidores Linux &amp; Virtualização On-Premise
+              </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-error">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">GARGALO IDENTIFICADO</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Custos de cloud pública multiplicando a cada trimestre sem ganho de estabilidade, com riscos de conformidade de dados industriais sensíveis.
+                </p>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container-lowest rounded">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-sm">security</span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-wider">SOLUÇÃO IMPLEMENTADA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                  Migração e implantação de cluster Linux bare-metal com orquestração de containers isolados, VPN privada Zero Trust e observabilidade profunda com Prometheus/Grafana.
+                </p>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-secondary-fixed-dim uppercase tracking-wider">// PAPEL DA CÓDIGO BINÁRIO</span>
+<p class="font-body-md text-body-md text-text-secondary leading-relaxed">
+                Projeto de topologia de rede física/lógica, hardening de kernels Debian (CIS Benchmark Level 2), automação de rotinas de snapshot criptografado e pipeline de monitoramento preditivo para antecipação de falhas de hardware.
+              </p>
+</div>
+<!-- Server Node Topology Grid Visual -->
+<div class="p-space-md bg-surface-container-lowest rounded flex flex-col gap-space-xs">
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary uppercase">// TOPOLOGIA DE CLUSTER BARE-METAL ATIVA (ZERO-TRUST TUNNEL)</span>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-xs pt-1 font-label-telemetry text-label-telemetry">
+<div class="p-2 bg-surface-container rounded flex flex-col">
+<span class="text-primary font-bold">NODE_01_CORE</span>
+<span class="text-text-secondary text-[10px]">DEBIAN 12 // LOAD: 0.12</span>
+</div>
+<div class="p-2 bg-surface-container rounded flex flex-col">
+<span class="text-primary font-bold">NODE_02_REPLICA</span>
+<span class="text-text-secondary text-[10px]">DEBIAN 12 // LOAD: 0.08</span>
+</div>
+<div class="p-2 bg-surface-container rounded flex flex-col">
+<span class="text-secondary font-bold">ZT_TUNNEL_01</span>
+<span class="text-text-secondary text-[10px]">ENCRYPTED ED25519</span>
+</div>
+<div class="p-2 bg-surface-container rounded flex flex-col">
+<span class="text-secondary font-bold">OBSERVABILITY</span>
+<span class="text-text-secondary text-[10px]">PROM/GRAFANA UP</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Telemetry & Results Column (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-lg">
+<div class="relative w-full h-52 rounded overflow-hidden bg-surface-container-lowest">
+<img class="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:opacity-100 transition-opacity" data-alt="Server rack infrastructure room in ultra dark lighting, with gleaming green and cyan server LED status lights, neat tactical fiber optic cabling, and pristine enterprise engineering atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlQgpphdZClAC0IrjDQ2kMP8VAoi7PLaQ8Uuos_FuJbF036rsgABOQgAC6wN_rF8b71RJhQD9Qn9bSBzBXHrQwTbjmCUOqp0CpTWegGEXoOkcC8KVq5AcxA4wrhzNYI3-OBp-kS6itadeFF42p9lmW-deAa2o1Rq3l0iniRApTzXNIXcI7VeCvBd3JMcfAzppVWvbGqI7wtrxwLMbLyv9VNHmaAmujJ1GH8cjdjaGHSHy7vtJxAg4S"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-transparent"></div>
+<div class="absolute bottom-2 left-3 flex items-center gap-1.5 font-label-telemetry text-label-telemetry text-secondary">
+<span class="material-symbols-outlined text-xs">memory</span>
+<span>BARE_METAL_UPTIME: 180d_0h_0m_0s</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// IMPACTO DETERMINÍSTICO MENSURADO</span>
+<div class="grid grid-cols-3 gap-space-xs">
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">-68%</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Custo vs Cloud</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-secondary tracking-tight">0d</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Downtime (180d)</span>
+</div>
+<div class="p-space-sm bg-surface-container-lowest rounded flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface tracking-tight">100%</span>
+<span class="font-label-telemetry text-label-telemetry text-text-tertiary mt-0.5">Soberania Dados</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs p-space-md bg-surface-container rounded">
+<span class="font-label-telemetry text-label-telemetry text-text-secondary uppercase">// STACK &amp; AMBIENTE TÉCNICO</span>
+<div class="flex flex-wrap gap-space-xs pt-1">
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-primary">Linux Debian</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Docker</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-secondary">Terraform</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Prometheus</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Grafana</span>
+<span class="font-label-code text-label-code px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface">Cloudflare Tunnel</span>
+</div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- SECTION: AUDIT & NEW PROJECT DISPATCH CTA -->
+<section class="w-full px-gutter md:px-margin py-space-xl">
+<div class="max-w-7xl mx-auto rounded bg-surface-container p-space-lg md:p-space-xl relative overflow-hidden shadow-xl">
+<!-- Specular directional glow in top left -->
+<div class="absolute -top-16 -left-16 w-80 h-80 rounded-full bg-primary/10 blur-[80px] pointer-events-none"></div>
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-lg relative z-10">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-primary">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span>// NEXT ENGAGEMENT PROTOCOL</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-text-primary tracking-tight">
+            Tem um desafio similar ou precisa de uma arquitetura personalizada?
+          </h2>
+<p class="font-body-md text-body-md text-text-secondary">
+            Inicie o diagnóstico técnico com nossos engenheiros de sistemas. Analisamos requisitos de carga, vetores de integração e viabilidade de IA soberana sem compromisso.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-sm w-full md:w-auto">
+<a class="inline-flex items-center justify-center px-space-lg py-space-md rounded bg-primary-container text-on-primary-container font-label-code text-label-code uppercase tracking-wider hover:bg-primary transition-all shadow-lg hover:shadow-primary/20 text-center" data-path="diagnostico" href="#">
+            [INICIAR DIAGNÓSTICO DO PROJETO →]
+          </a>
+</div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  // Tactical Category Filtering Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const caseItems = document.querySelectorAll('.case-item');
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+
+        // Update button states
+        filterButtons.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary');
+          b.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary');
+        btn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+
+        // Filter items
+        caseItems.forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'flex';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+</script></main><footer class="w-full bg-surface-container-low mt-space-xl"><div class="w-full px-gutter md:px-margin py-space-xl flex flex-col gap-space-xl"><div class="grid grid-cols-1 md:grid-cols-4 gap-space-xl"><div class="flex flex-col gap-space-sm"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary">dns</span><span class="font-headline-sm text-headline-sm text-on-surface">CÓDIGO BINÁRIO</span></div><p class="font-body-sm text-body-sm text-text-secondary">Engenharia de sistemas soberanos, modelos autônomos e infraestrutura digital de alta precisão.</p><div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span>LATENCY: 12ms // ALL NODES SYNCHRONIZED</span></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// NAVEGAÇÃO</span><nav class="flex flex-col gap-space-xs" data-active-classes="text-primary font-bold"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="inicio" href="#">Início</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="solucoes" href="#">Soluções</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="projetos" href="#">Projetos</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="developers" href="#">Developers</a></nav></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// ARQUITETURA &amp; STACK</span><ul class="flex flex-col gap-space-xs font-label-code text-label-code text-on-surface-variant"><li>&gt; Autonomous AI Engines</li><li>&gt; Distributed Low-Latency Systems</li><li>&gt; Edge Computing Protocols</li><li>&gt; Sovereign Security Enclaves</li></ul></div><div class="flex flex-col gap-space-sm"><span class="font-label-telemetry text-label-telemetry uppercase text-text-secondary">// CONEXÃO DIRETA</span><span class="font-label-code text-label-code text-on-surface">eng@codigobinario.io</span><span class="font-body-sm text-body-sm text-text-secondary">São Paulo // Global Command Core</span><a class="font-label-telemetry text-label-telemetry text-primary hover:text-tertiary transition-colors uppercase" data-path="diagnostico" href="#">[/diagnostic_request →]</a></div></div><div class="pt-space-md flex flex-col md:flex-row items-center justify-between gap-space-md font-label-telemetry text-label-telemetry text-text-secondary"><div class="flex items-center gap-space-sm"><span>© 2026 CÓDIGO BINÁRIO // ALL SYSTEMS OPERATIONAL</span></div><div class="flex items-center gap-space-lg"><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="privacidade" href="#">PRIVACIDADE</a><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="termos" href="#">TERMOS DE SERVIÇO</a><a class="text-on-surface-variant hover:text-on-surface transition-colors" data-path="telemetria" href="#">STATUS DO SISTEMA</a></div></div></div></footer></body></html>
