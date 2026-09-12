@@ -278,15 +278,21 @@ export interface LeadCreate {
 
 export interface LeadUpdate {
   name?: string;
-  email?: string;
-  phone?: string;
-  company?: string;
+  email?: string | null;
+  phone?: string | null;
+  company?: string | null;
   status?: string;
-  notes?: string;
+  notes?: string | null;
   score?: number;
   priority?: string;
   classification?: string;
   requiresHumanReview?: boolean;
+  // --- Mini CRM (FASE 5) ---
+  assignedTo?: string | null;
+  nextAction?: string | null;
+  followUpAt?: string | null;
+  estimatedValue?: number | null;
+  onSiteRequired?: boolean | null;
 }
 
 export interface LeadResponse {
@@ -306,6 +312,42 @@ export interface LeadResponse {
   priority: string | null;
   classification: string | null;
   requiresHumanReview: boolean | null;
+  // --- Mini CRM (FASE 5) ---
+  assignedTo: string | null;
+  nextAction: string | null;
+  followUpAt: string | null;
+  estimatedValue: number | null;
+  onSiteRequired: boolean | null;
+}
+
+// --- Lead Activities (Mini CRM, FASE 5) ---
+export const LEAD_ACTIVITY_TYPES = [
+  'lead_created',
+  'note',
+  'call',
+  'email',
+  'meeting',
+  'status_change',
+  'assignment',
+  'follow_up',
+  'diagnostic_review',
+] as const;
+export type LeadActivityType = (typeof LEAD_ACTIVITY_TYPES)[number];
+
+export interface LeadActivityCreate {
+  leadId: string;
+  type: LeadActivityType;
+  description: string;
+  createdBy?: string;
+}
+
+export interface LeadActivityResponse {
+  id: string;
+  leadId: string;
+  type: string;
+  description: string | null;
+  createdBy: string | null;
+  createdAt: string;
 }
 
 // --- Discovery Chat Schemas ---

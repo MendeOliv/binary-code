@@ -105,3 +105,29 @@ test('formatReport — separates client facts from technical inferences', () => 
   assert.ok(report.includes('Factos fornecidos pelo cliente'));
   assert.ok(report.includes('Inferências técnicas'));
 });
+
+// ── computePriority (FASE 4) ─────────────────────────────────────────────
+
+test('computePriority — baseline from classification', () => {
+  assert.equal(engine.computePriority('HOT'), 'high');
+  assert.equal(engine.computePriority('WARM'), 'medium');
+  assert.equal(engine.computePriority('QUALIFIED'), 'medium');
+  assert.equal(engine.computePriority('LOW'), 'low');
+});
+
+test('computePriority — real signals only raise priority, never contradict', () => {
+  // LOW raised to medium by urgency / review / high complexity
+  assert.equal(engine.computePriority('LOW', { urgency: true }), 'medium');
+  assert.equal(engine.computePriority('LOW', { requiresHumanReview: true }), 'medium');
+  assert.equal(engine.computePriority('LOW', { complexity: 'high' }), 'medium');
+  // HOT stays high even without signals
+  assert.equal(engine.computePriority('HOT', {}), 'high');
+  // WARM with high complexity + review → high
+  assert.equal(
+    engine.computePriority('WARM', { complexity: 'high', requiresHumanReview: true }),
+    'high'
+  );
+  // presence of signals never DOWNGRADES
+  assert.equal(engine.computePriority('HOT', { complexity: 'high' }), 'high');
+  assert.equal(engine.computePriority('LOW', {}), 'low');
+});

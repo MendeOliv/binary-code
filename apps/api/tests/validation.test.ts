@@ -3,6 +3,9 @@ import assert from 'node:assert/strict';
 import {
   DiscoveryChatInputSchema,
   LeadCreateInputSchema,
+  LeadUpdateSchema,
+  ActivityCreateSchema,
+  ResourceIdSchema,
   DiagnosticAISchema,
   extractJsonObject,
   parseDiagnostic,
@@ -130,4 +133,35 @@ test('Digestive default — missing optional fields get safe defaults', () => {
     assert.equal(d.data.next_step, 'analysis');
     assert.equal(d.data.confidence, 0.5);
   }
+});
+
+// ── FASE 5 CRM schemas ───────────────────────────────────────────────────
+
+test('LeadUpdateSchema — valid admin update', () => {
+  const r = LeadUpdateSchema.safeParse({
+    status: 'contacted',
+    assignedTo: 'fabio@codigobinario.io',
+    nextAction: 'Agendar consulta',
+    followUpAt: '2026-09-20T10:00:00Z',
+    estimatedValue: 5000,
+    onSiteRequired: true,
+  });
+  assert.equal(r.success, true);
+});
+
+test('LeadUpdateSchema — rejects invalid status / negative value / unknown key', () => {
+  assert.equal(LeadUpdateSchema.safeParse({ status: 'magic' }).success, false);
+  assert.equal(LeadUpdateSchema.safeParse({ estimatedValue: -1 }).success, false);
+  assert.equal(LeadUpdateSchema.safeParse({ hacked: 1 }).success, false);
+});
+
+test('ActivityCreateSchema — valid + rejects bad type / empty description', () => {
+  assert.equal(ActivityCreateSchema.safeParse({ type: 'call', description: 'Liguei ao cliente' }).success, true);
+  assert.equal(ActivityCreateSchema.safeParse({ type: 'teleport', description: 'x' }).success, false);
+  assert.equal(ActivityCreateSchema.safeParse({ type: 'note', description: '' }).success, false);
+});
+
+test('ResourceIdSchema — accepts uuid, rejects non-uuid', () => {
+  assert.equal(ResourceIdSchema.safeParse({ id: 'a2c1e6b8-9d4f-4f1a-9c0e-6b7a8f9d1e2a' }).success, true);
+  assert.equal(ResourceIdSchema.safeParse({ id: 'abc' }).success, false);
 });

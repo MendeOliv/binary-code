@@ -87,6 +87,31 @@ export class DiagnosticEngine {
     return { score, scoreReasons: reasons, classification, priority };
   }
 
+  private midPriority(classification: string): string {
+    let p = 'low';
+    if (classification === 'HOT') p = 'high';
+    else if (classification === 'WARM' || classification === 'QUALIFIED') p = 'medium';
+    return p;
+  }
+
+  /**
+   * Deterministic operational priority. Baseline from classification, then
+   * REAL signals (urgency only when client-provided, human review, complexity)
+   * only ever RAISE priority — never contradict the score direction.
+   */
+  computePriority(
+    classification: string,
+    signals: { complexity?: string; requiresHumanReview?: boolean; urgency?: boolean } = {}
+  ): string {
+    let p = this.midPriority(classification);
+    const raiseToMedium = Boolean(signals.urgency) || Boolean(signals.requiresHumanReview) || signals.complexity === 'high';
+    if (raiseToMedium && p === 'low') p = 'medium';
+    if (signals.complexity === 'high' && p === 'medium' && (classification === 'HOT' || classification === 'WARM')) {
+      p = 'high';
+    }
+    return p;
+  }
+
   /**
    * Backend-controlled human review decision. The AI may *recommend*
    * requires_human_review, but the final answer is deterministic here.

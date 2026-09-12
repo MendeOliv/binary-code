@@ -9,6 +9,7 @@
  * invalid data never reaches the Discovery orchestrator.
  */
 import { z } from 'zod';
+import { LEAD_ACTIVITY_TYPES } from '@shared/models';
 
 // ──────────────────────────────────────────────────────────────────────────
 // PUBLIC INPUT SCHEMAS
@@ -50,6 +51,52 @@ export const LeadCreateInputSchema = z.object({
 }).strict();
 
 export type LeadCreateInput = z.infer<typeof LeadCreateInputSchema>;
+
+// ──────────────────────────────────────────────────────────────────────────
+// ADMIN / CRM SCHEMAS (FASE 4/5/6)
+// ──────────────────────────────────────────────────────────────────────────
+
+export const LEAD_STATUSES = ['new', 'contacted', 'consultation', 'proposal', 'won', 'lost'] as const;
+export const LEAD_PRIORITIES = ['low', 'medium', 'high'] as const;
+export const LEAD_CLASSIFICATIONS = ['HOT', 'WARM', 'QUALIFIED', 'LOW'] as const;
+
+/** PATCH /api/leads/:id (admin only). */
+export const LeadUpdateSchema = z
+  .object({
+    status: z.enum(LEAD_STATUSES).optional(),
+    priority: z.enum(LEAD_PRIORITIES).optional(),
+    score: z.number().int().min(0).max(100).optional(),
+    classification: z.enum(LEAD_CLASSIFICATIONS).optional(),
+    requiresHumanReview: z.boolean().optional(),
+    onSiteRequired: z.boolean().nullable().optional(),
+    assignedTo: z.string().trim().max(200).nullable().optional(),
+    nextAction: z.string().trim().max(500).nullable().optional(),
+    followUpAt: z.string().datetime({ offset: true }).nullable().optional(),
+    estimatedValue: z.number().min(0).nullable().optional(),
+    notes: z.string().trim().max(2000).nullable().optional(),
+    name: z.string().trim().min(1).max(200).optional(),
+    email: z.string().trim().email().nullable().optional(),
+    phone: z.string().trim().max(200).nullable().optional(),
+    company: z.string().trim().max(200).nullable().optional(),
+  })
+  .strict();
+export type LeadUpdateInput = z.infer<typeof LeadUpdateSchema>;
+
+/** POST /api/leads/:id/activities (admin only). */
+export const ActivityCreateSchema = z
+  .object({
+    type: z.enum(LEAD_ACTIVITY_TYPES),
+    description: z.string().trim().min(1, 'Description is required').max(1000),
+    createdBy: z.string().trim().max(200).optional(),
+  })
+  .strict();
+export type ActivityCreateInput = z.infer<typeof ActivityCreateSchema>;
+
+/** UUID path/query params guard. */
+export const ResourceIdSchema = z.object({
+  id: z.string().uuid('Invalid id'),
+});
+export type ResourceId = z.infer<typeof ResourceIdSchema>;
 
 // ──────────────────────────────────────────────────────────────────────────
 // STRUCTURED AI OUTPUT — DIAGNOSTIC (snake_case as returned by the model)

@@ -12,8 +12,9 @@ import {
   DiscoverySessionCreate, DiscoverySessionResponse,
   DiscoveryMessageCreate, DiscoveryMessageResponse,
   DiagnosticCreate, DiagnosticResponse,
-  LeadCreate, LeadUpdate, LeadResponse
-} from '@shared/models';
+    LeadCreate, LeadUpdate, LeadResponse,
+    LeadActivityCreate, LeadActivityResponse
+  } from '@shared/models';
 
 export class SupabaseRepository {
   private client: SupabaseClient;
@@ -549,7 +550,27 @@ export class SupabaseRepository {
   }
 
   // --- Lead Operations ---
-  async createLead(data: LeadCreate): Promise<LeadResponse> {
+    async getLead(id: string): Promise<LeadResponse | null> {
+      const { data, error } = await this.client
+        .from('leads')
+        .select('*')
+        .eq('id', id)
+        .single();
+      if (error && error.code !== 'PGRST116') throw error;
+      return data ? this.mapLead(data) : null;
+    }
+
+    async getLeadBySession(sessionId: string): Promise<LeadResponse | null> {
+      const { data, error } = await this.client
+        .from('leads')
+        .select('*')
+        .eq('session_id', sessionId)
+        .maybeSingle();
+      if (error) throw error;
+      return data ? this.mapLead(data) : null;
+    }
+
+    async createLead(data: LeadCreate): Promise<LeadResponse> {
     const { data: result, error } = await this.client
       .from('leads')
       .insert([{
@@ -577,9 +598,14 @@ export class SupabaseRepository {
     if (data.status !== undefined) dbUpdates.status = data.status;
         if (data.notes !== undefined) dbUpdates.notes = data.notes;
         if (data.score !== undefined) dbUpdates.score = data.score;
-        if (data.priority !== undefined) dbUpdates.priority = data.priority;
-        if (data.classification !== undefined) dbUpdates.classification = data.classification;
-        if (data.requiresHumanReview !== undefined) dbUpdates.requires_human_review = data.requiresHumanReview;
+                if (data.priority !== undefined) dbUpdates.priority = data.priority;
+                if (data.classification !== undefined) dbUpdates.classification = data.classification;
+                if (data.requiresHumanReview !== undefined) dbUpdates.requires_human_review = data.requiresHumanReview;
+                if (data.assignedTo !== undefined) dbUpdates.assigned_to = data.assignedTo;
+                if (data.nextAction !== undefined) dbUpdates.next_action = data.nextAction;
+                if (data.followUpAt !== undefined) dbUpdates.follow_up_at = data.followUpAt;
+                if (data.estimatedValue !== undefined) dbUpdates.estimated_value = data.estimatedValue;
+                if (data.onSiteRequired !== undefined) dbUpdates.on_site_required = data.onSiteRequired;
 
     const { data: result, error } = await this.client
       .from('leads')
@@ -601,10 +627,36 @@ export class SupabaseRepository {
     return data.map(l => this.mapLead(l));
   }
 
-  // --- Discovery Session Concurrency Lock (FASE 3) ---
-  // DB-backed advisory lock so concurrent messages to the same session cannot
-  // trigger duplicated AI calls/diagnostics across instances.
-  async acquireDiscoveryLock(sessionId: string, owner: string, ttlSeconds: number): Promise<boolean | null> {
+  // --- Lead Activity Operations (Mini CRM, FASE 5) ---
+    async createLeadActivity(data: LeadActivityCreate): Promise<LeadActivityResponse> {
+      const { data: result, error } = await this.client
+        .from('lead_activities')
+        .insert([{
+          lead_id: data.leadId,
+          type: data.type,
+          description: data.description,
+          created_by: data.createdBy ?? null,
+        }])
+        .select()
+        .single();
+      if (error) throw error;
+      return this.mapLeadActivity(result);
+    }
+
+    async listLeadActivities(leadId: string): Promise<LeadActivityResponse[]> {
+      const { data, error } = await this.client
+        .from('lead_activities')
+        .select('*')
+        .eq('lead_id', leadId)
+        .order('created_at', { ascending: true });
+      if (error) throw error;
+      return (data || []).map(a => this.mapLeadActivity(a));
+    }
+
+    // --- Discovery Session Concurrency Lock (FASE 3) ---
+    // DB-backed advisory lock so concurrent messages to the same session cannot
+    // trigger duplicated AI calls/diagnostics across instances.
+    async acquireDiscoveryLock(sessionId: string, owner: string, ttlSeconds: number): Promise<boolean | null> {
       const { data, error } = await this.client.rpc('acquire_discovery_lock', {
         p_session: sessionId,
         p_owner: owner,
@@ -617,9 +669,9 @@ export class SupabaseRepository {
       return data === true;
     }
 
-  async releaseDiscoveryLock(sessionId: string, owner: string): Promise<void> {
-    await this.client.rpc('release_discovery_lock', { p_session: sessionId, p_owner: owner });
-  }
+    async releaseDiscoveryLock(sessionId: string, owner: string): Promise<void> {
+      await this.client.rpc('release_discovery_lock', { p_session: sessionId, p_owner: owner });
+    }
 
   // --- Mappers (snake_case DB -> camelCase) ---
   private mapDiscoverySession(row: any): DiscoverySessionResponse {
@@ -686,11 +738,27 @@ export class SupabaseRepository {
         createdAt: row.created_at,
         updatedAt: row.updated_at,
         score: row.score ?? null,
-        priority: row.priority ?? null,
-        classification: row.classification ?? null,
-        requiresHumanReview: row.requires_human_review ?? null,
-      };
-    }
+                priority: row.priority ?? null,
+                classification: row.classification ?? null,
+                requiresHumanReview: row.requires_human_review ?? null,
+                assignedTo: row.assigned_to ?? null,
+                nextAction: row.next_action ?? null,
+                followUpAt: row.follow_up_at ?? null,
+                estimatedValue: row.estimated_value ?? null,
+                onSiteRequired: row.on_site_required ?? null,
+              };
+            }
+
+          private mapLeadActivity(row: any): LeadActivityResponse {
+            return {
+              id: row.id,
+              leadId: row.lead_id,
+              type: row.type,
+              description: row.description ?? null,
+              createdBy: row.created_by ?? null,
+              createdAt: row.created_at,
+            };
+          }
 }
 
 // Single global repository instance
