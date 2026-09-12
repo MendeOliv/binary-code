@@ -42,6 +42,11 @@ export interface DiagnosticNotificationPayload {
   requiresHumanReview?: boolean;
   onSiteRequired?: boolean;
   fallbackUsed?: boolean;
+  // --- CRM / Handoff (FASE 5/6) ---
+  leadId?: string;
+  assignedTo?: string | null;
+  nextAction?: string | null;
+  followUpAt?: string | null;
 }
 
 /** Default team recipient (spec §15). Configure via NOTIFICATION_EMAIL_TO to override. */
@@ -55,6 +60,7 @@ interface SendResult {
 
 export class NotificationService {
   private provider: string;
+  private readonly RESEND_TIMEOUT_MS = 10_000;
 
   constructor() {
     this.provider = (process.env.NOTIFICATION_PROVIDER || 'console').toLowerCase();
@@ -78,7 +84,7 @@ export class NotificationService {
       }
       // Safe default: log a structured summary (no PII beyond what ops needs).
       console.log(
-        `[Notification] diagnostic_ready id=${payload.diagnosticId} session=${payload.sessionId} complexity=${payload.complexity} next_step=${payload.nextStep} email_configured=false`
+        `[Notification] diagnostic_ready id=${payload.diagnosticId} session=${payload.sessionId} lead=${payload.leadId || 'none'} complexity=${payload.complexity} next_step=${payload.nextStep} email_configured=false`
       );
       return { delivered: false, provider: 'console', detail: 'Email not configured' };
     } catch (error) {
@@ -89,14 +95,14 @@ export class NotificationService {
 
   private async sendViaResend(subject: string, text: string): Promise<SendResult> {
     const apiKey = process.env.RESEND_API_KEY!;
-        const from = process.env.NOTIFICATION_EMAIL_FROM;
-        // Spec §15: default recipient is fabiobessadeoliveira2@gmail.com.
-        const to = process.env.NOTIFICATION_EMAIL_TO || DEFAULT_NOTIFICATION_EMAIL_TO;
+    const from = process.env.NOTIFICATION_EMAIL_FROM;
+    // Spec §15: default recipient is fabiobessadeoliveira2@gmail.com.
+    const to = process.env.NOTIFICATION_EMAIL_TO || DEFAULT_NOTIFICATION_EMAIL_TO;
 
-        if (!from) {
-          console.warn('[Notification] RESEND configured but NOTIFICATION_EMAIL_FROM missing');
-          return { delivered: false, provider: 'resend', detail: 'Missing sender env var' };
-        }
+    if (!from) {
+      console.warn('[Notification] RESEND configured but NOTIFICATION_EMAIL_FROM missing');
+      return { delivered: false, provider: 'resend', detail: 'Missing sender env var' };
+    }
 
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -105,6 +111,7 @@ export class NotificationService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ from, to: [to], subject, text }),
+      signal: AbortSignal.timeout(this.RESEND_TIMEOUT_MS),
     });
 
     if (!response.ok) {
@@ -120,9 +127,12 @@ export class NotificationService {
     const lines = [
       'NOVO DIAGNÓSTICO — CÓDIGO BINÁRIO',
       '',
-      `ID: ${p.diagnosticId}`,
+      `Diagnóstico ID: ${p.diagnosticId}`,
+      p.leadId ? `Lead ID: ${p.leadId}` : null,
       `Sessão: ${p.sessionId}`,
       `Criado: ${p.createdAt}`,
+      '',
+      '— DIAGNÓSTICO —',
       '',
       `PROBLEMA: ${p.problemIdentified}`,
       p.processAffected ? `PROCESSO: ${p.processAffected}` : null,
@@ -130,18 +140,27 @@ export class NotificationService {
       p.solutionRecommended ? `SOLUÇÃO: ${p.solutionRecommended}` : null,
       `TECNOLOGIAS: ${p.technologiesNeeded.join(', ') || '—'}`,
       `COMPLEXIDADE: ${p.complexity}`,
-            `PRÓXIMO PASSO: ${p.nextStep}`,
-            `CONFIANÇA: ${Math.round((p.confidence || 0) * 100)}%`,
-            `SCORE: ${p.score ?? '—'}/100 (${p.classification ?? '—'})`,
-            `PRIORIDADE: ${(p.priority || 'low').toUpperCase()}`,
-            `REVISÃO HUMANA: ${p.requiresHumanReview ? 'SIM' : 'Não'}`,
-            `VISITA PRESENCIAL: ${p.onSiteRequired ? 'SIM' : 'Não'}`,
-            p.fallbackUsed ? `NOTA: diagnóstico gerado por fallback controlado — requer revisão` : null,
-          ];
+      `PRÓXIMO PASSO: ${p.nextStep}`,
+      `CONFIANÇA: ${Math.round((p.confidence || 0) * 100)}%`,
+      '',
+      '— QUALIFICAÇÃO DO LEAD —',
+      '',
+      `SCORE: ${p.score ?? '—'}/100 (${p.classification ?? '—'})`,
+      `PRIORIDADE: ${(p.priority || 'low').toUpperCase()}`,
+      `REVISÃO HUMANA: ${p.requiresHumanReview ? 'SIM' : 'Não'}`,
+      p.assignedTo ? `ATRIBUIDO A: ${p.assignedTo}` : null,
+      p.nextAction ? `PRÓXIMA AÇÃO: ${p.nextAction}` : null,
+      p.followUpAt ? `SEGUIMENTO: ${p.followUpAt}` : null,
+      p.onSiteRequired ? 'VISITA PRESENCIAL: SIM' : null,
+      // 25.000 Kz visit price: ONLY when on_site_required (spec §15).
+      p.onSiteRequired ? 'Visita técnica presencial — 25.000 Kz' : null,
+      p.fallbackUsed ? `NOTA: diagnóstico gerado por fallback controlado — requer revisão` : null,
+    ];
     if (p.lead) {
       lines.push(
         '',
-        'LEAD ASSOCIADO:',
+        '— LEAD ASSOCIADO —',
+        '',
         `Nome: ${p.lead.name}`,
         p.lead.email ? `Email: ${p.lead.email}` : null,
         p.lead.phone ? `Telefone: ${p.lead.phone}` : null,

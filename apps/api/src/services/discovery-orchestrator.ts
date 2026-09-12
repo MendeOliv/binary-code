@@ -25,6 +25,14 @@ export class SessionBusyError extends Error {
   }
 }
 
+/** Raised when a client references a discovery session that does not exist. */
+export class SessionNotFoundError extends Error {
+  constructor(sessionId: string) {
+    super(`Session ${sessionId} not found`);
+    this.name = 'SessionNotFoundError';
+  }
+}
+
 // In-memory fallback lock (single instance / before migration RPC exists).
 const memoryLocks = new Map<string, { owner: string; until: number }>();
 
@@ -48,11 +56,11 @@ export class DiscoveryOrchestrator {
     // 1. Get or create session
     let session: DiscoverySessionResponse;
     if (sessionId) {
-      const existing = await repo.getDiscoverySession(sessionId);
-      if (!existing) {
-        throw new Error(`Session ${sessionId} not found`);
-      }
-      session = existing;
+          const existing = await repo.getDiscoverySession(sessionId);
+          if (!existing) {
+            throw new SessionNotFoundError(sessionId);
+          }
+          session = existing;
     } else {
       session = await repo.createDiscoverySession({ initialProblem: userMessage });
     }

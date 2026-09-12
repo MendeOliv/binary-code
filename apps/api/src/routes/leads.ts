@@ -20,6 +20,10 @@ function leadHandoffPayload(lead: LeadResponse, diagnostic: DiagnosticResponse |
   return {
     diagnosticId: lead.diagnosticId || '',
     sessionId: lead.sessionId || '',
+    leadId: lead.id,
+    assignedTo: lead.assignedTo ?? null,
+    nextAction: lead.nextAction ?? null,
+    followUpAt: lead.followUpAt ?? null,
     problemIdentified: diagnostic?.problemIdentified || lead.notes || 'Lead submetido após diagnóstico',
     processAffected: diagnostic?.processAffected ?? undefined,
     impactEstimated: diagnostic?.impactEstimated ?? undefined,

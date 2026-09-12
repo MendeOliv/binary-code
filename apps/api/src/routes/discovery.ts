@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { discoveryOrchestrator, SessionBusyError } from '../services/discovery-orchestrator';
+import { discoveryOrchestrator, SessionBusyError, SessionNotFoundError } from '../services/discovery-orchestrator';
 import { requireAdminKey } from '../lib/auth';
 import { repo } from '@db/repository';
 import { DiscoveryChatInputSchema, validateInput } from '../lib/validation';
@@ -20,12 +20,15 @@ export async function discoveryRoutes(fastify: FastifyInstance) {
       );
       return reply.send(result);
     } catch (error) {
-      if (error instanceof SessionBusyError) {
-        // Another request is already processing this session — ask to retry.
-        return reply.code(409).send({
-          error: 'Já existe um processamento em curso para esta sessão. Tenta novamente em instantes.',
-        });
-      }
+          if (error instanceof SessionNotFoundError) {
+            return reply.code(404).send({ error: 'Session not found' });
+          }
+          if (error instanceof SessionBusyError) {
+            // Another request is already processing this session — ask to retry.
+            return reply.code(409).send({
+              error: 'Já existe um processamento em curso para esta sessão. Tenta novamente em instantes.',
+            });
+          }
       const message = error instanceof Error ? error.message : 'unknown';
       // Failures after the AI error-classification are logged, but never
       // reveal internal stack traces / secrets to the client.
