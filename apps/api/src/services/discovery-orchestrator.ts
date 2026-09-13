@@ -1,7 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { repo } from '@db/repository';
 import { aiProvider } from './ai-provider';
-import { notificationService } from './notification';
 import { diagnosticEngine } from './diagnostic-engine';
 import {
   DISCOVERY_SYSTEM_PROMPT,
@@ -250,28 +249,9 @@ export class DiscoveryOrchestrator {
       `[Discovery] diagnostic_generated session=${session.id} provider=${providerUsed} score=${score.score} class=${score.classification} human_review=${requiresHumanReview} on_site=${onSiteRequired} duration_ms=${Date.now() - startedAt}`
     );
 
-    // Notify the team (never blocks the flow; email failure is non-fatal).
-    notificationService
-      .notifyNewDiagnostic({
-        diagnosticId: diagnostic.id,
-        sessionId: session.id,
-        problemIdentified: diagnostic.problemIdentified,
-        processAffected: diagnostic.processAffected,
-        impactEstimated: diagnostic.impactEstimated,
-        solutionRecommended: diagnostic.solutionRecommended,
-        technologiesNeeded: diagnostic.technologiesNeeded || [],
-        complexity: diagnostic.complexity,
-        nextStep: diagnostic.nextStep,
-        confidence: diagnostic.confidence,
-        createdAt: diagnostic.createdAt,
-        score: diagnostic.score,
-        classification: diagnostic.classification,
-        priority: diagnostic.priority,
-        requiresHumanReview: diagnostic.requiresHumanReview,
-        onSiteRequired: diagnostic.onSiteRequired,
-        fallbackUsed: exhausted,
-      })
-      .catch((err) => console.error('[Diagnostic] notification error:', (err as Error).message));
+    // NOTE: no internal notification here. Diagnosis alone is NOT enough client
+    // info. The single, complete internal commercial email is sent only after
+    // the Lead is created (see routes/leads.ts) to avoid partial duplicates.
 
     // Backend-gated report (25.000 Kz visit only when on_site_required).
     const presentationMessage = diagnosticEngine.formatReport(diag, score, onSiteRequired, requiresHumanReview);

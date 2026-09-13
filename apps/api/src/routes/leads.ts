@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { repo } from '@db/repository';
 import { requireAdminKey } from '../lib/auth';
 import { leadLimiter, makeRateLimitHook } from '../lib/rate-limit';
-import { notificationService, type DiagnosticNotificationPayload } from '../services/notification';
+import { dispatchLeadNotifications } from '../services/notification-dispatch';
 import {
   LeadCreateInputSchema,
   LeadUpdateSchema,
@@ -14,38 +14,7 @@ import {
   leadService,
   LeadStatusTransitionError,
 } from '../services/lead-service';
-import type { DiagnosticResponse, LeadResponse } from '@shared/models';
 
-function leadHandoffPayload(lead: LeadResponse, diagnostic: DiagnosticResponse | null): DiagnosticNotificationPayload {
-  return {
-    diagnosticId: lead.diagnosticId || '',
-    sessionId: lead.sessionId || '',
-    leadId: lead.id,
-    assignedTo: lead.assignedTo ?? null,
-    nextAction: lead.nextAction ?? null,
-    followUpAt: lead.followUpAt ?? null,
-    problemIdentified: diagnostic?.problemIdentified || lead.notes || 'Lead submetido após diagnóstico',
-    processAffected: diagnostic?.processAffected ?? undefined,
-    impactEstimated: diagnostic?.impactEstimated ?? undefined,
-    solutionRecommended: diagnostic?.solutionRecommended ?? undefined,
-    technologiesNeeded: diagnostic?.technologiesNeeded || [],
-    complexity: diagnostic?.complexity || 'low',
-    nextStep: diagnostic?.nextStep || 'budget',
-    confidence: diagnostic?.confidence ?? 0,
-    createdAt: lead.createdAt,
-    score: lead.score ?? diagnostic?.score ?? undefined,
-    classification: lead.classification ?? diagnostic?.classification ?? undefined,
-    priority: lead.priority ?? diagnostic?.priority ?? undefined,
-    requiresHumanReview: lead.requiresHumanReview ?? diagnostic?.requiresHumanReview ?? undefined,
-    onSiteRequired: lead.onSiteRequired ?? diagnostic?.onSiteRequired ?? undefined,
-    lead: {
-      name: lead.name,
-      email: lead.email ?? undefined,
-      phone: lead.phone ?? undefined,
-      company: lead.company ?? undefined,
-    },
-  };
-}
 
 export async function leadRoutes(fastify: FastifyInstance) {
   // Public: accept a qualified lead from the Discovery flow.
@@ -66,10 +35,10 @@ export async function leadRoutes(fastify: FastifyInstance) {
         notes: input.data.notes ? input.data.notes.trim() : undefined,
       });
 
-      // Best-effort human-handoff notification (never throws).
-      notificationService
-        .notifyNewDiagnostic(leadHandoffPayload(result.lead, result.diagnostic))
-        .catch((err) => console.error('[Lead] notification error:', (err as Error).message));
+      // Best-effort notification dispatch (internal + client confirmation).
+      // Fires ONLY on new leads (result.created === true); idempotent retries
+      // send nothing — preventing duplicated emails. Never throws.
+      dispatchLeadNotifications(result);
 
       return reply.code(result.created ? 201 : 200).send(result.lead);
     } catch (error) {
