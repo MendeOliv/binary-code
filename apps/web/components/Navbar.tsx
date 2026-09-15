@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { IconClose, IconMenu } from './Icon';
 
 const NAV_LINKS = [
   { label: 'Início', href: '/' },
@@ -85,9 +86,11 @@ export default function Navbar() {
             aria-label={open ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={open}
           >
-            <span className="material-symbols-outlined" aria-hidden="true">
-              {open ? 'close' : 'menu'}
-            </span>
+            {open ? (
+              <IconClose className="h-6 w-6" />
+            ) : (
+              <IconMenu className="h-6 w-6" />
+            )}
           </button>
         </div>
       </div>
