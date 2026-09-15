@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import type { DiagnosticResponse } from '@shared/models';
+import { IconArrowForward, IconTerminal } from './Icon';
 
 interface Message {
   id: string;
@@ -28,17 +29,39 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
   const [sessionId, setSessionId] = useState<string>('');
   const [isComplete, setIsComplete] = useState(false);
   const [hasResponded, setHasResponded] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  
+  const lastMessageRef = useRef<HTMLDivElement>(null);
+
   const apiBase = process.env.NEXT_PUBLIC_API_BASE || '/api';
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  /**
+   * Scroll behaviour — anchored to the last MESSAGE, not to the container end:
+   * - After the user sends, scroll only as much as needed to keep their own
+   *   message visible (`block: 'nearest'`). No violent jump to the THINKING
+   *   indicator sitting at the end of the container.
+   * - Assistant messages only pull the viewport when the user is already at
+   *   (or near) the bottom — if they scrolled up to re-read older messages,
+   *   auto-scroll never hijacks the viewport.
+   * - No `behavior: 'smooth'`: instant positioning avoids the long animated
+   *   glide (and respects prefers-reduced-motion by default).
+   */
+  const isNearBottom = () => {
+    const el = lastMessageRef.current;
+    if (!el) return true;
+    const rect = el.getBoundingClientRect();
+    return rect.bottom <= window.innerHeight + 96;
+  };
+
+  const showLastMessage = () => {
+    lastMessageRef.current?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (messages.length === 0) return;
+    const last = messages[messages.length - 1];
+    if (last.role === 'user' || isNearBottom()) {
+      showLastMessage();
+    }
   }, [messages]);
 
   useEffect(() => {
@@ -227,9 +250,10 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
           </div>
         )}
 
-        {messages.map((msg) => (
+        {messages.map((msg, index) => (
           <div
             key={msg.id}
+            ref={index === messages.length - 1 ? lastMessageRef : undefined}
             className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} mb-4`}
           >
             <div
@@ -241,7 +265,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
             >
               {msg.role === 'assistant' && (
                 <div className="flex items-center gap-2 px-4 pt-3 text-primary font-mono text-label-sm uppercase tracking-widest border-b border-outline-variant/50 pb-2 mb-2">
-                  <span className="material-symbols-outlined text-[15px]">terminal</span>
+                  <IconTerminal className="text-[15px]" />
                   CB_SYSTEM
                 </div>
               )}
@@ -284,7 +308,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
           </div>
         )}
 
-        <div ref={messagesEndRef} />
+        <div aria-hidden="true" />
       </div>
 
       {/* Input area */}
@@ -314,7 +338,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
                 className="bg-primary-container text-on-primary-container p-3 hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Enviar"
               >
-                <span className="material-symbols-outlined">arrow_forward</span>
+                <IconArrowForward className="text-base" />
               </button>
             </div>
           </div>
