@@ -66,7 +66,9 @@ export default function LeadCaptureForm({ diagnostic, sessionId, onComplete }: L
   if (isSubmitted) {
     return (
       <div className="bg-surface border border-primary-container rounded-lg p-8 text-center">
-        <IconCheckCircle className="text-5xl text-primary mb-4 block" />
+        {/* Explicit px sizing: SVGs ignore font-size classes (h-12 w-12 = 48px,
+            the size `text-5xl` gave the old icon font). */}
+        <IconCheckCircle className="h-12 w-12 text-primary mb-4 mx-auto" />
         <h3 className="font-mono text-headline-md text-on-surface mb-2">
           Diagnóstico registado!
         </h3>

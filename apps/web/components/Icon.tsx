@@ -12,6 +12,11 @@
  * like the font glyphs did.
  *
  * Secondary/decorative icons on content pages can keep using the icon font.
+ *
+ * Sizing model: the SVGs default to `width/height: 1em`, the exact metric the
+ * Material Symbols font used (glyph = font-size). This makes every icon's
+ * size deterministic — never the 300×150 intrinsic SVG default — while
+ * explicit Tailwind size classes (h-6 w-6, h-10 w-10…) still win via CSS.
  */
 
 interface IconProps {
@@ -20,6 +25,8 @@ interface IconProps {
 
 const svgProps = {
   viewBox: '0 0 24 24',
+  width: '1em',
+  height: '1em',
   fill: 'currentColor',
   'aria-hidden': true as const,
   focusable: false as const,
