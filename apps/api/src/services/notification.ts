@@ -232,6 +232,19 @@ export function buildClientConfirmationHtml(p: ClientConfirmationPayload): strin
           <!-- Brand header -->
           <tr>
             <td align="center" style="padding:28px 24px 20px;">
+              <!--
+                Official logo (asset already shipped by the frontend at
+                /logo/codigo-binario-transparent.png). Email clients cannot use
+                relative paths, so reference the absolute production URL. The
+                textual lockup below stays as the images-blocked fallback — this
+                is the in-body brand image, NOT the Gmail sender avatar (BIMI).
+              -->
+              <img
+                src="https://codigobinario.it.ao/logo/codigo-binario-transparent.png"
+                width="120"
+                alt="Código Binário"
+                style="display:block;margin:0 auto 12px;width:120px;max-width:120px;height:auto;border:0;outline:none;text-decoration:none;"
+              />
               <div style="font-family:Verdana,Geneva,sans-serif;font-size:20px;font-weight:700;letter-spacing:2px;color:${accentSoft};">CÓDIGO&nbsp;BINÁRIO</div>
               <div style="font-family:Verdana,Geneva,sans-serif;font-size:12px;letter-spacing:3px;color:${muted};margin-top:6px;">ENGENHARIA&nbsp;DE&nbsp;SOFTWARE&nbsp;•&nbsp;IA&nbsp;•&nbsp;AUTOMAÇÃO</div>
             </td>
