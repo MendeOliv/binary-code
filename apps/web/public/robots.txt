@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Áreas que NÃO devem ser rastreadas
+Disallow: /api/
+Disallow: /admin/
+Disallow: /diagnostic/chat
+Disallow: /diagnostic/brief
+Disallow: /diagnostic/done
+
+# Recursos necessários para renderização (NÃO bloquear)
+Allow: /images/
+Allow: /icons/
+Allow: /public/
+Allow: /_next/
+
+# Referência ao sitemap
+Sitemap: https://codigobinario.io/sitemap.xml
