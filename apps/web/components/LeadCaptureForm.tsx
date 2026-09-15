@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { DiagnosticResponse } from '@shared/models';
+import { IconCheckCircle } from './Icon';
 
 interface LeadCaptureFormProps {
   diagnostic: DiagnosticResponse;
@@ -14,14 +15,16 @@ export default function LeadCaptureForm({ diagnostic, sessionId, onComplete }: L
   const [company, setCompany] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const apiBase = process.env.NEXT_PUBLIC_API_BASE || '/api';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!name.trim() || isSubmitting) return;
 
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
       const response = await fetch(`${apiBase}/leads`, {
         method: 'POST',
@@ -38,9 +41,23 @@ export default function LeadCaptureForm({ diagnostic, sessionId, onComplete }: L
 
       if (response.ok) {
         setIsSubmitted(true);
+        return;
       }
+
+      // Failure — generic, safe message. The backend already returns a
+      // user-safe `error` string (no stack traces / internals), but we do not
+      // bubble arbitrary server text into the UI; we only special-case 429.
+      // Form state (all fields) is preserved so the user can retry directly.
+      setSubmitError(
+        response.status === 429
+          ? 'Demasiadas tentativas. Aguarde um momento e tente novamente.'
+          : 'Não foi possível registar o diagnóstico. Verifique a ligação e tente novamente.'
+      );
     } catch (error) {
       console.error('Error submitting lead:', error);
+      setSubmitError(
+        'Não foi possível registar o diagnóstico. Verifique a ligação e tente novamente.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -49,9 +66,7 @@ export default function LeadCaptureForm({ diagnostic, sessionId, onComplete }: L
   if (isSubmitted) {
     return (
       <div className="bg-surface border border-primary-container rounded-lg p-8 text-center">
-        <span className="material-symbols-outlined text-5xl text-primary mb-4 block">
-          check_circle
-        </span>
+        <IconCheckCircle className="text-5xl text-primary mb-4 block" />
         <h3 className="font-mono text-headline-md text-on-surface mb-2">
           Diagnóstico registado!
         </h3>
@@ -122,6 +137,22 @@ export default function LeadCaptureForm({ diagnostic, sessionId, onComplete }: L
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {submitError && (
+            <div
+              role="alert"
+              className="flex items-start justify-between gap-3 border border-error/40 bg-error/10 px-4 py-3"
+            >
+              <p className="font-mono text-body-sm text-error">{submitError}</p>
+              <button
+                type="button"
+                onClick={() => setSubmitError(null)}
+                aria-label="Dispensar mensagem de erro"
+                className="font-mono text-label-sm text-on-surface-variant hover:text-on-surface"
+              >
+                ✕
+              </button>
+            </div>
+          )}
           <div>
             <label className="font-mono text-label-sm text-on-surface-variant block mb-1">
               Nome *
