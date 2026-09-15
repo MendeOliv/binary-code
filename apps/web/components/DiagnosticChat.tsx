@@ -30,26 +30,33 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
   const [isComplete, setIsComplete] = useState(false);
   const [hasResponded, setHasResponded] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const lastMessageRef = useRef<HTMLDivElement>(null);
+  const thinkingRef = useRef<HTMLDivElement>(null);
+  const stickToBottomRef = useRef(true);
 
   const apiBase = process.env.NEXT_PUBLIC_API_BASE || '/api';
 
   /**
-   * Scroll behaviour — anchored to the last MESSAGE, not to the container end:
-   * - After the user sends, scroll only as much as needed to keep their own
-   *   message visible (`block: 'nearest'`). No violent jump to the THINKING
-   *   indicator sitting at the end of the container.
-   * - Assistant messages only pull the viewport when the user is already at
-   *   (or near) the bottom — if they scrolled up to re-read older messages,
-   *   auto-scroll never hijacks the viewport.
-   * - No `behavior: 'smooth'`: instant positioning avoids the long animated
-   *   glide (and respects prefers-reduced-motion by default).
+   * Scroll behaviour — container-sticky, anchored to the last MESSAGE:
+   * - `stickToBottomRef` is derived from REAL scroll events on the chat
+   *   viewport: true while the user follows the conversation (near the
+   *   bottom), false while they deliberately re-read history. History reading
+   *   is never hijacked by auto-scroll.
+   * - After the user sends, reveal their own message with the MINIMUM
+   *   movement (`block: 'nearest'`) — no glide to the THINKING indicator.
+   * - When the AI reply arrives, only pull the viewport if the user was
+   *   following along. `block: 'nearest'` then reveals the reply minimally:
+   *   the whole bubble when it fits, or its TOP when it is taller than the
+   *   viewport — so the start of the answer is readable, never hidden below
+   *   the visible area.
+   * - No `behavior: 'smooth'`: instant positioning avoids the animated glide
+   *   and respects prefers-reduced-motion by default.
    */
-  const isNearBottom = () => {
-    const el = lastMessageRef.current;
-    if (!el) return true;
-    const rect = el.getBoundingClientRect();
-    return rect.bottom <= window.innerHeight + 96;
+  const handleScroll = () => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    stickToBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 96;
   };
 
   const showLastMessage = () => {
@@ -59,10 +66,23 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
   useEffect(() => {
     if (messages.length === 0) return;
     const last = messages[messages.length - 1];
-    if (last.role === 'user' || isNearBottom()) {
+    if (last.role === 'user') {
+      // User just sent: follow the conversation and reveal their message.
+      stickToBottomRef.current = true;
+      showLastMessage();
+    } else if (stickToBottomRef.current) {
+      // AI reply arrived while the user was following along.
       showLastMessage();
     }
   }, [messages]);
+
+  useEffect(() => {
+    // Keep the THINKING indicator reachable while following the conversation;
+    // `nearest` moves the viewport minimally and never to the absolute bottom.
+    if (isLoading && stickToBottomRef.current) {
+      thinkingRef.current?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -233,7 +253,12 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
       </div>
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto px-5 md:px-8 py-8 space-y-6" aria-live="polite">
+      <div
+        ref={scrollContainerRef}
+        onScroll={handleScroll}
+        className="flex-1 overflow-y-auto px-5 md:px-8 py-8 space-y-6"
+        aria-live="polite"
+      >
         {messages.length === 0 && !initialProblem && (
           <div className="flex items-center justify-center h-full">
             <div className="text-center max-w-md">
@@ -265,7 +290,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
             >
               {msg.role === 'assistant' && (
                 <div className="flex items-center gap-2 px-4 pt-3 text-primary font-mono text-label-sm uppercase tracking-widest border-b border-outline-variant/50 pb-2 mb-2">
-                  <IconTerminal className="text-[15px]" />
+                  <IconTerminal className="h-4 w-4" />
                   CB_SYSTEM
                 </div>
               )}
@@ -286,7 +311,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
 
         {/* Processing / thinking indicator */}
         {isLoading && (
-          <div className="flex justify-start">
+          <div ref={thinkingRef} className="flex justify-start">
             <div className="bg-surface-container-low border border-outline-variant px-4 py-3.5">
               <div className="flex items-center gap-3">
                 <div className="flex space-x-1.5">
@@ -338,7 +363,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
                 className="bg-primary-container text-on-primary-container p-3 hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Enviar"
               >
-                <IconArrowForward className="text-base" />
+                <IconArrowForward className="h-4 w-4" />
               </button>
             </div>
           </div>
