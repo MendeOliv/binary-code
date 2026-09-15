@@ -15,4 +15,4 @@ Allow: /public/
 Allow: /_next/
 
 # Referência ao sitemap
-Sitemap: https://codigobinario.io/sitemap.xml
+Sitemap: https://codigobinario.it.ao/sitemap.xml
