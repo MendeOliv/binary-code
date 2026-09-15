@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+/* Material Symbols are icon ligatures (e.g. "menu", "check_circle"). Until the icon font
+   finishes loading, the browser renders the ligature NAME as visible text — on slow mobile
+   connections this showed words like "menu" instead of the hamburger/close icon. Per Google's
+   Material Symbols guide, &display=block suppresses that flash, and &icon_names subsets the
+   295 KB full font to only the glyphs used by the app (≈64 KB with the full axis ranges kept),
+   which is what makes "block" viable on mobile without delaying first paint. Keep this list in sync when adding icons. */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=accessibility_new,account_circle,account_tree,alt_route,alternate_email,api,arrow_forward,assignment,badge,bolt,cable,chat,check_circle,close,code,code_blocks,contact_mail,deployed_code,description,design_services,devices,dns,folder_open,format_paint,groups,hourglass_disabled,insights,layers,memory,menu,neurology,photo_camera,precision_manufacturing,psychology,psychology_alt,rocket_launch,smart_toy,speed,storage,sync_alt,sync_saved_locally,table_chart,terminal,troubleshoot,trending_up,tune,verified_user,warning,web&display=block');
 
 @tailwind base;
 @tailwind components;
