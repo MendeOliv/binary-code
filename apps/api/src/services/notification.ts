@@ -28,8 +28,8 @@
  * Required environment variables (production, Render dashboard):
  *   NOTIFICATION_PROVIDER=resend
  *   RESEND_API_KEY=re_...
- *   NOTIFICATION_EMAIL_FROM="Código Binário <diagnostics@yourdomain>"
- *   NOTIFICATION_EMAIL_TO="team@yourdomain"
+ *   NOTIFICATION_EMAIL_FROM="Código Binário <contacto@codigobinario.it.ao>"
+ *   NOTIFICATION_EMAIL_TO="team@codigobinario.it.ao"
  */
 
 export interface DiagnosticNotificationPayload {

@@ -58,13 +58,15 @@ services:
       # Default transport is a console logger (no-op). To enable email:
       #   NOTIFICATION_PROVIDER=resend
       #   RESEND_API_KEY=            # sync: false (set in Render dashboard)
-      #   NOTIFICATION_EMAIL_FROM=   # e.g. "Código Binário <diagnostics@yourdomain>"
+      #   NOTIFICATION_EMAIL_FROM=   # Official sender — codigobinario.it.ao verified in Resend
+      #                              # (DKIM/SPF verified, region sa-east-1). Do NOT send from
+      #                              # onboarding@resend.dev in production.
       - key: NOTIFICATION_PROVIDER
         value: console
       - key: RESEND_API_KEY
         sync: false
       - key: NOTIFICATION_EMAIL_FROM
-        sync: false
+        value: "Código Binário <contacto@codigobinario.it.ao>"
       # Recipient defaults to fabiobessadeoliveira2@gmail.com when unset.
       - key: NOTIFICATION_EMAIL_TO
         value: fabiobessadeoliveira2@gmail.com
