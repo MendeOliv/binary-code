@@ -212,7 +212,7 @@ test('updateLeadWithAudit — assignment records assignment activity', async () 
   fake.leads.push(makeLead());
   const svc = new LeadService(fake);
 
-  await svc.updateLeadWithAudit('lead-1', { assignedTo: 'fabio@codigobinario.io' });
+  await svc.updateLeadWithAudit('lead-1', { assignedTo: 'fabio@codigobinario.it.ao' });
   const types = fake.activities.map(a => a.type);
   assert.ok(types.includes('assignment'));
 });

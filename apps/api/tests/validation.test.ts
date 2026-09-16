@@ -140,7 +140,7 @@ test('Digestive default — missing optional fields get safe defaults', () => {
 test('LeadUpdateSchema — valid admin update', () => {
   const r = LeadUpdateSchema.safeParse({
     status: 'contacted',
-    assignedTo: 'fabio@codigobinario.io',
+    assignedTo: 'fabio@codigobinario.it.ao',
     nextAction: 'Agendar consulta',
     followUpAt: '2026-09-20T10:00:00Z',
     estimatedValue: 5000,
