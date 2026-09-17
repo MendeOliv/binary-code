@@ -2,8 +2,18 @@
 User-agent: *
 Allow: /
 
-# API surface is never content: the public API lives on its own host and the
-# /api/* path only exists here as a local development proxy.
+# Áreas que NÃO devem ser rastreadas
 Disallow: /api/
+Disallow: /admin/
+Disallow: /diagnostic/chat
+Disallow: /diagnostic/brief
+Disallow: /diagnostic/done
 
+# Recursos necessários para renderização (NÃO bloquear)
+Allow: /images/
+Allow: /icons/
+Allow: /public/
+Allow: /_next/
+
+# Referência ao sitemap
 Sitemap: https://codigobinario.it.ao/sitemap.xml

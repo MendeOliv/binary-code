@@ -9,6 +9,9 @@ import { SITE_URL } from '../lib/site';
  *
  * Deliberately excluded: /api/* (not content), admin-only and internal session
  * routes (none are reachable in the web app), and any non-indexable route.
+ *
+ * `changefreq`/`priority` are intentionally omitted: search engines ignore
+ * them, so emitting them would only add noise.
  */
 const PUBLIC_PAGES = [
   '/',
@@ -35,14 +38,7 @@ export function buildSitemap(): string {
   const entries = paths
     .map((path) => {
       const loc = escapeXml(path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`);
-      const priority = path === '/' ? '1.0' : path === '/diagnostic' ? '0.9' : '0.7';
-      return [
-        '  <url>',
-        `    <loc>${loc}</loc>`,
-        '    <changefreq>monthly</changefreq>',
-        `    <priority>${priority}</priority>`,
-        '  </url>',
-      ].join('\n');
+      return ['  <url>', `    <loc>${loc}</loc>`, '  </url>'].join('\n');
     })
     .join('\n');
 
