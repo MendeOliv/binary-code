@@ -58,6 +58,27 @@ test('rate limiter — respects RATE_LIMIT_DISABLED=1', () => {
   }
 });
 
+test('rate limiter — RATE_LIMIT_DISABLED=1 is ignored in production', () => {
+  const prevDisabled = process.env.RATE_LIMIT_DISABLED;
+  const prevNodeEnv = process.env.NODE_ENV;
+  process.env.RATE_LIMIT_DISABLED = '1';
+  process.env.NODE_ENV = 'production';
+  try {
+    const limiter = new SlidingWindowLimiter(60, 1);
+    assert.equal(limiter.allow(fakeRequest('10.0.0.1')), true);
+    assert.equal(
+      limiter.allow(fakeRequest('10.0.0.1')),
+      false,
+      'limiting must stay enforced in production'
+    );
+  } finally {
+    if (prevDisabled === undefined) delete process.env.RATE_LIMIT_DISABLED;
+    else process.env.RATE_LIMIT_DISABLED = prevDisabled;
+    if (prevNodeEnv === undefined) delete process.env.NODE_ENV;
+    else process.env.NODE_ENV = prevNodeEnv;
+  }
+});
+
 test('rate limiter — maxRequests <= 0 disables limiting', () => {
   const limiter = new SlidingWindowLimiter(60, 0);
   assert.equal(limiter.allow(fakeRequest('10.0.0.1')), true);

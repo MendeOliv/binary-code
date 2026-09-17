@@ -49,6 +49,9 @@ services:
         value: "true"
 
       # ── Rate limiting (public endpoints) ──
+      # Applies to POST /api/discovery/chat and POST /api/leads. Note that
+      # RATE_LIMIT_DISABLED is a local-development escape hatch only: it is
+      # ignored when NODE_ENV=production, so limiting cannot be switched off here.
       - key: RATE_LIMIT_WINDOW_SECONDS
         value: "60"
       - key: RATE_LIMIT_MAX_REQUESTS
@@ -76,7 +79,11 @@ services:
       # (fail closed) rather than left open.
       - key: ADMIN_API_KEY
         sync: false  # Set in Render dashboard
+      # Official web origin. Set to https://codigobinario.it.ao (comma-separate
+      # to add more). Add https://www.codigobinario.it.ao ONLY once that
+      # hostname actually resolves and is configured on the frontend.
+      # If left unset, production defaults to https://codigobinario.it.ao only.
       - key: CORS_ORIGINS
-        sync: false  # Set to your Vercel URL, e.g. https://your-app.vercel.app
+        sync: false
       - key: NODE_ENV
         value: production

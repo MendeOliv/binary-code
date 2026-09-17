@@ -6,6 +6,7 @@ import fastify from 'fastify';
 import cors from '@fastify/cors';
 import { supabase } from '@db/supabase';
 import { requireAdminKey } from './lib/auth';
+import { resolveAllowedOrigins } from './lib/cors';
 import { discoveryLimiter } from './lib/rate-limit';
 
 const server = fastify({
@@ -14,21 +15,24 @@ const server = fastify({
   trustProxy: process.env.APP_TRUST_PROXY === 'true',
 });
 
-// CORS — allow frontend origin
-const allowedOrigins = process.env.CORS_ORIGINS
-  ? process.env.CORS_ORIGINS.split(',').map((s) => s.trim())
-  : ['http://localhost:3000', 'http://localhost:3001'];
+// ── CORS ─────────────────────────────────────────────────────────────────
+// Explicit browser allow-list (see lib/cors.ts): production only accepts the
+// official website origin, a wildcard is never honoured.
+const allowedOrigins = resolveAllowedOrigins();
 
 server.register(cors, {
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    // Allow requests with no origin (curl, server-to-server). Browsers always
+    // send Origin on cross-origin requests, so this is not a CORS bypass.
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'), false);
     }
   },
-  credentials: true,
+  // Authentication is header-based (X-Admin-Key / Authorization: Bearer), never
+  // cookie-based, so cross-origin credentials are not needed and stay off.
+  credentials: false,
 });
 
 // Health check route
@@ -41,8 +45,10 @@ server.get('/', async (_request, reply) => {
   return { name: 'Código Binário API', status: 'ok', health: '/health' };
 });
 
-// Test Supabase connection (kept minimal; no sensitive data exposed)
-server.get('/test-db', async (_request, reply) => {
+// Test Supabase connection (kept minimal; no sensitive data exposed).
+// ADMIN-ONLY: it must never be publicly reachable in production. Without
+// ADMIN_API_KEY the route fails closed (503) — see lib/auth.ts.
+server.get('/test-db', { onRequest: requireAdminKey }, async (_request, reply) => {
   const { data, error } = await supabase.from('projects').select('count', { count: 'exact', head: true });
   if (error) {
     return reply.status(500).send({ error: 'Database connection failed' });

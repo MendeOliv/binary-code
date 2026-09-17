@@ -36,7 +36,7 @@ function makeInternalPayload(): DiagnosticNotificationPayload {
     priority: 'high',
     requiresHumanReview: true,
     onSiteRequired: true,
-    assignedTo: 'fabio@codigobinario.io',
+    assignedTo: 'fabio@codigobinario.it.ao',
     nextAction: 'Agendar consulta técnica',
     followUpAt: '2026-01-05T10:00:00.000Z',
     lead: { name: 'João Silva', email: 'joao@mail.com', phone: '+244923', company: 'AngoCorp' },
@@ -209,7 +209,7 @@ test('C — client confirmation transports email to the client address with HTML
   const original = { p: process.env.NOTIFICATION_PROVIDER, k: process.env.RESEND_API_KEY, f: process.env.NOTIFICATION_EMAIL_FROM };
   process.env.NOTIFICATION_PROVIDER = 'resend';
   process.env.RESEND_API_KEY = 're_test';
-  process.env.NOTIFICATION_EMAIL_FROM = 'Código Binário <no-reply@codigobinario.io>';
+  process.env.NOTIFICATION_EMAIL_FROM = 'Código Binário <no-reply@codigobinario.it.ao>';
   try {
     const sent: any[] = [];
     const svc = new NotificationService(async (opts) => { sent.push(opts); return { delivered: true, provider: 'resend' }; });
@@ -232,7 +232,7 @@ test('D — missing client email does not send a confirmation', async () => {
   const original = { p: process.env.NOTIFICATION_PROVIDER, k: process.env.RESEND_API_KEY, f: process.env.NOTIFICATION_EMAIL_FROM };
   process.env.NOTIFICATION_PROVIDER = 'resend';
   process.env.RESEND_API_KEY = 're_test';
-  process.env.NOTIFICATION_EMAIL_FROM = 'Código Binário <no-reply@codigobinario.io>';
+  process.env.NOTIFICATION_EMAIL_FROM = 'Código Binário <no-reply@codigobinario.it.ao>';
   try {
     let sent = false;
     const svc = new NotificationService(async () => { sent = true; return { delivered: true, provider: 'resend' }; });
@@ -255,7 +255,7 @@ test('G — transport failure returns delivered=false and never throws', async (
   const original = { p: process.env.NOTIFICATION_PROVIDER, k: process.env.RESEND_API_KEY, f: process.env.NOTIFICATION_EMAIL_FROM };
   process.env.NOTIFICATION_PROVIDER = 'resend';
   process.env.RESEND_API_KEY = 're_test';
-  process.env.NOTIFICATION_EMAIL_FROM = 'Código Binário <no-reply@codigobinario.io>';
+  process.env.NOTIFICATION_EMAIL_FROM = 'Código Binário <no-reply@codigobinario.it.ao>';
   try {
     const failing = new NotificationService(async () => { throw new Error('Resend API 500'); });
     const client = await failing.sendClientConfirmation(makeClientPayload());

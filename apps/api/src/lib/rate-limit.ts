@@ -10,7 +10,10 @@
  * Tunable via env:
  *   RATE_LIMIT_WINDOW_SECONDS (default 60)
  *   RATE_LIMIT_MAX_REQUESTS   (default 20 requests per window per IP)
- *   RATE_LIMIT_DISABLED=1     (opt out)
+ *   RATE_LIMIT_DISABLED=1     (opt out — IGNORED when NODE_ENV=production)
+ *
+ * The public endpoints must never be left unprotected in production, so the
+ * disable flag is only honoured outside production.
  */
 import { FastifyRequest, FastifyReply } from 'fastify';
 
@@ -36,9 +39,17 @@ export class SlidingWindowLimiter {
     return request.ip || 'unknown';
   }
 
-  /** Returns true when the request is allowed. */
+  /**
+   * Returns true when the request is allowed.
+   *
+   * `RATE_LIMIT_DISABLED=1` is a local-development escape hatch only: it is
+   * ignored in production so a stray environment variable can never disable
+   * rate limiting on a public endpoint.
+   */
   allow(request: FastifyRequest): boolean {
-    if (process.env.RATE_LIMIT_DISABLED === '1') return true;
+    if (process.env.RATE_LIMIT_DISABLED === '1' && process.env.NODE_ENV !== 'production') {
+      return true;
+    }
     if (this.maxRequests <= 0) return true;
 
     const key = this.clientIp(request);
