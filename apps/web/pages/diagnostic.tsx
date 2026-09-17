@@ -64,11 +64,11 @@ export default function DiagnosticPage() {
           </div>
           <div className="flex items-center gap-space-md">
             <span className="px-space-sm py-0.5 rounded bg-surface-container-high text-on-surface font-body-sm text-body-sm">
-              Criptografia Ponta a Ponta
+              Conexão Segura HTTPS
             </span>
             <span className="text-primary font-medium tracking-wide flex items-center gap-space-xs">
               <span className="w-1.5 h-1.5 rounded-full bg-primary" aria-hidden="true" />
-              Sessão Segura
+              Dados Tratados de Forma Confidencial
             </span>
           </div>
         </div>

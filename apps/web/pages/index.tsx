@@ -27,7 +27,7 @@ const ORGANIZATION_JSON_LD = {
       logo: `${OFFICIAL_SITE_URL}/logo/codigo-binario-transparent.png`,
       description:
         'Empresa de engenharia — AI, Systems & Digital Solutions. Transforma problemas complexos em sistemas, automações e soluções digitais funcionais.',
-      email: 'eng@codigobinario.it.ao',
+      email: 'contacto@codigobinario.it.ao',
     },
     {
       '@type': 'WebSite',

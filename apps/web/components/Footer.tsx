@@ -87,10 +87,10 @@ export default function Footer() {
               // CONEXÃO DIRETA
             </span>
             <a
-              href="mailto:eng@codigobinario.it.ao"
+              href="mailto:contacto@codigobinario.it.ao"
               className="font-body-sm text-body-sm text-on-surface hover:text-primary transition-colors"
             >
-              eng@codigobinario.it.ao
+              contacto@codigobinario.it.ao
             </a>
             <Link
               href="/diagnostic"
