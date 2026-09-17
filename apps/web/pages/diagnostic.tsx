@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import SeoHead from '../components/SeoHead';
 import DiagnosticChat from '../components/DiagnosticChat';
 import DiagnosticBrief from '../components/DiagnosticBrief';
 import LeadCaptureForm from '../components/LeadCaptureForm';
@@ -41,13 +41,11 @@ export default function DiagnosticPage() {
 
   return (
     <>
-      <Head>
-        <title>Binary Diagnostic — Código Binário</title>
-        <meta
-          name="description"
-          content="Entrevista de arquitetura e diagnóstico técnico guiado por IA. Descreva o problema da sua operação e receba uma análise estruturada."
-        />
-      </Head>
+      <SeoHead
+        title="Binary Diagnostic — Código Binário"
+        description="Entrevista de arquitetura e diagnóstico técnico guiado por IA. Descreva o problema da sua operação e receba uma análise estruturada."
+        path="/diagnostic"
+      />
 
       {/* Telemetry strip */}
       <section className="w-full bg-surface-container-low px-gutter-mobile md:px-margin py-space-sm border-b border-border-subtle">

@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import Link from 'next/link';
+import SeoHead from '../components/SeoHead';
 
 const SECTIONS = [
   {
@@ -48,7 +48,7 @@ const SECTIONS = [
     title: '7. Alterações e contacto',
     body: [
       'Estes termos podem ser atualizados para refletir a evolução do serviço. A versão publicada nesta página é a vigente.',
-      'Dúvidas: eng@codigobinario.io',
+      'Dúvidas: eng@codigobinario.it.ao',
     ],
   },
 ];
@@ -56,13 +56,11 @@ const SECTIONS = [
 export default function TermsPage() {
   return (
     <>
-      <Head>
-        <title>Termos de Uso — Código Binário</title>
-        <meta
-          name="description"
-          content="Termos de Uso do website e do Binary Diagnostic da Código Binário: objeto, uso aceitável, dados fornecidos e limitação de responsabilidade."
-        />
-      </Head>
+      <SeoHead
+        title="Termos de Uso — Código Binário"
+        description="Termos de Uso do website e do Binary Diagnostic da Código Binário: objeto, uso aceitável, dados fornecidos e limitação de responsabilidade."
+        path="/termos"
+      />
 
       <section className="w-full px-gutter-mobile md:px-margin pt-space-xl pb-space-lg">
         <div className="max-w-3xl mx-auto flex flex-col gap-space-md">

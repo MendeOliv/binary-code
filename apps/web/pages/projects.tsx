@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import Link from 'next/link';
+import SeoHead from '../components/SeoHead';
 
 /**
  * Systems & cases. The flagship case is the company's own platform (real,
@@ -68,13 +68,11 @@ const PROJECTS = [
 export default function ProjectsPage() {
   return (
     <>
-      <Head>
-        <title>Projetos — Código Binário</title>
-        <meta
-          name="description"
-          content="Sistemas construídos pela Código Binário: engenharia de software, IA e automação em produção. Cases descritos como sistemas — problema, solução, stack."
-        />
-      </Head>
+      <SeoHead
+        title="Projetos — Código Binário"
+        description="Sistemas construídos pela Código Binário: engenharia de software, IA e automação em produção. Cases descritos como sistemas — problema, solução, stack."
+        path="/projects"
+      />
 
       {/* Telemetry bar */}
       <section className="w-full px-gutter-mobile md:px-margin pt-space-lg pb-space-md">

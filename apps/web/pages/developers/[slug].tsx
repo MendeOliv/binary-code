@@ -1,6 +1,6 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import SeoHead from '../../components/SeoHead';
 import { developers, getDeveloperBySlug, Developer } from '../../lib/developers';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
@@ -25,13 +25,12 @@ export default function DeveloperProfile({ developer: dev }: ProfileProps) {
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="profile" />
-      </Head>
+      <SeoHead
+        title={title}
+        description={description}
+        path={`/developers/${dev.slug}`}
+        type="profile"
+      />
 
       {/* Breadcrumb */}
       <section className="w-full px-gutter-mobile md:px-margin pt-space-lg pb-space-md bg-surface-container-lowest border-b border-border-subtle">

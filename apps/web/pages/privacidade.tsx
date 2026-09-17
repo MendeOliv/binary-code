@@ -1,12 +1,12 @@
-import Head from 'next/head';
 import Link from 'next/link';
+import SeoHead from '../components/SeoHead';
 
 const SECTIONS = [
   {
     title: '1. Quem somos',
     body: [
       'A Código Binário é uma empresa de engenharia — AI, Systems & Digital Solutions — que transforma problemas complexos em sistemas, automações e soluções digitais funcionais.',
-      'Para contato sobre privacidade: eng@codigobinario.io',
+      'Para contato sobre privacidade: eng@codigobinario.it.ao',
     ],
   },
   {
@@ -44,7 +44,7 @@ const SECTIONS = [
   {
     title: '6. Contacto',
     body: [
-      'Para exercer direitos sobre os seus dados, solicitar esclarecimentos ou remoção de informações, contacte: eng@codigobinario.io',
+      'Para exercer direitos sobre os seus dados, solicitar esclarecimentos ou remoção de informações, contacte: eng@codigobinario.it.ao',
     ],
   },
 ];
@@ -52,13 +52,11 @@ const SECTIONS = [
 export default function PrivacyPage() {
   return (
     <>
-      <Head>
-        <title>Política de Privacidade — Código Binário</title>
-        <meta
-          name="description"
-          content="Política de Privacidade da Código Binário: quais dados o Binary Diagnostic recolhe, para que são utilizados e como são tratados."
-        />
-      </Head>
+      <SeoHead
+        title="Política de Privacidade — Código Binário"
+        description="Política de Privacidade da Código Binário: quais dados o Binary Diagnostic recolhe, para que são utilizados e como são tratados."
+        path="/privacidade"
+      />
 
       <section className="w-full px-gutter-mobile md:px-margin pt-space-xl pb-space-lg">
         <div className="max-w-3xl mx-auto flex flex-col gap-space-md">

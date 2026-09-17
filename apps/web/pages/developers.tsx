@@ -1,18 +1,16 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import SeoHead from '../components/SeoHead';
 import { developers } from '../lib/developers';
 
 export default function DevelopersPage() {
   return (
     <>
-      <Head>
-        <title>Developers — Código Binário</title>
-        <meta
-          name="description"
-          content="Conheça os engenheiros da Código Binário: Elisio Nascimento, Mendes Bessa e Mbumba Guilherme. Engenharia, método e pessoas."
-        />
-      </Head>
+      <SeoHead
+        title="Developers — Código Binário"
+        description="Conheça os engenheiros da Código Binário: Elisio Nascimento, Mendes Bessa e Mbumba Guilherme. Engenharia, método e pessoas."
+        path="/developers"
+      />
 
       {/* Telemetry sub-ribbon */}
       <section className="w-full bg-surface-container-lowest px-gutter-mobile md:px-margin py-space-sm border-b border-border-subtle">

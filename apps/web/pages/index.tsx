@@ -1,7 +1,44 @@
-import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import SeoHead from '../components/SeoHead';
 import { developers } from '../lib/developers';
+import { OFFICIAL_SITE_URL } from '../lib/site';
+
+const TITLE = 'Código Binário — AI, Systems & Digital Solutions';
+const DESCRIPTION =
+  'A Código Binário entende problemas complexos e transforma-os em sistemas, automações e soluções digitais funcionais — utilizando Inteligência Artificial quando ela realmente cria vantagem.';
+
+/**
+ * Structured data for the official entity.
+ *
+ * Contains ONLY facts that are verifiable in this repository or on the site:
+ * no address, phone number, reviews, aggregate ratings, certifications, client
+ * counts or awards are declared. `LocalBusiness` is intentionally NOT used
+ * because it would require a real, confirmed physical location.
+ */
+const ORGANIZATION_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${OFFICIAL_SITE_URL}/#organization`,
+      name: 'Código Binário',
+      url: `${OFFICIAL_SITE_URL}/`,
+      logo: `${OFFICIAL_SITE_URL}/logo/codigo-binario-transparent.png`,
+      description:
+        'Empresa de engenharia — AI, Systems & Digital Solutions. Transforma problemas complexos em sistemas, automações e soluções digitais funcionais.',
+      email: 'eng@codigobinario.it.ao',
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${OFFICIAL_SITE_URL}/#website`,
+      name: 'Código Binário',
+      url: `${OFFICIAL_SITE_URL}/`,
+      inLanguage: 'pt-AO',
+      publisher: { '@id': `${OFFICIAL_SITE_URL}/#organization` },
+    },
+  ],
+};
 
 const PROBLEMS = [
   {
@@ -107,13 +144,7 @@ const AREAS = ['AI Engineering', 'Software Engineering', 'Automation', 'Systems 
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>Código Binário — AI, Systems &amp; Digital Solutions</title>
-        <meta
-          name="description"
-          content="A Código Binário entende problemas complexos e transforma-os em sistemas, automações e soluções digitais funcionais — utilizando Inteligência Artificial quando ela realmente cria vantagem."
-        />
-      </Head>
+      <SeoHead title={TITLE} description={DESCRIPTION} path="/" jsonLd={ORGANIZATION_JSON_LD} />
 
       {/* ============ HERO ============ */}
       <section className="relative w-full overflow-hidden bg-bg-canvas px-gutter-mobile md:px-margin pt-space-xl pb-20 md:pb-24 border-b border-border-subtle">

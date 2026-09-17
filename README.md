@@ -2,6 +2,12 @@
 
 A monorepo for the **Código Binário** platform — an AI-powered diagnostic system that helps businesses identify operational problems and propose technology solutions.
 
+## Production identity
+
+- Official domain (frontend, canonical URLs, Open Graph, JSON-LD, sitemap): **https://codigobinario.it.ao**
+- `codigobinario.io` is retired and must not be referenced by production code or docs.
+- Deployment hostnames (`*.vercel.app`, preview aliases) must never be used as the public site identity — serialized SEO tags are built from the official domain only (`apps/web/lib/site.ts`).
+
 ## Architecture
 
 ```
@@ -56,6 +62,9 @@ pnpm --filter=@binary-code/web dev
 
 # Start only backend (port 3001)
 pnpm --filter=@binary-code/api dev
+
+# Typecheck every workspace (tsc --noEmit)
+pnpm typecheck
 ```
 
 ### Environment Variables
@@ -63,6 +72,8 @@ pnpm --filter=@binary-code/api dev
 **Frontend** (`apps/web/.env.local`):
 ```
 NEXT_PUBLIC_API_BASE=         # Leave empty for dev (uses proxy), set to Render URL in prod
+NEXT_PUBLIC_SITE_URL=         # LOCAL DEV ONLY (defaults to http://localhost:3000). Never a secret.
+                              # Production is hard-wired to the official domain and ignores it.
 ```
 
 **Backend** (`apps/api/.env.local`):
@@ -74,7 +85,8 @@ OPENAI_API_KEY=
 GEMINI_API_KEY=
 GROQ_API_KEY=
 PRIMARY_PROVIDER=gemini
-CORS_ORIGINS=http://localhost:3000
+CORS_ORIGINS=http://localhost:3000   # prod: https://codigobinario.it.ao — wildcards are ignored
+ADMIN_API_KEY=                       # protects /api/leads (admin), /api/projects/* and /test-db; fails closed when unset
 ```
 
 ### Database Setup

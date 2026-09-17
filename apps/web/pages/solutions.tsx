@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import Link from 'next/link';
+import SeoHead from '../components/SeoHead';
 
 interface Enclave {
   id: string;
@@ -116,13 +116,11 @@ const ENCLAVES: Enclave[] = [
 export default function SolutionsPage() {
   return (
     <>
-      <Head>
-        <title>Soluções — Código Binário</title>
-        <meta
-          name="description"
-          content="Arquitetura soberana e engenharia de alta precisão: AI Engineering, Software Engineering, Automação, Infraestrutura, Produtos Digitais e Consultoria Técnica."
-        />
-      </Head>
+      <SeoHead
+        title="Soluções — Código Binário"
+        description="Arquitetura soberana e engenharia de alta precisão: AI Engineering, Software Engineering, Automação, Infraestrutura, Produtos Digitais e Consultoria Técnica."
+        path="/solutions"
+      />
 
       {/* Telemetry diagnostic bar */}
       <section className="w-full px-gutter-mobile md:px-margin pt-space-lg pb-space-md">
