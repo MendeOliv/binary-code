@@ -1,4 +1,3 @@
-# robots.txt — Código Binário (https://codigobinario.it.ao)
 User-agent: *
 Allow: /
 
