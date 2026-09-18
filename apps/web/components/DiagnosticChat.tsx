@@ -85,6 +85,16 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
   }, [isLoading]);
 
   useEffect(() => {
+    // Put the cursor in the diagnostic input as soon as the page is ready.
+    // Wait until loading has finished so the textarea is not disabled.
+    if (isLoading || isComplete) return;
+    const frame = requestAnimationFrame(() => {
+      textareaRef.current?.focus();
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [isLoading, isComplete]);
+
+  useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
