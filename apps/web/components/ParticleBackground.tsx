@@ -3,10 +3,10 @@
 import { useEffect, useRef } from 'react';
 
 const COLORS = ['#DFFAFF', '#33ff5c', '#005201'];
-const PARTICLE_COUNT = 168;
+const PARTICLE_COUNT = 144;
 const MAX_DPR = 2;
-const MAX_FPS = 45;
-const MAX_BACKING_PIXELS = 2_200_000;
+const MAX_FPS = 40;
+const MAX_BACKING_PIXELS = 1_800_000;
 const TAU = Math.PI * 2;
 const DIRECTION = (8 * Math.PI) / 180;
 
@@ -129,8 +129,8 @@ export default function ParticleBackground() {
       if (!width || !height) return;
       reconcileCount();
       context.save();
-      context.globalCompositeOperation = 'lighter';
-      context.lineCap = 'round';
+        context.globalCompositeOperation = 'source-over';
+        context.lineCap = 'round';
 
       particles.forEach((particle) => {
         const waveA = Math.sin(particle.y * 0.0064 + time * 0.00016 + particle.phase);
@@ -169,11 +169,9 @@ export default function ParticleBackground() {
         }
 
         const color = COLORS[particle.color % COLORS.length];
-        context.globalAlpha = clamp(0.82 * (0.42 + particle.size * 0.23), 0, 0.9);
+        context.globalAlpha = clamp(0.82 * (0.42 + particle.size * 0.23), 0, 0.85);
         context.strokeStyle = color;
         context.lineWidth = clamp(1.45 * particle.size, 0.35, 3.4);
-        context.shadowColor = color;
-        context.shadowBlur = 2.5 + particle.size * 3;
         context.beginPath();
         context.moveTo(startX, startY);
         context.lineTo(endX, endY);
