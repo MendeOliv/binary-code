@@ -15,6 +15,7 @@ import {
     LeadCreate, LeadUpdate, LeadResponse,
     LeadActivityCreate, LeadActivityResponse
   } from '@shared/models';
+import type { CompanyKnowledgeMatch } from '../company-knowledge';
 
 export class SupabaseRepository {
   private client: SupabaseClient;
@@ -671,6 +672,37 @@ export class SupabaseRepository {
 
     async releaseDiscoveryLock(sessionId: string, owner: string): Promise<void> {
       await this.client.rpc('release_discovery_lock', { p_session: sessionId, p_owner: owner });
+    }
+
+    // --- Company Knowledge Base (FASE 4 / RAG) ---
+    // Semantic search over company_knowledge. Returns [] (never throws) when the
+    // migration is absent or embeddings are unavailable, so the diagnostic
+    // pipeline degrades gracefully instead of failing.
+    async searchCompanyKnowledge(
+      embedding: number[],
+      queryText: string,
+      matchCount: number = 4,
+      matchThreshold: number = 0.30
+    ): Promise<CompanyKnowledgeMatch[]> {
+      const { data, error } = await this.client.rpc('match_company_knowledge', {
+        query_embedding: embedding,
+        query_text: queryText,
+        match_count: matchCount,
+        match_threshold: matchThreshold,
+      });
+      if (error) {
+        console.warn(`[Repo] match_company_knowledge unavailable (${error.message})`);
+        return [];
+      }
+      return (data || []).map((row: any) => ({
+        id: row.id,
+        category: row.category,
+        title: row.title,
+        content: row.content,
+        sourceUrl: row.source_url ?? null,
+        tags: row.tags || [],
+        similarity: Number(row.similarity) || 0,
+      }));
     }
 
   // --- Mappers (snake_case DB -> camelCase) ---

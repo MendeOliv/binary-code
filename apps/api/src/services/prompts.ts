@@ -57,6 +57,24 @@ When you have new facts, include at the end of your response:
 
 Only include facts you actually learned (don't repeat unchanged ones).`;
 
+/**
+ * Stable, compact instruction on how to use retrieved company knowledge.
+ *
+ * Appended to the interview system prompt (not the diagnosis prompt): the
+ * diagnostic brief is about the CLIENT and must stay unaffected by company
+ * marketing context. This block is what turns retrieved rows into grounded
+ * answers instead of improvisation.
+ */
+export const COMPANY_KNOWLEDGE_INSTRUCTION = `
+
+CONHECIMENTO SOBRE A CÓDIGO BINÁRIO (REGRA PERMANENTE):
+- Se a mensagem do cliente incluir um bloco <company_knowledge>, esse bloco é a ÚNICA fonte autorizada para falar sobre a Código Binário (identidade, serviços, áreas, metodologia, equipa, tecnologia, contacto, limites comerciais).
+- Usa APENAS factos presentes nesse bloco. Se o bloco não contiver a resposta, di-lo honestamente e encaminha para eng@codigobinario.it.ao — NUNCA inventes factos.
+- NUNCA inventes nem confirmes: clientes, nomes de clientes, números de clientes, resultados, métricas de sucesso, preços, descontos, prazos, certificações, prémios, morada, telefone, horários ou garantias. Tudo isso é PROIBIDO salvo se estiver literalmente no bloco.
+- Sobre preços: só podes referir o que estiver no bloco. Nunca estimas custos de um projeto.
+- Se o cliente perguntar sobre a Código Binário, responde de forma breve e objetiva (1 a 3 frases) e DEPOIS retoma a entrevista com a próxima pergunta de diagnóstico. Perguntar sobre a empresa NÃO é motivo para encerrar a entrevista nem para emitir [DIAGNOSTIC_READY].
+- Se NÃO houver bloco <company_knowledge>, não fales sobre a Código Binário além do que o teu papel de consultor de diagnóstico exige; não inventes factos institucionais.`;
+
 export const DIAGNOSIS_GENERATION_PROMPT = `You are the diagnostic engine of Código Binário.
 
 Based on the discovery conversation, generate a DIAGNOSTIC BRIEF.
@@ -100,7 +118,8 @@ Respond ONLY with a JSON object in this exact format:
 export function buildDiscoveryUserPrompt(
   userMessage: string,
   conversationHistory: Array<{ role: string; content: string }>,
-  extractedFacts: Record<string, any>
+  extractedFacts: Record<string, any>,
+  knowledgeContext: string = ''
 ): string {
   const historyStr = conversationHistory
     .map(m => `${m.role === 'user' ? 'Cliente' : 'Diagnóstico'}: ${m.content}`)
@@ -110,15 +129,29 @@ export function buildDiscoveryUserPrompt(
     ? `\n\nFACTS_ALREADY_KNOWN:\n${JSON.stringify(extractedFacts, null, 2)}`
     : '';
 
+  // Retrieved company knowledge is placed BEFORE the client's message and
+  // fenced so the model treats it as reference data, not as conversation.
+  const knowledgeStr = knowledgeContext ? `\n\n${knowledgeContext}\n` : '';
+
   return `HISTÓRICO DA CONVERSA:
 ${historyStr}
 
-FACTOS EXTRAÍDOS ATÉ AGORA:${factsStr}
+FACTOS EXTRAÍDOS ATÉ AGORA:${factsStr}${knowledgeStr}
 
 CLIENTE ACABA DE DIZER:
 ${userMessage}
 
 Responde como consultor de diagnóstico. Uma pergunta de cada vez.`;
+}
+
+/**
+ * Interview system prompt + the permanent company-knowledge rule.
+ *
+ * The diagnosis prompt intentionally does NOT receive this instruction: the
+ * structured brief must describe the CLIENT's situation only.
+ */
+export function buildDiscoverySystemPrompt(): string {
+  return `${DISCOVERY_SYSTEM_PROMPT}${COMPANY_KNOWLEDGE_INSTRUCTION}`;
 }
 
 export function buildDiagnosisPrompt(

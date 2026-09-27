@@ -242,7 +242,7 @@ export class AIProviderService {
   private async callGemini(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     if (!this.gemini) throw new Error('Gemini client not initialized');
     const response = await this.gemini.models.generateContent({
-      model: process.env.GEMINI_MODEL || 'gemini-2.0-flash',
+      model: process.env.GEMINI_MODEL || 'gemini-flash-latest',
       contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
       config: {
         systemInstruction: systemPrompt,
@@ -259,7 +259,7 @@ export class AIProviderService {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
       ],
-      model: process.env.GROQ_MODEL || 'groq/compound-mini',
+      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
       temperature: jsonMode ? 0.0 : 0.7,
       ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
     });

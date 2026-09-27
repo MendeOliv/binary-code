@@ -3,11 +3,12 @@ import { repo } from '@db/repository';
 import { aiProvider } from './ai-provider';
 import { diagnosticEngine } from './diagnostic-engine';
 import {
-  DISCOVERY_SYSTEM_PROMPT,
   DIAGNOSIS_GENERATION_PROMPT,
   buildDiscoveryUserPrompt,
+  buildDiscoverySystemPrompt,
   buildDiagnosisPrompt,
 } from './prompts';
+import { getKnowledgeContext } from './knowledge-base';
 import type {
   DiscoverySessionResponse,
   DiagnosticResponse,
@@ -108,9 +109,24 @@ export class DiscoveryOrchestrator {
 
     // Generate next interview response
     const startedAt = Date.now();
+
+    // Ground company-directed questions in stored knowledge. Best-effort: a
+    // failure or a non-company question yields an empty context and the
+    // interview proceeds exactly as before.
+    const knowledge = await getKnowledgeContext(userMessage);
+    if (knowledge.reason === 'ok' || knowledge.reason === 'cached') {
+      console.log(
+        `[Discovery] knowledge_retrieved session=${session.id} reason=${knowledge.reason} matches=${knowledge.matches.length} top_similarity=${
+          knowledge.matches[0]?.similarity?.toFixed(3) ?? 'n/a'
+        }`
+      );
+    } else if (knowledge.reason !== 'not_company_question') {
+      console.warn(`[Discovery] knowledge_skipped session=${session.id} reason=${knowledge.reason}`);
+    }
+
     const ai = await aiProvider.generateSmart(
-      DISCOVERY_SYSTEM_PROMPT,
-      buildDiscoveryUserPrompt(userMessage, conversationHistory, session.extractedFacts),
+      buildDiscoverySystemPrompt(),
+      buildDiscoveryUserPrompt(userMessage, conversationHistory, session.extractedFacts, knowledge.context),
       { jsonMode: false }
     );
     console.log(
