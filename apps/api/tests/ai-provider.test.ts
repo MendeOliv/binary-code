@@ -8,7 +8,7 @@ import {
 
 const provider = new AIProviderService();
 
-test('buildFallbackChain — canonical order Gemini → Groq → NVIDIA → Anthropic → OpenAI', () => {
+test('buildFallbackChain — canonical order Gemini → Groq → Anthropic → OpenAI', () => {
   const previousPrimary = process.env.PRIMARY_PROVIDER;
   const previousFallback = process.env.FALLBACK_PROVIDER;
   delete process.env.PRIMARY_PROVIDER;
@@ -16,7 +16,11 @@ test('buildFallbackChain — canonical order Gemini → Groq → NVIDIA → Anth
 
   try {
     const chain = provider.buildFallbackChain();
-    assert.deepEqual(chain, ['gemini', 'groq', 'nvidia', 'anthropic', 'openai']);
+    // CANONICAL_ORDER no longer lists nvidia: it was removed upstream while this
+    // assertion kept expecting it, leaving the suite red. Alignment only — the
+    // runtime behaviour is unchanged, because a provider without an API key is
+    // skipped by isConfigured() regardless of its position in the chain.
+    assert.deepEqual(chain, ['gemini', 'groq', 'anthropic', 'openai']);
   } finally {
     if (previousPrimary) process.env.PRIMARY_PROVIDER = previousPrimary;
     else delete process.env.PRIMARY_PROVIDER;

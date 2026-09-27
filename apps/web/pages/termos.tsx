@@ -48,7 +48,7 @@ const SECTIONS = [
     title: '7. Alterações e contacto',
     body: [
       'Estes termos podem ser atualizados para refletir a evolução do serviço. A versão publicada nesta página é a vigente.',
-      'Dúvidas: eng@codigobinario.it.ao',
+      'Dúvidas: contacto@codigobinario.it.ao',
     ],
   },
 ];

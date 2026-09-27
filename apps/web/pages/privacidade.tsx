@@ -6,7 +6,7 @@ const SECTIONS = [
     title: '1. Quem somos',
     body: [
       'A Código Binário é uma empresa de engenharia — AI, Systems & Digital Solutions — que transforma problemas complexos em sistemas, automações e soluções digitais funcionais.',
-      'Para contato sobre privacidade: eng@codigobinario.it.ao',
+      'Para contato sobre privacidade: contacto@codigobinario.it.ao',
     ],
   },
   {
@@ -44,7 +44,7 @@ const SECTIONS = [
   {
     title: '6. Contacto',
     body: [
-      'Para exercer direitos sobre os seus dados, solicitar esclarecimentos ou remoção de informações, contacte: eng@codigobinario.it.ao',
+      'Para exercer direitos sobre os seus dados, solicitar esclarecimentos ou remoção de informações, contacte: contacto@codigobinario.it.ao',
     ],
   },
 ];

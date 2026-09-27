@@ -12,14 +12,34 @@
  *   RATE_LIMIT_MAX_REQUESTS   (default 20 requests per window per IP)
  *   RATE_LIMIT_DISABLED=1     (opt out — IGNORED when NODE_ENV=production)
  *
+ * Fail-safe semantics (public endpoints must never be left unprotected in
+ * production):
+ *   - RATE_LIMIT_DISABLED=1 is honoured ONLY outside production.
+ *   - An invalid, zero or negative RATE_LIMIT_MAX_REQUESTS is treated as
+ *     "not configured" and falls back to the default — never to "unlimited".
+ *
  * The public endpoints must never be left unprotected in production, so the
  * disable flag is only honoured outside production.
  */
 import { FastifyRequest, FastifyReply } from 'fastify';
 
+const DEFAULT_MAX_REQUESTS = 20;
+
 interface Bucket {
   windowStart: number;
   count: number;
+}
+
+/**
+ * Resolves the per-window request limit. Any value that is not a finite
+ * positive number (unset, 0, negative, NaN, Infinity) is "not configured" and
+ * falls back to the default — an invalid configuration must never result in an
+ * unlimited ( unprotected) limiter.
+ */
+export function resolveMaxRequests(raw: string | undefined, fallback = DEFAULT_MAX_REQUESTS): number {
+  const parsed = Number(raw);
+  if (!Number.isFinite(parsed) || parsed <= 0) return fallback;
+  return Math.floor(parsed);
 }
 
 export class SlidingWindowLimiter {
@@ -27,7 +47,7 @@ export class SlidingWindowLimiter {
 
   constructor(
     private readonly windowSeconds = Number(process.env.RATE_LIMIT_WINDOW_SECONDS) || 60,
-    private readonly maxRequests = Number(process.env.RATE_LIMIT_MAX_REQUESTS) || 20
+    private readonly maxRequests = resolveMaxRequests(process.env.RATE_LIMIT_MAX_REQUESTS)
   ) {}
 
   private clientIp(request: FastifyRequest): string {
@@ -50,7 +70,9 @@ export class SlidingWindowLimiter {
     if (process.env.RATE_LIMIT_DISABLED === '1' && process.env.NODE_ENV !== 'production') {
       return true;
     }
-    if (this.maxRequests <= 0) return true;
+    // maxRequests is guaranteed positive by resolveMaxRequests, but keep the
+    // guard as defence-in-depth for manually constructed instances.
+    if (this.maxRequests <= 0) return false;
 
     const key = this.clientIp(request);
     const now = Date.now();

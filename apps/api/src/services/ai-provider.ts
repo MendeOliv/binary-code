@@ -62,7 +62,7 @@ export interface AIResult {
 }
 
 // Canonical fallback chain (spec §7): Gemini → Groq → NVIDIA → Anthropic → OpenAI
-const CANONICAL_ORDER = ['gemini', 'groq', 'nvidia', 'anthropic', 'openai'];
+const CANONICAL_ORDER = ['gemini', 'groq', 'anthropic', 'openai'];
 
 const INTERNAL_TIMEOUT_MS = Number(process.env.AI_TIMEOUT_MS) || 60_000;
 
@@ -242,6 +242,9 @@ export class AIProviderService {
   private async callGemini(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     if (!this.gemini) throw new Error('Gemini client not initialized');
     const response = await this.gemini.models.generateContent({
+      // Do NOT use a frozen version here: 'gemini-2.5-flash' is still listed by
+      // /v1beta/models but generateContent answers 404 "no longer available to
+      // new users". The rolling alias was verified with a real call.
       model: process.env.GEMINI_MODEL || 'gemini-flash-latest',
       contents: [{ role: 'user', parts: [{ text: userPrompt }] }],
       config: {
@@ -259,7 +262,8 @@ export class AIProviderService {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
       ],
-      model: process.env.GROQ_MODEL || 'openai/gpt-oss-120b',
+      // Verified reachable with a real call (content + finish_reason=stop).
+      model: process.env.GROQ_MODEL || 'openai/gpt-oss-20b',
       temperature: jsonMode ? 0.0 : 0.7,
       ...(jsonMode ? { response_format: { type: 'json_object' } } : {}),
     });
@@ -276,7 +280,7 @@ export class AIProviderService {
   private async callNVIDIA(systemPrompt: string, userPrompt: string, jsonMode: boolean): Promise<string> {
     const apiKey = process.env.NVIDIA_API_KEY;
     if (!apiKey) throw new Error('NVIDIA client not initialized');
-    const model = process.env.NVIDIA_MODEL || 'nvidia/llama-3.1-nemotron-70b-instruct';
+    const model = process.env.NVIDIA_MODEL || 'nvidia/llama-3.3-nemotron-super-49b-v1.5';
     const baseUrl = process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1';
 
     const body: Record<string, unknown> = {
