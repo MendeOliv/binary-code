@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import SeoHead from '../components/SeoHead';
+import ParticleBackground from '../components/ParticleBackground';
 import { developers } from '../lib/developers';
 import { OFFICIAL_SITE_URL } from '../lib/site';
 
@@ -150,6 +151,7 @@ export default function Home() {
       <section className="relative w-full overflow-hidden bg-bg-canvas px-gutter-mobile md:px-margin pt-space-xl pb-20 md:pb-24 border-b border-border-subtle">
         <div className="absolute inset-0 grid-background pointer-events-none" aria-hidden="true" />
         <div className="absolute -top-40 right-0 w-[520px] h-[520px] soft-glow pointer-events-none" aria-hidden="true" />
+        <ParticleBackground />
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center pt-space-lg pb-space-lg gap-space-lg">
           <div className="inline-flex flex-wrap items-center justify-center gap-space-xs px-space-sm py-1 rounded-full bg-surface-container-high border border-border-subtle text-body-sm">
             <span className="w-2 h-2 rounded-full bg-primary" aria-hidden="true" />
