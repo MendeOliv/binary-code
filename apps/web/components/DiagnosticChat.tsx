@@ -196,6 +196,16 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
         setSessionId(data.sessionId);
       }
 
+      // CB-SEC-C: the ownership secret is returned only with the response that
+      // creates the session. When the interview starts from this box (the
+      // normal /diagnostic flow, without initialProblem), this is that
+      // creation response, so the secret must be captured here too — otherwise
+      // the next message would be sent without it and the API would (correctly)
+      // answer 403 Session access denied.
+      if (data.sessionSecret) {
+        setSessionSecret(data.sessionSecret);
+      }
+
       setHasResponded(true);
       const assistantMessage: Message = {
         id: `assistant-${Date.now()}`,
