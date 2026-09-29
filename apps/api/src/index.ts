@@ -7,12 +7,31 @@ import cors from '@fastify/cors';
 import { supabase } from '@db/supabase';
 import { requireAdminKey } from './lib/auth';
 import { resolveAllowedOrigins } from './lib/cors';
-import { discoveryLimiter } from './lib/rate-limit';
+import { discoveryLimiter, resolveTrustProxy } from './lib/rate-limit';
 
 const server = fastify({
   logger: true,
-  // Render sits behind a proxy — reflect the real client IP for rate limiting.
-  trustProxy: process.env.APP_TRUST_PROXY === 'true',
+  // Render sits behind a proxy. We trust a BOUNDED number of hops (see
+  // resolveTrustProxy) instead of `true`, so a client cannot spoof its own
+  // rate-limit identity by prepending X-Forwarded-For. A numeric hop count is
+  // supported by Fastify/proxy-addr at runtime but missing from its TS types,
+  // hence the assertion.
+  trustProxy: resolveTrustProxy() as unknown as boolean,
+});
+
+// ── Security headers (defence in depth) ───────────────────────────────────
+// Applied to every API response. `nosniff` stops MIME confusion, the frame
+// headers block embedding, the CSP locks the API down to a non-renderable
+// resource, and the Referrer-Policy avoids leaking URLs. HSTS is terminated by
+// the Render edge (HTTPS-only in production) — it is intentionally not set
+// here to avoid pinning a per-deployment subdomain.
+server.addHook('onSend', async (_request, reply, payload) => {
+  reply.header('X-Content-Type-Options', 'nosniff');
+  reply.header('X-Frame-Options', 'DENY');
+  reply.header('Referrer-Policy', 'no-referrer');
+  reply.header('Cross-Origin-Resource-Policy', 'same-site');
+  reply.header('Content-Security-Policy', "default-src 'none'; frame-ancestors 'none'; base-uri 'none'");
+  return payload;
 });
 
 // ── CORS ─────────────────────────────────────────────────────────────────
@@ -27,7 +46,11 @@ server.register(cors, {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'), false);
+      // Disallowed origin: authorise nothing. Returning `false` (instead of an
+      // Error) makes @fastify/cors simply omit the CORS headers, so the browser
+      // blocks the response without the API turning a rejected preflight into a
+      // noisy 500.
+      callback(null, false);
     }
   },
   // Authentication is header-based (X-Admin-Key / Authorization: Bearer), never

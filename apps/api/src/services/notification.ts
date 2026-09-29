@@ -32,6 +32,8 @@
  *   NOTIFICATION_EMAIL_TO="team@codigobinario.it.ao"
  */
 
+import { redactEmail, redactName } from '../lib/redact';
+
 export interface DiagnosticNotificationPayload {
   diagnosticId: string;
   sessionId: string;
@@ -358,7 +360,7 @@ export class NotificationService {
         const from = process.env.NOTIFICATION_EMAIL_FROM!;
         return await this.transport({ from, to: [payload.email], subject, text, html });
       }
-      console.log(`[Notification] client confirmation to=${payload.email} email_configured=false`);
+      console.log(`[Notification] client confirmation to=${redactEmail(payload.email)} email_configured=false`);
       return { delivered: false, provider: 'console', detail: 'Email not configured' };
     } catch (error) {
       console.error('[Notification] client confirmation delivery failed:', (error as Error).message);
@@ -381,9 +383,10 @@ export class NotificationService {
         const to = process.env.NOTIFICATION_EMAIL_TO || DEFAULT_NOTIFICATION_EMAIL_TO;
         return await this.transport({ from, to: [to], subject, text });
       }
-      // Safe default: log a structured summary (no PII beyond what ops needs).
+      // Safe default: log a structured summary. PII is masked (CB-SEC-E.3) —
+      // the internal id remains the debugging correlation key.
       console.log(
-        `[Notification] lead_ready id=${payload.leadId || 'none'} session=${payload.sessionId} lead_name=${payload.lead?.name || '—'} lead_email=${payload.lead?.email || '—'} complexity=${payload.complexity} email_configured=false`
+        `[Notification] lead_ready id=${payload.leadId || 'none'} session=${payload.sessionId} lead_name=${redactName(payload.lead?.name)} lead_email=${redactEmail(payload.lead?.email)} complexity=${payload.complexity} email_configured=false`
       );
       return { delivered: false, provider: 'console', detail: 'Email not configured' };
     } catch (error) {
@@ -423,7 +426,7 @@ export class NotificationService {
       throw new Error(`Resend API ${response.status}: ${errorBody.slice(0, 200)}`);
     }
 
-    console.log(`[Notification] emailed to=${opts.to.join(',')} (resend)`);
+    console.log(`[Notification] emailed to=${opts.to.map(redactEmail).join(',')} (resend)`);
     return { delivered: true, provider: 'resend' };
   }
 }

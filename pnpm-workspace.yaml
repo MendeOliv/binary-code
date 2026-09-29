@@ -6,3 +6,17 @@ allowBuilds:
   esbuild: true
   protobufjs: false
   unrs-resolver: true
+# ── Security overrides (dependency hardening) ─────────────────────────────
+# Forces patched transitive versions where the fix ships inside the SAME major
+# line (no breaking change). Scoped by range so unrelated majors are untouched.
+#
+# CB-SEC-002: Fastify's ajv / JSON-stringify stack pulls fast-uri 4.x; pin the
+# patched 4.1.x line.
+# fast-uri 3.x (used by ajv@8) carries its own advisories (GHSA-qw65-cvwx-89v3
+# / GHSA-58mr-gqgx-xq4g), fixed in 3.1.7 — same major, safe to bump.
+# postcss 8.4.31 (transitive via next) has 8.x patches; the workspace already
+# runs 8.5.26 via tailwind, so unify next's copy onto that verified version.
+overrides:
+  'fast-uri@>=4.0.0 <4.1.4': '4.1.5'
+  'fast-uri@>=3.0.0 <3.1.7': '3.1.7'
+  'postcss@<8.5.23': '8.5.26'

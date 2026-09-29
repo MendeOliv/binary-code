@@ -441,12 +441,29 @@ export class SupabaseRepository {
   async createDiscoverySession(data: DiscoverySessionCreate): Promise<DiscoverySessionResponse> {
     const { data: result, error } = await this.client
       .from('discovery_sessions')
-      .insert([{ initial_problem: data.initialProblem }])
+      .insert([{ initial_problem: data.initialProblem, secret_hash: data.secretHash ?? null }])
       .select()
       .single();
 
     if (error) throw error;
     return this.mapDiscoverySession(result);
+  }
+
+  /**
+   * Returns the stored ownership-secret hash for a session (CB-SEC-C), or null
+   * when the session does not exist or predates the secret migration. The hash
+   * is NEVER part of the public DiscoverySessionResponse — this dedicated read
+   * exists only for constant-time verification in the orchestrator.
+   */
+  async getDiscoverySessionSecretHash(id: string): Promise<string | null> {
+    const { data, error } = await this.client
+      .from('discovery_sessions')
+      .select('secret_hash')
+      .eq('id', id)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error;
+    return data?.secret_hash ?? null;
   }
 
   async getDiscoverySession(id: string): Promise<DiscoverySessionResponse | null> {

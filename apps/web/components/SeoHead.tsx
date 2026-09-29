@@ -56,7 +56,9 @@ export default function SeoHead({
       {jsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          // Escape `<` so a value containing "</script>" cannot break out of
+          // the tag (CB-SEC-E.2). `\u003c` is valid JSON and renders identically.
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
         />
       )}
     </Head>

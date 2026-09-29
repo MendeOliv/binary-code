@@ -27,6 +27,9 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string>('');
+  // Ownership secret (CB-SEC-C): returned once at session creation and sent
+  // back with every follow-up so a bare sessionId cannot resume the session.
+  const [sessionSecret, setSessionSecret] = useState<string>('');
   const [isComplete, setIsComplete] = useState(false);
   const [hasResponded, setHasResponded] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -129,6 +132,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
       })
       .then((data) => {
         if (data.sessionId) setSessionId(data.sessionId);
+        if (data.sessionSecret) setSessionSecret(data.sessionSecret);
         setHasResponded(true);
         const assistantMessage: Message = {
           id: `assistant-${Date.now()}`,
@@ -180,6 +184,7 @@ export default function DiagnosticChat({ initialProblem, onComplete }: Diagnosti
         body: JSON.stringify({
           message: messageText,
           sessionId: sessionId || undefined,
+          secret: sessionSecret || undefined,
         }),
       });
 

@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { discoveryOrchestrator, SessionBusyError, SessionNotFoundError } from '../services/discovery-orchestrator';
+import { discoveryOrchestrator, SessionBusyError, SessionNotFoundError, SessionAccessDeniedError } from '../services/discovery-orchestrator';
 import { requireAdminKey } from '../lib/auth';
 import { repo } from '@db/repository';
 import { DiscoveryChatInputSchema, validateInput } from '../lib/validation';
@@ -16,10 +16,16 @@ export async function discoveryRoutes(fastify: FastifyInstance) {
     try {
       const result = await discoveryOrchestrator.handleMessage(
         input.data.message,
-        input.data.sessionId || undefined
+        input.data.sessionId || undefined,
+        input.data.secret || undefined
       );
       return reply.send(result);
     } catch (error) {
+          if (error instanceof SessionAccessDeniedError) {
+            // Missing/incorrect ownership secret: deny without confirming any
+            // session detail. (CB-SEC-C)
+            return reply.code(403).send({ error: 'Session access denied' });
+          }
           if (error instanceof SessionNotFoundError) {
             return reply.code(404).send({ error: 'Session not found' });
           }
@@ -31,7 +37,8 @@ export async function discoveryRoutes(fastify: FastifyInstance) {
           }
       const message = error instanceof Error ? error.message : 'unknown';
       // Failures after the AI error-classification are logged, but never
-      // reveal internal stack traces / secrets to the client.
+      // reveal internal stack traces / secrets to the client. The session
+      // secret is never logged.
       request.log.error({ err: error, sessionId: input.data.sessionId }, 'discovery_chat_failed');
       return reply.code(500).send({ error: 'Internal server error' });
     }

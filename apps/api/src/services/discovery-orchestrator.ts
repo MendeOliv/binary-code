@@ -16,6 +16,7 @@ import type {
 } from '@shared/models';
 import type { DiagnosticAI } from '../lib/validation';
 import { parseDiagnostic } from '../lib/validation';
+import { generateSessionSecret, hashSessionSecret, verifySessionSecret } from '../lib/session-secret';
 
 /** Raised when another request is already processing this session. */
 export class SessionBusyError extends Error {
@@ -30,6 +31,17 @@ export class SessionNotFoundError extends Error {
   constructor(sessionId: string) {
     super(`Session ${sessionId} not found`);
     this.name = 'SessionNotFoundError';
+  }
+}
+
+/**
+ * Raised when a session is resumed without the correct ownership secret
+ * (CB-SEC-C). Knowing/guessing the sessionId is deliberately not enough.
+ */
+export class SessionAccessDeniedError extends Error {
+  constructor(sessionId: string) {
+    super(`access_denied:${sessionId}`);
+    this.name = 'SessionAccessDeniedError';
   }
 }
 
@@ -49,20 +61,41 @@ export class DiscoveryOrchestrator {
   /** Max AI retries when the returned JSON cannot be validated. */
   private readonly MAX_DIAGNOSIS_RETRIES = 1;
 
+  /**
+   * Cost-abuse bounds (CB-SEC-E): the history sent to the provider is capped in
+   * both message count and characters, so a long/flooded session cannot amplify
+   * provider cost or blow up the context.
+   */
+  private readonly MAX_HISTORY_MESSAGES = 20;
+  private readonly MAX_HISTORY_CHARS = 12000;
+
   async handleMessage(
     userMessage: string,
-    sessionId?: string
+    sessionId?: string,
+    sessionSecret?: string
   ): Promise<DiscoveryChatResponse> {
-    // 1. Get or create session
+    // 1. Get or create session (with ownership-secret enforcement on resume).
     let session: DiscoverySessionResponse;
+    let issuedSecret: string | undefined;
     if (sessionId) {
           const existing = await repo.getDiscoverySession(sessionId);
           if (!existing) {
             throw new SessionNotFoundError(sessionId);
           }
+          // CB-SEC-C: a sessionId alone must not grant access. Require the
+          // high-entropy secret issued at creation and verify it in constant
+          // time against the stored hash (fail closed when either is absent).
+          const storedHash = await repo.getDiscoverySessionSecretHash(sessionId);
+          if (!verifySessionSecret(sessionSecret, storedHash)) {
+            throw new SessionAccessDeniedError(sessionId);
+          }
           session = existing;
     } else {
-      session = await repo.createDiscoverySession({ initialProblem: userMessage });
+      issuedSecret = generateSessionSecret();
+      session = await repo.createDiscoverySession({
+        initialProblem: userMessage,
+        secretHash: hashSessionSecret(issuedSecret),
+      });
     }
 
     // 2. Acquire per-session lock (DB-backed, memory fallback).
@@ -72,7 +105,11 @@ export class DiscoveryOrchestrator {
       throw new SessionBusyError(session.id);
     }
     try {
-      return await this.processLocked(userMessage, session);
+      const result = await this.processLocked(userMessage, session);
+      // Return the ownership secret ONLY on the response that created the
+      // session, and never again.
+      if (issuedSecret) result.sessionSecret = issuedSecret;
+      return result;
     } finally {
       await this.releaseLock(session.id, owner);
     }
@@ -89,12 +126,14 @@ export class DiscoveryOrchestrator {
       content: userMessage,
     });
 
-    // Load conversation history
+    // Load conversation history (bounded before it reaches the provider).
     const messages = await repo.listDiscoveryMessages(session.id);
-    const conversationHistory: Array<{ role: string; content: string }> = messages.map(m => ({
-      role: m.role,
-      content: m.content,
-    }));
+    const conversationHistory: Array<{ role: string; content: string }> = this.limitHistory(
+      messages.map(m => ({
+        role: m.role,
+        content: m.content,
+      }))
+    );
 
     // Check if we should generate diagnosis
     const userMessageCount = messages.filter(m => m.role === 'user').length;
@@ -343,6 +382,29 @@ export class DiscoveryOrchestrator {
     const hasProblem = Boolean(facts.painPoint);
     const hasContext = Boolean(facts.currentProcess || facts.industry || facts.techStack);
     return hasProblem && hasContext;
+  }
+
+  /**
+   * Keeps only the most recent messages within both a message-count and a
+   * character budget, preserving chronological order. Extracted pure helper so
+   * the cost-abuse bound is unit-testable.
+   */
+  boundHistory(history: Array<{ role: string; content: string }>): Array<{ role: string; content: string }> {
+    const recent = history.slice(-this.MAX_HISTORY_MESSAGES);
+    const out: Array<{ role: string; content: string }> = [];
+    let chars = 0;
+    for (let i = recent.length - 1; i >= 0; i -= 1) {
+      const msg = recent[i];
+      const len = msg.content.length;
+      if (chars + len > this.MAX_HISTORY_CHARS && out.length > 0) break;
+      chars += len;
+      out.unshift(msg);
+    }
+    return out;
+  }
+
+  private limitHistory(history: Array<{ role: string; content: string }>): Array<{ role: string; content: string }> {
+    return this.boundHistory(history);
   }
 }
 

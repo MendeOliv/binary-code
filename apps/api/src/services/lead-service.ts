@@ -14,6 +14,7 @@
  */
 import { repo } from '@db/repository';
 import { diagnosticEngine } from './diagnostic-engine';
+import { redactName } from '../lib/redact';
 import type {
   DiagnosticResponse,
   LeadActivityResponse,
@@ -109,7 +110,7 @@ export class LeadService {
       notes: contact.notes,
     });
     console.log(
-      `[Lead] created id=${lead.id} session=${lead.sessionId || 'none'} name=${lead.name}`
+      `[Lead] created id=${lead.id} session=${lead.sessionId || 'none'} name=${redactName(lead.name)}`
     );
 
     let diagnostic: DiagnosticResponse | null = null;

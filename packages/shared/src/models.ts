@@ -184,6 +184,8 @@ export interface RequestLogResponse {
 // --- Discovery Session Schemas ---
 export interface DiscoverySessionCreate {
   initialProblem: string;
+  /** SHA-256 hash of the session ownership secret (never the raw secret). */
+  secretHash?: string;
 }
 
 export interface DiscoverySessionResponse {
@@ -354,6 +356,8 @@ export interface LeadActivityResponse {
 export interface DiscoveryChatRequest {
   message: string;
   sessionId?: string; // if continuing an existing session
+  /** Ownership secret returned at session creation (CB-SEC-C). */
+  secret?: string;
 }
 
 export interface DiscoveryChatResponse {
@@ -362,4 +366,9 @@ export interface DiscoveryChatResponse {
   phase: 'interview' | 'diagnosis';
   diagnostic?: DiagnosticResponse;
   extractedFacts?: Record<string, any>;
+  /**
+   * Ownership secret for the session. Returned ONCE, on the response that
+   * CREATES the session, and never again — the client must keep it to resume.
+   */
+  sessionSecret?: string;
 }

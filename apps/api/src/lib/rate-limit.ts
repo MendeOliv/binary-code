@@ -25,6 +25,28 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 
 const DEFAULT_MAX_REQUESTS = 20;
 
+/**
+ * Resolves Fastify's `trustProxy` option from the environment.
+ *
+ * SECURITY (CB-SEC-B): `trustProxy: true` trusts *every* hop, so Fastify (and
+ * therefore `request.ip`) would take the LEFTMOST X-Forwarded-For value — a
+ * header any client can prepend, letting an attacker pick its own rate-limit
+ * identity. We instead trust a BOUNDED number of hops: the platform edge proxy
+ * (Render) appends the real client address, so trusting exactly that one hop
+ * makes `request.ip` resolve to the value the trusted proxy added, which a
+ * client cannot forge.
+ *
+ *   APP_TRUST_PROXY=true          → trust 1 hop (Render's edge proxy)
+ *   APP_TRUST_PROXY_HOPS=<n>      → trust exactly <n> hops (invalid → 1)
+ *   unset / anything else         → trust nothing (request.ip = socket peer)
+ */
+export function resolveTrustProxy(env: NodeJS.ProcessEnv = process.env): number | false {
+  if (env.APP_TRUST_PROXY !== 'true') return false;
+  const hops = Number(env.APP_TRUST_PROXY_HOPS);
+  if (!Number.isInteger(hops) || hops < 1) return 1;
+  return hops;
+}
+
 interface Bucket {
   windowStart: number;
   count: number;
@@ -51,11 +73,11 @@ export class SlidingWindowLimiter {
   ) {}
 
   private clientIp(request: FastifyRequest): string {
-    // Render sits behind a proxy — trust X-Forwarded-For only when configured.
-    if (process.env.APP_TRUST_PROXY === 'true') {
-      const fwd = request.headers['x-forwarded-for'];
-      if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
-    }
+    // Trust Fastify's own proxy resolution (configured via `trustProxy` in
+    // index.ts). We deliberately do NOT read X-Forwarded-For / X-Real-IP here:
+    // those headers are client-controllable, so parsing them directly would let
+    // an attacker rotate identities and evade the limiter. `request.ip` is
+    // already the proxy-resolved address (bounded by the configured hop count).
     return request.ip || 'unknown';
   }
 

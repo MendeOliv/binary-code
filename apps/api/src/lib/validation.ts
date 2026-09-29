@@ -19,17 +19,36 @@ export const MAX_DISCOVERY_MESSAGE_LENGTH = 4000;
 export const MAX_SESSION_ID_LENGTH = 64;
 export const MAX_LEAD_FIELD_LENGTH = 200;
 
+/**
+ * PostgreSQL TEXT columns reject the NUL byte, so a payload containing `\u0000`
+ * would otherwise surface as a database 500. Rejecting it at validation turns
+ * that into a controlled 400 (CB-SEC-F.4).
+ */
+const rejectsNul = (value: string) => !value.includes('\u0000');
+const NUL_MSG = 'Contains invalid characters';
+
 /** POST /api/discovery/chat */
 export const DiscoveryChatInputSchema = z.object({
   message: z
     .string()
     .trim()
     .min(1, 'Message is required')
-    .max(MAX_DISCOVERY_MESSAGE_LENGTH, `Message exceeds ${MAX_DISCOVERY_MESSAGE_LENGTH} characters`),
+    .max(MAX_DISCOVERY_MESSAGE_LENGTH, `Message exceeds ${MAX_DISCOVERY_MESSAGE_LENGTH} characters`)
+    .refine(rejectsNul, NUL_MSG),
   sessionId: z
     .string()
     .trim()
     .max(MAX_SESSION_ID_LENGTH, `sessionId exceeds ${MAX_SESSION_ID_LENGTH} characters`)
+    // A discovery session id is a UUID; validating it here turns a malformed
+    // value into a controlled 400 instead of a database 500 (CB-SEC-F.4).
+    .uuid('Invalid sessionId')
+    .optional(),
+  // Ownership secret (CB-SEC-C): high-entropy base64url, bounded so an
+  // oversized value never reaches the constant-time comparison.
+  secret: z
+    .string()
+    .trim()
+    .max(128, 'secret exceeds 128 characters')
     .optional(),
 }).strict();
 
@@ -41,13 +60,15 @@ export const LeadCreateInputSchema = z.object({
     .string()
     .trim()
     .min(1, 'Name is required')
-    .max(MAX_LEAD_FIELD_LENGTH, `Name exceeds ${MAX_LEAD_FIELD_LENGTH} characters`),
-  email: z.string().trim().email('Invalid email').max(MAX_LEAD_FIELD_LENGTH).optional().or(z.literal('')),
-  phone: z.string().trim().max(MAX_LEAD_FIELD_LENGTH).optional().or(z.literal('')),
-  company: z.string().trim().max(MAX_LEAD_FIELD_LENGTH).optional().or(z.literal('')),
-  notes: z.string().trim().max(2000, 'Notes exceed 2000 characters').optional(),
-  diagnosticId: z.string().trim().max(MAX_SESSION_ID_LENGTH).optional(),
-  sessionId: z.string().trim().max(MAX_SESSION_ID_LENGTH).optional(),
+    .max(MAX_LEAD_FIELD_LENGTH, `Name exceeds ${MAX_LEAD_FIELD_LENGTH} characters`)
+    .refine(rejectsNul, NUL_MSG),
+  email: z.string().trim().email('Invalid email').max(MAX_LEAD_FIELD_LENGTH).refine(rejectsNul, NUL_MSG).optional().or(z.literal('')),
+  phone: z.string().trim().max(MAX_LEAD_FIELD_LENGTH).refine(rejectsNul, NUL_MSG).optional().or(z.literal('')),
+  company: z.string().trim().max(MAX_LEAD_FIELD_LENGTH).refine(rejectsNul, NUL_MSG).optional().or(z.literal('')),
+  notes: z.string().trim().max(2000, 'Notes exceed 2000 characters').refine(rejectsNul, NUL_MSG).optional(),
+  // UUID FKs: a malformed value must be a 400, never a database 500.
+  diagnosticId: z.string().trim().uuid('Invalid diagnosticId').optional(),
+  sessionId: z.string().trim().uuid('Invalid sessionId').optional(),
 }).strict();
 
 export type LeadCreateInput = z.infer<typeof LeadCreateInputSchema>;
@@ -69,15 +90,15 @@ export const LeadUpdateSchema = z
     classification: z.enum(LEAD_CLASSIFICATIONS).optional(),
     requiresHumanReview: z.boolean().optional(),
     onSiteRequired: z.boolean().nullable().optional(),
-    assignedTo: z.string().trim().max(200).nullable().optional(),
-    nextAction: z.string().trim().max(500).nullable().optional(),
+    assignedTo: z.string().trim().max(200).refine(rejectsNul, NUL_MSG).nullable().optional(),
+    nextAction: z.string().trim().max(500).refine(rejectsNul, NUL_MSG).nullable().optional(),
     followUpAt: z.string().datetime({ offset: true }).nullable().optional(),
     estimatedValue: z.number().min(0).nullable().optional(),
-    notes: z.string().trim().max(2000).nullable().optional(),
-    name: z.string().trim().min(1).max(200).optional(),
-    email: z.string().trim().email().nullable().optional(),
-    phone: z.string().trim().max(200).nullable().optional(),
-    company: z.string().trim().max(200).nullable().optional(),
+    notes: z.string().trim().max(2000).refine(rejectsNul, NUL_MSG).nullable().optional(),
+    name: z.string().trim().min(1).max(200).refine(rejectsNul, NUL_MSG).optional(),
+    email: z.string().trim().email().refine(rejectsNul, NUL_MSG).nullable().optional(),
+    phone: z.string().trim().max(200).refine(rejectsNul, NUL_MSG).nullable().optional(),
+    company: z.string().trim().max(200).refine(rejectsNul, NUL_MSG).nullable().optional(),
   })
   .strict();
 export type LeadUpdateInput = z.infer<typeof LeadUpdateSchema>;
@@ -86,8 +107,8 @@ export type LeadUpdateInput = z.infer<typeof LeadUpdateSchema>;
 export const ActivityCreateSchema = z
   .object({
     type: z.enum(LEAD_ACTIVITY_TYPES),
-    description: z.string().trim().min(1, 'Description is required').max(1000),
-    createdBy: z.string().trim().max(200).optional(),
+    description: z.string().trim().min(1, 'Description is required').max(1000).refine(rejectsNul, NUL_MSG),
+    createdBy: z.string().trim().max(200).refine(rejectsNul, NUL_MSG).optional(),
   })
   .strict();
 export type ActivityCreateInput = z.infer<typeof ActivityCreateSchema>;

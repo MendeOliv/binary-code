@@ -34,9 +34,11 @@ test('DiscoveryChatInputSchema — rejects oversized message', () => {
   assert.equal(DiscoveryChatInputSchema.safeParse({ message: huge }).success, false);
 });
 
-test('DiscoveryChatInputSchema — accepts optional sessionId', () => {
-  const r = DiscoveryChatInputSchema.safeParse({ message: 'hi', sessionId: 'abc-123' });
-  assert.equal(r.success, true);
+test('DiscoveryChatInputSchema — accepts a UUID sessionId, rejects a malformed one', () => {
+  const uuid = 'a2c1e6b8-9d4f-4f1a-9c0e-6b7a8f9d1e2a';
+  assert.equal(DiscoveryChatInputSchema.safeParse({ message: 'hi', sessionId: uuid }).success, true);
+  // A non-UUID sessionId must be a controlled 400, never a database 500.
+  assert.equal(DiscoveryChatInputSchema.safeParse({ message: 'hi', sessionId: 'abc-123' }).success, false);
 });
 
 test('LeadCreateInputSchema — valid lead', () => {
