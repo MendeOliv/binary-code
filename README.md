@@ -74,6 +74,7 @@ pnpm typecheck
 NEXT_PUBLIC_API_BASE=         # Leave empty for dev (uses proxy), set to Render URL in prod
 NEXT_PUBLIC_SITE_URL=         # LOCAL DEV ONLY (defaults to http://localhost:3000). Never a secret.
                               # Production is hard-wired to the official domain and ignores it.
+NEXT_PUBLIC_META_PIXEL_ID=1134226625609683   # Public Meta Pixel ID. Not a secret (ships in the bundle).
 ```
 
 **Backend** (`apps/api/.env.local`):
@@ -95,6 +96,32 @@ Run the migration SQL files in Supabase SQL Editor:
 1. `apps/api/migrations/001_init.sql` — Core tables (projects, decisions, tasks, etc.)
 2. `apps/api/migrations/002_discovery.sql` — Discovery pipeline tables
 
+## Tracking (Meta Pixel)
+
+The site loads the Meta Pixel `1134226625609683` browser-side only
+(`apps/web/lib/meta-pixel.ts` + `apps/web/components/MetaPixel.tsx`). There is
+no independent Conversions API in this repository: the pixel is designed to
+coexist with the **Meta Conversions API Gateway** configured in
+Events Manager for the same Pixel ID (the Gateway performs the server-side
+leg, so no access token or secret is needed here).
+
+Events emitted:
+
+| Event | Where / when |
+|-------|--------------|
+| `PageView` | Every page load and every client-side navigation (`routeChangeComplete`). Fired once per path. |
+| `ViewContent` | Commercial content pages only: `/solutions` and `/projects`. |
+| `Contact` | Real contact intent: clicking the direct-email link (`mailto:contacto@codigobinario.it.ao`) in the footer. |
+| `Lead` | **Only** after `POST /api/leads` returns `201 Created` (a new lead). An idempotent `200` (existing lead for the session) does **not** fire `Lead`, so conversions are never double-counted. |
+
+Set `NEXT_PUBLIC_META_PIXEL_ID` per environment (Vercel: Frontend → Settings →
+Environment Variables). It is public and safe to commit; never place Meta
+access tokens or secrets in `NEXT_PUBLIC_*`.
+
+> The Content-Security-Policy in `apps/web/next.config.js` allows the Meta
+> origins (`connect.facebook.net`, `www.facebook.com`). Any new third-party
+> script must be added there explicitly.
+
 ## Deployment
 
 ### Vercel (Frontend)
@@ -102,7 +129,7 @@ Run the migration SQL files in Supabase SQL Editor:
 1. Connect GitHub repo to Vercel
 2. **Root Directory**: `apps/web`
 3. **Framework**: Next.js (auto-detected)
-4. **Environment Variables**: Set `NEXT_PUBLIC_API_BASE` to your Render API URL
+4. **Environment Variables**: Set `NEXT_PUBLIC_API_BASE` to your Render API URL and `NEXT_PUBLIC_META_PIXEL_ID=1134226625609683`
 
 ### Render (Backend)
 

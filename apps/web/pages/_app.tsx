@@ -1,6 +1,7 @@
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
+import MetaPixel from '../components/MetaPixel';
 import Head from 'next/head';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
@@ -23,6 +24,8 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/icons/codigo-binario-icon-180.png" />
         <link rel="manifest" href="/manifest.json" />
       </Head>
+      {/* Meta Pixel — mounted once for the whole app; renderless. */}
+      <MetaPixel />
       <Layout>
         <Component {...pageProps} />
       </Layout>
