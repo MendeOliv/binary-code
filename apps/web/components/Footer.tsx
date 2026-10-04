@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MetaEvent, trackMetaEvent } from '../lib/meta-pixel';
 
 const NAV = [
   { label: 'Início', href: '/' },
@@ -88,6 +89,7 @@ export default function Footer() {
             </span>
             <a
               href="mailto:contacto@codigobinario.it.ao"
+              onClick={() => trackMetaEvent(MetaEvent.Contact, { content_name: 'Contacto directo' })}
               className="font-body-sm text-body-sm text-on-surface hover:text-primary transition-colors"
             >
               contacto@codigobinario.it.ao

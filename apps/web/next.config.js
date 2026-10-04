@@ -4,10 +4,12 @@
  * The Content-Security-Policy below is derived from a live inventory of the
  * production site (https://codigobinario.it.ao), not from guesswork:
  *
- *   - scripts:  self-hosted only (`/_next/static/chunks/*.js`). No third-party
- *               script is loaded. The two non-executable inline scripts are
- *               JSON documents (`__NEXT_DATA__` is application/json, JSON-LD is
- *               application/ld+json), so `script-src` needs neither
+ *   - scripts:  self-hosted Next.js chunks (`/_next/static/chunks/*.js`) plus
+ *               the Meta Pixel SDK (`connect.facebook.net`), loaded as an
+ *               external <script src> from bundled code — never as an inline
+ *               script. The two non-executable inline scripts are JSON
+ *               documents (`__NEXT_DATA__` is application/json, JSON-LD is
+ *               application/ld+json), so `script-src` still needs neither
  *               'unsafe-inline' nor hashes.
  *   - styles:   one self-hosted stylesheet. Three style="" attributes exist in
  *               the markup, which requires `style-src-attr 'unsafe-inline'`
@@ -16,10 +18,11 @@
  *   - fonts:    Google Fonts (Geist, Inter, JetBrains Mono, Material Symbols
  *               Outlined) via the CSS `@import` in globals.css →
  *               `font.googleapis.com` + `font.gstatic.com`.
- *   - images:   self (`/_next/image` optimiser, logos, public assets). No
- *               external image host is referenced.
+ *   - images:   self (`/_next/image` optimiser, logos, public assets) plus
+ *               `www.facebook.com` for the Meta Pixel beacon fallback.
  *   - connect:  the production API `https://binary-code-api.onrender.com`
- *               (NEXT_PUBLIC_API_BASE) and self (dev proxy + prefetches).
+ *               (NEXT_PUBLIC_API_BASE), self (dev proxy + prefetches) and the
+ *               Meta Pixel endpoints (`connect.facebook.net`, `www.facebook.com`).
  *   - frames:   no iframe is used anywhere → object-src/frame-ancestors locked.
  *
  * If a new external dependency (analytics, CDN, payment widget…) is added, its
@@ -46,7 +49,7 @@ const securityHeaders = [
       "default-src 'self'",
       // Self-hosted Next.js chunks. __NEXT_DATA__ / JSON-LD are non-executable
       // JSON script tags, so no 'unsafe-inline' is needed for scripts.
-      "script-src 'self'",
+      "script-src 'self' https://connect.facebook.net",
       // Tailwind stylesheet is self-hosted; the three style="" attributes in
       // the markup require the attr-source 'unsafe-inline' (see file header).
       "style-src 'self' 'unsafe-inline'",
@@ -57,9 +60,9 @@ const securityHeaders = [
       // Font binaries served by Google Fonts (loaded via the @import above).
       'font-src https://fonts.gstatic.com',
       // Site images are all self-hosted (/_next/image optimiser + /logo, /images).
-      "img-src 'self' data:",
+      "img-src 'self' data: https://www.facebook.com",
       // Production API (NEXT_PUBLIC_API_BASE) + self (dev proxy, prefetch).
-      "connect-src 'self' https://binary-code-api.onrender.com",
+      "connect-src 'self' https://binary-code-api.onrender.com https://connect.facebook.net https://www.facebook.com",
       // The site uses no forms with cross-origin targets, frames or plugins.
       "form-action 'self'",
       'frame-src \'self\'',

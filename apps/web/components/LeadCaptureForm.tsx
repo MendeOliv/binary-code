@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { DiagnosticResponse } from '@shared/models';
 import { IconCheckCircle } from './Icon';
+import { MetaEvent, trackMetaEvent } from '../lib/meta-pixel';
 
 interface LeadCaptureFormProps {
   diagnostic: DiagnosticResponse;
@@ -40,6 +41,13 @@ export default function LeadCaptureForm({ diagnostic, sessionId, onComplete }: L
       });
 
       if (response.ok) {
+        // Lead fires ONLY after the backend confirms a NEW lead was created
+        // (HTTP 201). A 200 means the idempotent no-op returned the existing
+        // lead for this session — no new conversion, so no Lead event. Errors
+        // and in-flight submissions never reach this branch.
+        if (response.status === 201) {
+          trackMetaEvent(MetaEvent.Lead, { content_name: 'Binary Diagnostic' });
+        }
         setIsSubmitted(true);
         return;
       }
