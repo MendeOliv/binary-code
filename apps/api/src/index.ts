@@ -4,7 +4,7 @@ dotenv.config();
 
 import fastify from 'fastify';
 import cors from '@fastify/cors';
-import { supabase } from '@db/supabase';
+import { supabase, pingSupabase } from '@db/supabase';
 import { requireAdminKey } from './lib/auth';
 import { resolveAllowedOrigins } from './lib/cors';
 import { discoveryLimiter, resolveTrustProxy } from './lib/rate-limit';
@@ -58,9 +58,24 @@ server.register(cors, {
   credentials: false,
 });
 
-// Health check route
-server.get('/health', async (_request, reply) => {
-  return { status: 'ok', version: '1.0.0', name: 'Código Binário API' };
+// Health check route.
+//
+// Public, fast and safe. Besides reporting liveness it performs one extremely
+// light READ against Supabase (see pingSupabase) so a free external cron can
+// keep the Render service and the Supabase connection warm. The response keeps
+// the exact same shape as before; only `status` flips to 'degraded' when the
+// probe fails. The endpoint NEVER fails because of Supabase: it always returns
+// HTTP 200 and the failed probe is logged server-side instead of being thrown.
+server.get('/health', async (request) => {
+  const dbOk = await pingSupabase();
+  if (!dbOk) {
+    request.log.warn('health: supabase probe failed (degraded)');
+  }
+  return {
+    status: dbOk ? 'ok' : 'degraded',
+    version: '1.0.0',
+    name: 'Código Binário API',
+  };
 });
 
 // Minimal service-identification root (spec §20). Healthcheck remains /health.
