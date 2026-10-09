@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import SeoHead from '../../components/SeoHead';
+import { breadcrumb, graph, webPage } from '../../lib/structured-data';
 import { developers, getDeveloperBySlug, Developer } from '../../lib/developers';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
@@ -20,16 +21,28 @@ export const getStaticProps: GetStaticProps<ProfileProps> = async ({ params }) =
 };
 
 export default function DeveloperProfile({ developer: dev }: ProfileProps) {
+  const path = `/developers/${dev.slug}`;
   const title = `${dev.name} — ${dev.role} · Código Binário`;
   const description = dev.shortBio;
+
+  // BreadcrumbList mirrors the visible breadcrumb trail rendered below.
+  const jsonLd = graph(
+    webPage({ path, title, description, type: 'ProfilePage' }),
+    breadcrumb(path, [
+      { name: 'Início', path: '/' },
+      { name: 'Developers', path: '/developers' },
+      { name: dev.name, path },
+    ])
+  );
 
   return (
     <>
       <SeoHead
         title={title}
         description={description}
-        path={`/developers/${dev.slug}`}
+        path={path}
         type="profile"
+        jsonLd={jsonLd}
       />
 
       {/* Breadcrumb */}

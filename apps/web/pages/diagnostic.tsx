@@ -2,12 +2,21 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import SeoHead from '../components/SeoHead';
+import { graph, webPage } from '../lib/structured-data';
 import DiagnosticChat from '../components/DiagnosticChat';
 import DiagnosticBrief from '../components/DiagnosticBrief';
 import LeadCaptureForm from '../components/LeadCaptureForm';
 import type { DiagnosticResponse } from '@shared/models';
 
 type Phase = 'chat' | 'brief' | 'done';
+
+const PAGE_TITLE = 'Binary Diagnostic — Código Binário';
+const PAGE_DESCRIPTION =
+  'Entrevista de arquitetura e diagnóstico técnico guiado por IA. Descreva o problema da sua operação e receba uma análise estruturada.';
+
+const DIAGNOSTIC_JSON_LD = graph(
+  webPage({ path: '/diagnostic', title: PAGE_TITLE, description: PAGE_DESCRIPTION })
+);
 
 const PIPELINE_STEPS = [
   { index: '01', icon: 'chat', title: 'Entrevista', subtitle: 'Descreva o problema' },
@@ -42,9 +51,10 @@ export default function DiagnosticPage() {
   return (
     <>
       <SeoHead
-        title="Binary Diagnostic — Código Binário"
-        description="Entrevista de arquitetura e diagnóstico técnico guiado por IA. Descreva o problema da sua operação e receba uma análise estruturada."
+        title={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
         path="/diagnostic"
+        jsonLd={DIAGNOSTIC_JSON_LD}
       />
 
       {/* Telemetry strip */}

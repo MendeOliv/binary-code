@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import SeoHead from '../components/SeoHead';
+import { graph, webPage } from '../lib/structured-data';
 
 /**
  * Systems & cases. The flagship case is the company's own platform (real,
@@ -65,13 +66,22 @@ const PROJECTS = [
   },
 ];
 
+const PAGE_TITLE = 'Projetos — Código Binário';
+const PAGE_DESCRIPTION =
+  'Sistemas construídos pela Código Binário: engenharia de software, IA e automação em produção. Cases descritos como sistemas — problema, solução, stack.';
+
+const PROJECTS_JSON_LD = graph(
+  webPage({ path: '/projects', title: PAGE_TITLE, description: PAGE_DESCRIPTION, type: 'CollectionPage' })
+);
+
 export default function ProjectsPage() {
   return (
     <>
       <SeoHead
-        title="Projetos — Código Binário"
-        description="Sistemas construídos pela Código Binário: engenharia de software, IA e automação em produção. Cases descritos como sistemas — problema, solução, stack."
+        title={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
         path="/projects"
+        jsonLd={PROJECTS_JSON_LD}
       />
 
       {/* Telemetry bar */}

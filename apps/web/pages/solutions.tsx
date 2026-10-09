@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import SeoHead from '../components/SeoHead';
+import { graph, serviceList, webPage } from '../lib/structured-data';
 
 interface Enclave {
   id: string;
@@ -113,13 +114,30 @@ const ENCLAVES: Enclave[] = [
   },
 ];
 
+const PAGE_TITLE = 'Soluções — Código Binário';
+const PAGE_DESCRIPTION =
+  'Arquitetura soberana e engenharia de alta precisão: AI Engineering, Software Engineering, Automação, Infraestrutura, Produtos Digitais e Consultoria Técnica.';
+
+/**
+ * Service node per enclave — the page genuinely describes each service, so a
+ * `Service` ItemList is justified. Descriptions come from the visible content.
+ */
+const SOLUTIONS_JSON_LD = graph(
+  webPage({ path: '/solutions', title: PAGE_TITLE, description: PAGE_DESCRIPTION, type: 'CollectionPage' }),
+  serviceList(
+    '/solutions',
+    ENCLAVES.map((e) => ({ name: e.title, description: e.description }))
+  )
+);
+
 export default function SolutionsPage() {
   return (
     <>
       <SeoHead
-        title="Soluções — Código Binário"
-        description="Arquitetura soberana e engenharia de alta precisão: AI Engineering, Software Engineering, Automação, Infraestrutura, Produtos Digitais e Consultoria Técnica."
+        title={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
         path="/solutions"
+        jsonLd={SOLUTIONS_JSON_LD}
       />
 
       {/* Telemetry diagnostic bar */}

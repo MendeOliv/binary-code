@@ -2,14 +2,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SeoHead from '../components/SeoHead';
 import { developers } from '../lib/developers';
+import { graph, webPage } from '../lib/structured-data';
+
+const PAGE_TITLE = 'Developers — Código Binário';
+const PAGE_DESCRIPTION =
+  'Conheça os engenheiros da Código Binário: Elisio Nascimento, Mendes Bessa e Mbumba Guilherme. Engenharia, método e pessoas.';
+
+const DEVELOPERS_JSON_LD = graph(
+  webPage({ path: '/developers', title: PAGE_TITLE, description: PAGE_DESCRIPTION, type: 'CollectionPage' })
+);
 
 export default function DevelopersPage() {
   return (
     <>
       <SeoHead
-        title="Developers — Código Binário"
-        description="Conheça os engenheiros da Código Binário: Elisio Nascimento, Mendes Bessa e Mbumba Guilherme. Engenharia, método e pessoas."
+        title={PAGE_TITLE}
+        description={PAGE_DESCRIPTION}
         path="/developers"
+        jsonLd={DEVELOPERS_JSON_LD}
       />
 
       {/* Telemetry sub-ribbon */}

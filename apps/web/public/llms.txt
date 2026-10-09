@@ -1,0 +1,48 @@
+# Código Binário
+
+> Empresa de engenharia — AI, Systems & Digital Solutions. Transforma problemas
+> complexos em sistemas, automações e soluções digitais funcionais, usando
+> Inteligência Artificial quando ela cria vantagem real.
+
+Código Binário é uma empresa de engenharia de software e IA aplicada. Desenha,
+constrói e opera sistemas sob medida, automações de processos e infraestrutura
+digital para organizações com operações críticas. O trabalho parte sempre de um
+diagnóstico técnico do problema real antes de qualquer linha de código.
+
+Este ficheiro é um índice legível por máquinas do conteúdo público do site
+oficial. Não é uma API e não garante indexação, citação ou uso por qualquer
+sistema de IA. Todas as ligações usam o domínio oficial.
+
+## Domínio oficial
+
+- https://codigobinario.it.ao
+
+## Páginas principais
+
+- [Início](https://codigobinario.it.ao/): o que é a Código Binário, problemas que resolve, pilares de engenharia, metodologia de entrega em 6 etapas e equipa.
+- [Soluções](https://codigobinario.it.ao/solutions): as seis áreas de engenharia, com problema, entrega e quando aplicar cada uma.
+- [Projetos](https://codigobinario.it.ao/projects): sistemas construídos, descritos como problema, solução, stack e escopo (sem métricas inventadas).
+- [Developers](https://codigobinario.it.ao/developers): corpo de engenharia, competências e stacks.
+- [Binary Diagnostic](https://codigobinario.it.ao/diagnostic): entrevista de arquitetura guiada por IA que gere um diagnóstico técnico estruturado.
+- [Política de Privacidade](https://codigobinario.it.ao/privacidade): dados recolhidos, finalidade e tratamento.
+- [Termos de Uso](https://codigobinario.it.ao/termos): condições de utilização do website e do Binary Diagnostic.
+
+## Serviços
+
+- **AI Engineering**: arquiteturas RAG, agentes e assistentes ligados a dados proprietários; orquestração de LLMs onde cria vantagem mensurável.
+- **Software Engineering**: aplicações web, APIs, backend e bases de dados para lógica de negócio especializada e cargas concorrentes.
+- **Automation & Workflows**: automação ponta a ponta de processos manuais e integrações entre sistemas (webhooks, filas, mensageria).
+- **Systems & Infrastructure**: arquitetura, Linux, containers, deployment, redes e observabilidade para operações críticas.
+- **Digital Products & MVPs**: MVPs e plataformas construídos sobre código de padrão de produção.
+- **Technical Consulting & Discovery**: auditoria técnica, blueprints de arquitetura e definição de solução antes da implementação.
+
+## Como trabalhamos
+
+Metodologia em 6 etapas: Descoberta → Diagnóstico → Arquitetura → Construção →
+Deploy → Evolução. Cada projeto começa por um diagnóstico analítico e termina em
+operação contínua com monitorização.
+
+## Contacto
+
+- Email: contacto@codigobinario.it.ao
+- Diagnóstico: https://codigobinario.it.ao/diagnostic

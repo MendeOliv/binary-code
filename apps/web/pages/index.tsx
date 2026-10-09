@@ -4,42 +4,88 @@ import SeoHead from '../components/SeoHead';
 import ParticleBackground from '../components/ParticleBackground';
 import { developers } from '../lib/developers';
 import { OFFICIAL_SITE_URL } from '../lib/site';
+import { graph, webPage } from '../lib/structured-data';
 
 const TITLE = 'Código Binário — AI, Systems & Digital Solutions';
 const DESCRIPTION =
   'A Código Binário entende problemas complexos e transforma-os em sistemas, automações e soluções digitais funcionais — utilizando Inteligência Artificial quando ela realmente cria vantagem.';
 
 /**
- * Structured data for the official entity.
+ * Short, factual answers. Every statement restates information that is already
+ * published elsewhere on the site — nothing here invents clients, metrics,
+ * locations, prices or certifications.
+ */
+const FAQ = [
+  {
+    question: 'O que é a Código Binário?',
+    answer:
+      'A Código Binário é uma empresa de engenharia — AI, Systems & Digital Solutions. Entende problemas complexos e transforma-os em sistemas, automações e soluções digitais funcionais, utilizando Inteligência Artificial quando ela cria vantagem real.',
+  },
+  {
+    question: 'Que serviços a Código Binário oferece?',
+    answer:
+      'Seis áreas de engenharia: AI Engineering, Software Engineering, Automação & Integrações, Sistemas & Infraestrutura, Produtos Digitais e Consultoria & Discovery. O detalhe de cada uma está na página de Soluções.',
+  },
+  {
+    question: 'Que problemas a Código Binário resolve?',
+    answer:
+      'Elimina processos manuais e lentos, sistemas desconectados que fragmentam os dados, gargalos de escala, projetos de IA sem valor tangível e software genérico de baixa performance. Reconstrói a infraestrutura tecnológica a partir da causa raiz.',
+  },
+  {
+    question: 'A quem se destinam os serviços?',
+    answer:
+      'A empresas e organizações com operações críticas que precisam de sistemas sob medida, automação de processos ou IA aplicada — incluindo equipas que estão a validar um novo produto digital.',
+  },
+  {
+    question: 'Como funciona o processo de trabalho?',
+    answer:
+      'Em seis etapas: Descoberta, Diagnóstico, Arquitetura, Construção, Deploy e Evolução. Cada linha de código é antecedida por um diagnóstico analítico claro, do entendimento do negócio ao suporte contínuo em produção.',
+  },
+  {
+    question: 'Como solicitar um diagnóstico técnico?',
+    answer:
+      'Através do Binary Diagnostic, em /diagnostic: descreva o problema em linguagem natural e o sistema gera um diagnóstico técnico estruturado. A equipa responde em 24 horas, sem compromisso. Contacto directo: contacto@codigobinario.it.ao.',
+  },
+];
+
+/**
+ * Structured data for the official entity and the home page.
  *
  * Contains ONLY facts that are verifiable in this repository or on the site:
  * no address, phone number, reviews, aggregate ratings, certifications, client
  * counts or awards are declared. `LocalBusiness` is intentionally NOT used
  * because it would require a real, confirmed physical location.
  */
-const ORGANIZATION_JSON_LD = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${OFFICIAL_SITE_URL}/#organization`,
-      name: 'Código Binário',
-      url: `${OFFICIAL_SITE_URL}/`,
-      logo: `${OFFICIAL_SITE_URL}/logo/codigo-binario-transparent.png`,
-      description:
-        'Empresa de engenharia — AI, Systems & Digital Solutions. Transforma problemas complexos em sistemas, automações e soluções digitais funcionais.',
-      email: 'contacto@codigobinario.it.ao',
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${OFFICIAL_SITE_URL}/#website`,
-      name: 'Código Binário',
-      url: `${OFFICIAL_SITE_URL}/`,
-      inLanguage: 'pt-AO',
-      publisher: { '@id': `${OFFICIAL_SITE_URL}/#organization` },
-    },
-  ],
-};
+const HOME_JSON_LD = graph(
+  {
+    '@type': 'Organization',
+    '@id': `${OFFICIAL_SITE_URL}/#organization`,
+    name: 'Código Binário',
+    url: `${OFFICIAL_SITE_URL}/`,
+    logo: `${OFFICIAL_SITE_URL}/logo/codigo-binario-transparent.png`,
+    description:
+      'Empresa de engenharia — AI, Systems & Digital Solutions. Transforma problemas complexos em sistemas, automações e soluções digitais funcionais.',
+    email: 'contacto@codigobinario.it.ao',
+  },
+  {
+    '@type': 'WebSite',
+    '@id': `${OFFICIAL_SITE_URL}/#website`,
+    name: 'Código Binário',
+    url: `${OFFICIAL_SITE_URL}/`,
+    inLanguage: 'pt-AO',
+    publisher: { '@id': `${OFFICIAL_SITE_URL}/#organization` },
+  },
+  webPage({ path: '/', title: TITLE, description: DESCRIPTION }),
+  {
+    '@type': 'FAQPage',
+    '@id': `${OFFICIAL_SITE_URL}/#faq`,
+    mainEntity: FAQ.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
+  }
+);
 
 const PROBLEMS = [
   {
@@ -145,7 +191,7 @@ const AREAS = ['AI Engineering', 'Software Engineering', 'Automation', 'Systems 
 export default function Home() {
   return (
     <>
-      <SeoHead title={TITLE} description={DESCRIPTION} path="/" jsonLd={ORGANIZATION_JSON_LD} />
+      <SeoHead title={TITLE} description={DESCRIPTION} path="/" jsonLd={HOME_JSON_LD} />
 
       {/* ============ HERO ============ */}
       <section className="relative w-full overflow-hidden bg-bg-canvas px-gutter-mobile md:px-margin pt-space-xl pb-20 md:pb-24 border-b border-border-subtle">
@@ -380,6 +426,40 @@ export default function Home() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ============ PERGUNTAS FREQUENTES ============ */}
+      <section className="w-full bg-bg-surface-base px-gutter-mobile md:px-margin py-20 md:py-24 border-b border-border-subtle">
+        <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
+          <div className="flex flex-col gap-space-xs">
+            <span className="text-primary font-body-sm font-semibold tracking-wide uppercase">
+              Perguntas Frequentes
+            </span>
+            <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-text-primary font-semibold">
+              Informação directa sobre a Código Binário
+            </h2>
+            <p className="font-body-md text-body-md text-text-secondary max-w-2xl">
+              Respostas curtas e factuais sobre quem somos, o que construímos e como começamos a
+              trabalhar.
+            </p>
+          </div>
+
+          <dl className="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+            {FAQ.map((item) => (
+              <div
+                key={item.question}
+                className="bg-bg-surface-elevated p-space-lg rounded border border-border-subtle flex flex-col gap-space-sm"
+              >
+                <dt className="font-headline-sm text-headline-sm text-text-primary font-semibold">
+                  {item.question}
+                </dt>
+                <dd className="font-body-sm text-body-sm text-text-secondary leading-relaxed m-0">
+                  {item.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 

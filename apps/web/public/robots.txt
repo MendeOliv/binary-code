@@ -1,18 +1,52 @@
+# robots.txt — https://codigobinario.it.ao
+#
+# Policy
+# ------
+# Public pages are intentionally crawlable by conventional search engines AND by
+# AI / answer systems, so that Código Binário can be discovered, referenced and
+# cited. Nothing here guarantees indexing, ranking or citation.
+#
+# A single `User-agent: *` group is used deliberately: under RFC 9309 a crawler
+# obeys ONLY the most specific matching group, so adding named groups for
+# individual bots would silently drop the `Disallow: /api/` rule for those bots.
+#
+# `Disallow` only prevents crawling — it is not access control, and it does not
+# remove a URL already indexed. The real private surface is the API (protected
+# by an admin key, on its own origin); no private route is reachable on this
+# host, so there is nothing else here that robots.txt could protect.
+
 User-agent: *
 Allow: /
-
-# Áreas que NÃO devem ser rastreadas
+# This host does not serve /api/* as content (the Fastify API lives on its own
+# origin). Kept disallowed defensively so a future route cannot leak.
 Disallow: /api/
-Disallow: /admin/
-Disallow: /diagnostic/chat
-Disallow: /diagnostic/brief
-Disallow: /diagnostic/done
 
-# Recursos necessários para renderização (NÃO bloquear)
-Allow: /images/
-Allow: /icons/
-Allow: /public/
-Allow: /_next/
-
-# Referência ao sitemap
 Sitemap: https://codigobinario.it.ao/sitemap.xml
+
+# ── Search & answer crawlers ─────────────────────────────────────────────────
+# Allowed by the `*` group above. Listed only to document the decision, with the
+# vendor's official reference for each token.
+#   Googlebot          https://developers.google.com/crawling/docs/crawlers-fetchers/google-common-crawlers
+#   Bingbot            https://blogs.bing.com/webmaster/2022/4/Announcing-user-agent-change-for-Bing-crawler-bingbot/
+#   OAI-SearchBot      https://developers.openai.com/api/docs/bots
+#   PerplexityBot      https://docs.perplexity.ai/docs/resources/perplexity-crawlers
+#   Claude-SearchBot   https://support.claude.com/en/articles/8896518
+#   Applebot           https://support.apple.com/en-us/119829
+#   DuckAssistBot      https://duckduckgo.com/duckduckgo-help-pages/results/duckassistbot
+#   Meta-WebIndexer    https://developers.facebook.com/documentation/sharing/webmasters/web-crawlers
+
+# ── User-triggered fetchers ──────────────────────────────────────────────────
+# Also allowed by `*`. These fetch a single page when a person asks an assistant
+# about it; they are not indexed automatically and may ignore robots.txt.
+#   ChatGPT-User, Claude-User, Perplexity-User, Amzn-User, MistralAI-User
+
+# ── Training-oriented crawlers ───────────────────────────────────────────────
+# Current decision: ALLOWED (inherited from `*`), consistent with the intent to
+# maximise AI discoverability. GPTBot, ClaudeBot, Google-Extended,
+# Applebot-Extended, CCBot, Meta-ExternalAgent, Amazonbot and MistralAI-Training
+# are therefore not blocked.
+#
+# To opt OUT of model training while keeping search and AI answers working, add
+# a group with `Disallow: /` for each of those tokens (they are separate robots
+# tokens, so search crawling is unaffected). This is a business/privacy decision
+# and must stay consistent with the Privacy Policy before being changed.
