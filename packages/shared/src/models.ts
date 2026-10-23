@@ -269,6 +269,9 @@ export interface DiagnosticResponse {
 
 // --- Lead Schemas ---
 export interface LeadCreate {
+  requestId?: string;
+  source?: 'diagnostic' | 'academy';
+  academyCourseId?: string;
   diagnosticId?: string;
   sessionId?: string;
   name: string;
@@ -320,6 +323,9 @@ export interface LeadResponse {
   followUpAt: string | null;
   estimatedValue: number | null;
   onSiteRequired: boolean | null;
+  source: string;
+  academyCourseId: string | null;
+  requestId: string | null;
 }
 
 // --- Lead Activities (Mini CRM, FASE 5) ---

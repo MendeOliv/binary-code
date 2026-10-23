@@ -106,6 +106,7 @@ import { conflictRoutes } from './routes/conflicts';
 import { logRoutes } from './routes/logs';
 import { discoveryRoutes } from './routes/discovery';
 import { leadRoutes } from './routes/leads';
+import { academyRequestRoutes } from './routes/academy-requests';
 
 // Discovery pipeline (Binary Diagnostic) — public write endpoints get rate limiting.
 server.register(discoveryRoutes, { prefix: '/api/discovery' });
@@ -121,6 +122,7 @@ server.addHook('onRequest', (req, reply, next) => {
 });
 
 server.register(leadRoutes, { prefix: '/api/leads' });
+server.register(academyRequestRoutes, { prefix: '/api/academy-requests' });
 
 // Project-scoped routes: INTERNAL/ADMINISTRATIVE. Require the admin key so
 // project data is never exposed through public endpoints (spec §5).

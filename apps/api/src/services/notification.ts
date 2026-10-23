@@ -339,6 +339,18 @@ export class NotificationService {
     return this.dispatch(subject, text, payload);
   }
 
+  async notifyNewAcademyRequest(payload: { leadId: string; name: string; email?: string | null; phone?: string | null; course: string; message: string; createdAt: string }): Promise<SendResult> {
+    const subject = `[Código Binário Academy] Novo pedido // ${payload.course}`;
+    const text = [
+      '— CÓDIGO BINÁRIO ACADEMY — NOVO PEDIDO', '',
+      `Nome: ${payload.name}`, payload.email ? `Email: ${payload.email}` : null,
+      payload.phone ? `Telefone: ${payload.phone}` : null,
+      `Formação: ${payload.course}`, `Pedido: ${payload.message}`,
+      `Lead ID: ${payload.leadId}`, `Data/hora: ${payload.createdAt}`,
+    ].filter(Boolean).join('\n');
+    return this.dispatch(subject, text, { diagnosticId: 'academy', sessionId: 'academy', problemIdentified: payload.message, technologiesNeeded: [], complexity: 'low', nextStep: 'analysis', confidence: 0, createdAt: payload.createdAt, leadId: payload.leadId, lead: { name: payload.name, email: payload.email ?? undefined, phone: payload.phone ?? undefined } });
+  }
+
   /**
    * Send a public confirmation to the CLIENT after a successful request.
    * Uses ONLY the client's own data; never exposes internal qualification.

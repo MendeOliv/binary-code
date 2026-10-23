@@ -6,6 +6,7 @@ const NAV = [
   { label: 'Soluções', href: '/solutions' },
   { label: 'Projetos', href: '/projects' },
   { label: 'Developers', href: '/developers' },
+  { label: 'Academy', href: '/academy' },
   { label: 'Diagnóstico', href: '/diagnostic' },
 ];
 

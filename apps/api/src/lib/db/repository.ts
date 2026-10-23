@@ -588,6 +588,16 @@ export class SupabaseRepository {
       return data ? this.mapLead(data) : null;
     }
 
+    async getLeadByRequestId(requestId: string): Promise<LeadResponse | null> {
+      const { data, error } = await this.client
+        .from('leads')
+        .select('*')
+        .eq('request_id', requestId)
+        .maybeSingle();
+      if (error) throw error;
+      return data ? this.mapLead(data) : null;
+    }
+
     async createLead(data: LeadCreate): Promise<LeadResponse> {
     const { data: result, error } = await this.client
       .from('leads')
@@ -597,8 +607,11 @@ export class SupabaseRepository {
         name: data.name,
         email: data.email,
         phone: data.phone,
-        company: data.company,
-        notes: data.notes,
+          company: data.company,
+          notes: data.notes,
+          request_id: data.requestId,
+          source: data.source || 'diagnostic',
+          academy_course_id: data.academyCourseId,
       }])
       .select()
       .single();
@@ -795,6 +808,9 @@ export class SupabaseRepository {
                 followUpAt: row.follow_up_at ?? null,
                 estimatedValue: row.estimated_value ?? null,
                 onSiteRequired: row.on_site_required ?? null,
+                source: row.source || 'diagnostic',
+                academyCourseId: row.academy_course_id ?? null,
+                requestId: row.request_id ?? null,
               };
             }
 
