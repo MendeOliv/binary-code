@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   DiscoveryChatInputSchema,
   LeadCreateInputSchema,
+  AcademyRequestSchema,
   LeadUpdateSchema,
   ActivityCreateSchema,
   ResourceIdSchema,
@@ -51,6 +52,33 @@ test('LeadCreateInputSchema — rejects missing name / bad email', () => {
   assert.equal(LeadCreateInputSchema.safeParse({}).success, false);
   const bad = LeadCreateInputSchema.safeParse({ name: 'x', email: 'nope' });
   assert.equal(bad.success, false);
+});
+
+test('AcademyRequestSchema — accepts a valid course request', () => {
+  const result = AcademyRequestSchema.safeParse({
+    requestId: 'a2c1e6b8-9d4f-4f1a-9c0e-6b7a8f9d1e2a',
+    name: 'João Academy',
+    email: 'joao@example.com',
+    courseId: 'engenharia-de-ia',
+    message: 'Quero aprender a construir aplicações com IA.',
+    privacyAccepted: true,
+  });
+  assert.equal(result.success, true);
+});
+
+test('AcademyRequestSchema — rejects invalid, oversized, unconsented and unexpected payloads', () => {
+  const base = {
+    requestId: 'a2c1e6b8-9d4f-4f1a-9c0e-6b7a8f9d1e2a',
+    name: 'João Academy',
+    email: 'joao@example.com',
+    message: 'Quero aprender a construir aplicações com IA.',
+    privacyAccepted: true,
+  };
+  assert.equal(AcademyRequestSchema.safeParse({ ...base, email: 'not-an-email' }).success, false);
+  assert.equal(AcademyRequestSchema.safeParse({ ...base, message: 'x'.repeat(2001) }).success, false);
+  assert.equal(AcademyRequestSchema.safeParse({ ...base, privacyAccepted: false }).success, false);
+  assert.equal(AcademyRequestSchema.safeParse({ ...base, unexpected: 'nope' }).success, false);
+  assert.equal(AcademyRequestSchema.safeParse({ ...base, message: 'contains\u0000nul' }).success, false);
 });
 
 test('DiagnosticAISchema — validates full structured diagnostic', () => {

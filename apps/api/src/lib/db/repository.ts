@@ -598,6 +598,32 @@ export class SupabaseRepository {
       return data ? this.mapLead(data) : null;
     }
 
+    /**
+     * Atomically creates an Academy lead or returns the row claimed by a
+     * concurrent request with the same request_id. The existing row is never
+     * updated, which keeps retries idempotent and prevents data races.
+     */
+    async createAcademyLead(data: LeadCreate): Promise<{ lead: LeadResponse; created: boolean }> {
+      const { data: result, error } = await this.client
+        .from('leads')
+        .upsert([{
+          request_id: data.requestId,
+          source: 'academy',
+          academy_course_id: data.academyCourseId,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          notes: data.notes,
+        }], { onConflict: 'request_id', ignoreDuplicates: true })
+        .select()
+        .maybeSingle();
+      if (error) throw error;
+      if (result) return { lead: this.mapLead(result), created: true };
+      const existing = data.requestId ? await this.getLeadByRequestId(data.requestId) : null;
+      if (!existing) throw new Error('Academy lead idempotency lookup failed');
+      return { lead: existing, created: false };
+    }
+
     async createLead(data: LeadCreate): Promise<LeadResponse> {
     const { data: result, error } = await this.client
       .from('leads')

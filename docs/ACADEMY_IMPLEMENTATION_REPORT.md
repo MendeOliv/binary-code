@@ -1,124 +1,143 @@
-# Relatório de implementação — Código Binário Academy
+# Relatório final — Código Binário Academy
 
-## A. Resumo executivo
+## A. Veredicto
 
-Foi implementada a primeira versão integrada da Código Binário Academy na rota pública `/academy`, dentro do frontend Next.js existente. A solução inclui catálogo centralizado das oito formações, detalhe documentado, downloads dos PDFs aprovados, download do catálogo geral, filtros por categoria, solicitação de formação específica ou personalizada, consentimento de privacidade, navegação global, SEO e encaminhamento para o CRM de leads existente.
+**PASS WITH LIMITATIONS**.
 
-Foi escolhida uma extensão aditiva do domínio de leads, sem criar um segundo CRM, LMS, pagamentos ou contas de alunos.
+A implementação compila, passa typecheck/lint/build, tem cobertura de validação Academy, responde localmente, disponibiliza os PDFs íntegros e teve validação visual desktop no browser sandbox. Não pode ser declarada `PASS` porque a migração/persistência Supabase não foi validada, a suite completa da API continua parcialmente bloqueada por configuração Supabase ausente no processo de testes e a validação visual tablet/mobile não foi concluída.
 
-## B. Auditoria inicial
+Não foi feito push nem deployment, em conformidade com a regra de não publicar enquanto uma validação essencial permanecer pendente.
+
+## B. Auditoria Git
 
 - Repositório: `MendeOliv/binary-code`.
-- Branch/commit de referência: `master` / `1fcc28ad7c2a3aeb56cf342f815607196bcdb3e7`.
-- Estado inicial: sem alterações locais.
-- Branch de trabalho: `feat/academy`.
-- Frontend: Next.js `14.2.35`, React 18, Pages Router, Tailwind.
-- Backend: Fastify, Supabase, validação Zod, rate limiter por IP e CRM de leads já existente.
-- Deployment configurado: Vercel para frontend e Render para API.
-- Decisão: reutilizar a tabela `leads`, acrescentando `source`, `academy_course_id` e `request_id`; pedidos Academy ficam claramente identificados sem alterar a semântica do diagnóstico.
+- Branch inicial/final: `feat/academy`.
+- Commit-base: `1fcc28ad7c2a3aeb56cf342f815607196bcdb3e7` (`master` e `origin/master`).
+- Commit Academy existente: `256c082 feat: add Código Binário Academy`.
+- Estado inicial desta auditoria: working tree limpo, branch local dois commits à frente de `master`; `origin/feat/academy` não existia.
+- Alteração encontrada durante esta auditoria: corrida concorrente na idempotência Academy.
+- Alterações preexistentes não relacionadas: nenhuma; o trabalho anterior foi preservado.
+- Estado final desta auditoria: duas alterações locais ainda não commitadas (`repository.ts` e `academy-requests.ts`) e o teste/relatório actualizado nesta fase precisam de ser consolidados depois de desbloqueada a validação Supabase.
 
-## C. Documentos analisados
+## C. Código auditado e correções
 
-Foram encontrados e analisados os oito PDFs individuais e o catálogo geral:
+Foram auditados os ficheiros Academy, a tabela `leads`, o repositório Supabase, validação Zod, notificações, navegação, sitemap, configuração de deployment e testes existentes.
 
-- `CB_Academy_Forex_Trading_v2.pdf`
-- `CB_Academy_Crypto_Trading_v2.pdf`
-- `CB_Academy_Engenharia_de_IA_v2.pdf`
-- `CB_Academy_Engenharia_de_Prompting_v2.pdf`
-- `CB_Academy_Vibe_Coding_v2.pdf`
-- `CB_Academy_Automacao_v2.pdf`
-- `CB_Academy_Bot_Trading_v2.pdf`
-- `CB_Academy_Sistemas_de_IA_v2.pdf`
-- `CB_Academy_Catalogo_Formacoes_v2.pdf`
+Correção comprovada efectuada:
 
-Todos abriram com `pdfinfo`, com quatro páginas nos PDFs individuais e duas páginas no catálogo. O ZIP foi validado com `unzip -t` e contém os nove PDFs esperados, sem ser tratado como formação.
+- A rota Academy fazia `SELECT` seguido de `INSERT`. Duas submissões simultâneas com o mesmo `request_id` podiam colidir no índice único e devolver `500`.
+- Foi adicionado `createAcademyLead()` no repositório, usando `upsert(..., { onConflict: 'request_id', ignoreDuplicates: true })` e leitura do vencedor quando há retry concorrente.
+- O lead vencedor não é sobrescrito; retries não criam nova actividade CRM nem novas notificações.
+- Foram adicionados testes de validação para pedido válido, email inválido, mensagem excedida, consentimento ausente, campo inesperado e NUL byte.
 
-Os PDFs copiados para `apps/web/public/academy-pdfs/` mantêm os mesmos SHA-256 dos originais.
+Alterações deliberadamente evitadas:
 
-## D. Ficheiros alterados
+- Nenhuma alteração destrutiva ou de dados existentes.
+- Nenhum segundo CRM, LMS, pagamentos, contas de alunos, tracker ou fornecedor novo.
+- Nenhuma alteração a DNS, Render, Vercel, `master` ou deployment.
+- Nenhum teste removido ou enfraquecido.
 
-- `apps/web/pages/academy.tsx`: nova página pública, catálogo, detalhe, downloads e formulário.
-- `apps/web/lib/academy.ts`: fonte centralizada dos oito cursos e respectivos PDFs.
-- `apps/web/public/academy-pdfs/`: PDFs individuais, catálogo e ZIP aprovados.
-- `apps/web/components/Navbar.tsx`: entrada Academy na navegação desktop/mobile.
-- `apps/web/components/Footer.tsx`: entrada Academy no rodapé.
-- `apps/web/pages/sitemap.xml.tsx`: inclusão de `/academy`.
-- `packages/shared/src/models.ts`: campos de origem, curso e idempotência no lead.
-- `apps/api/migrations/009_academy_requests.sql`: extensão aditiva do CRM e índice único de `request_id`.
-- `apps/api/src/lib/validation.ts`: validação server-side do pedido Academy.
-- `apps/api/src/lib/db/repository.ts`: persistência, leitura idempotente e mapeamento dos campos Academy.
-- `apps/api/src/routes/academy-requests.ts`: endpoint público `POST /api/academy-requests`.
-- `apps/api/src/services/notification.ts`: notificação interna Academy através do transporte existente.
-- `apps/api/src/index.ts`: registo da nova rota.
+## D. Supabase
 
-## E. Funcionalidades
+### Ambiente
 
-| Funcionalidade | Estado |
-|---|---|
-| Rota `/academy` | Implementada e testada por HTTP |
-| Navegação principal e rodapé | Implementada |
-| Oito formações documentadas | Implementada |
-| Filtro por categoria | Implementada |
-| Detalhes e módulos documentados | Implementada |
-| PDFs individuais | Implementada e testada |
-| Catálogo geral | Implementada e testada |
-| ZIP secundário | Copiado; não exposto como formação |
-| Formação personalizada | Implementada |
-| Formulário com consentimento | Implementada |
-| Validação frontend/server | Implementada |
-| Rate limiting | Reutilizado do CRM existente |
-| Idempotência | Implementada por `request_id` |
-| Identificação `source=academy` | Implementada |
-| Notificação interna | Implementada via transporte existente |
-| Confirmação ao interessado | Implementada via transporte existente |
-| SEO/canonical/sitemap | Implementado |
-| Pagamentos/LMS/contas | Não implementados, conforme limites |
+As credenciais fornecidas correspondem a um projeto Supabase cujo nome/uso não permite classificar com segurança como desenvolvimento, staging ou produção. A classificação operacional fica **INDETERMINADA**.
 
-## F. Integração comercial
+Além disso, nesta execução as credenciais não ficaram disponíveis como variáveis efémeras utilizáveis no terminal. Não foram copiadas para ficheiro, comando, Git, log ou documentação.
 
-O formulário envia para `POST /api/academy-requests`. O servidor valida o payload, rejeita cursos desconhecidos, aplica rate limiting, verifica `request_id` para evitar duplicações, cria o lead com `source=academy`, guarda o identificador da formação e regista uma actividade CRM. As notificações são best-effort e não fazem o pedido falhar depois de o lead estar persistido.
+### Migração
 
-A confirmação ao interessado comunica apenas recepção e análise do pedido; não promete inscrição, vaga, aprovação ou pagamento.
+`apps/api/migrations/009_academy_requests.sql` foi auditada. É aditiva e compatível com a tabela `leads` existente:
 
-## G. Testes
+- `source TEXT NOT NULL DEFAULT 'diagnostic'` preserva leads antigos.
+- `academy_course_id TEXT` é opcional.
+- `request_id UUID` é opcional para compatibilidade retroactiva.
+- Índice único parcial em `request_id` aplica idempotência apenas a pedidos que fornecem identificador.
+- Índices de origem e curso suportam consultas CRM.
+- Nenhuma coluna ou linha existente é removida ou alterada.
 
-Executados:
+A migração **não foi aplicada** porque o ambiente não pôde ser identificado com segurança e não existe autorização específica para alterar um possível ambiente de produção.
 
-- `pnpm install --frozen-lockfile` — sucesso.
-- `pnpm typecheck` — sucesso em shared, API e web.
-- `pnpm lint` — sucesso; sem warnings ou erros.
-- `pnpm build` — sucesso; a rota `/academy` foi compilada e prerenderizada.
-- `git diff --check` — sucesso.
-- `pdfinfo` nos nove PDFs — sucesso.
-- `unzip -t` no pacote ZIP — sucesso.
-- HTTP local `GET /academy` — `200`, HTML contém “Código Binário Academy”.
-- HTTP local nos nove PDFs — `200`, `application/pdf`, tamanhos correspondentes.
-- Suite API: 107 testes passaram. Dois ficheiros (`cost-abuse.test.ts` e `lead-service.test.ts`) não arrancaram por falta de `SUPABASE_URL` no ambiente local; isto ocorreu antes da execução dos testes desses ficheiros e não foi causado pelo código Academy.
+### Verificações
 
-Ainda não foi feita uma validação visual automatizada em três viewports nem uma submissão contra uma base Supabase de produção.
+- Não houve operação de escrita no Supabase.
+- Não houve criação de leads fictícios.
+- A persistência real, actividade CRM, idempotência no banco e compatibilidade de schema permanecem pendentes.
 
-## H. Segurança e privacidade
+## E. Testes
 
-Foram aplicados limites e normalização via Zod, rejeição de NUL, email obrigatório e válido, mensagem limitada a 2.000 caracteres, consentimento explícito, rate limiting, idempotência, validação de curso no servidor e ausência de segredos no frontend. Não são expostos dados de leads através de endpoints públicos.
+| Teste | Resultado | Evidência | Limitações |
+|---|---|---|---|
+| `pnpm install --frozen-lockfile` | PASS | Lockfile e dependências instalados | Nenhuma |
+| `pnpm typecheck` | PASS | Shared, API e web concluídos | Nenhuma |
+| `pnpm lint` | PASS | Sem warnings ou erros | Nenhuma |
+| `pnpm build` | PASS | API compilada; `/academy` prerenderizada | Nenhuma |
+| Teste unitário `validation.test.ts` | PASS | 21/21 testes | Não cobre Supabase real |
+| Suite API completa | PENDENTE | Execução completa: 107/109 testes passaram; 2 ficheiros abortaram | `cost-abuse.test.ts` e `lead-service.test.ts` falharam antes dos testes por `supabaseUrl is required`; os 2 testes Academy adicionais passaram em execução isolada |
+| `git diff --check` | PASS | Sem whitespace inválido | Nenhuma |
+| PDFs com `pdfinfo` | PASS | Nove PDFs válidos | Nenhuma |
+| ZIP com `unzip -t` | PASS | Pacote contém os nove PDFs esperados | Nenhuma |
+| HTTP local `/academy` | PASS | HTTP 200; página renderizada | Apenas ambiente local |
+| HTTP dos nove PDFs | PASS | HTTP 200 e `application/pdf` | Apenas ambiente local |
+| Scan de segredos rastreados | PASS | Nenhum padrão de chave encontrado | Templates de nomes de variáveis são esperados |
+| Submissão real Academy | PENDENTE | Não executada | Exigiria ambiente Supabase identificado/teste autorizado |
+| Concorrência real por `request_id` | PENDENTE | Código corrigido atomicamente | Requer banco autorizado |
+| Visual tablet/mobile | PENDENTE | Browser visual desktop realizado | Ferramenta disponível não permitiu alterar viewport desta aplicação local |
 
-Limitação: a migração `009_academy_requests.sql` precisa de ser aplicada no Supabase antes de activar a rota em produção.
+## F. CRM e notificações
 
-## I. Deployment
+- Leads Academy usam `source=academy`.
+- `academy_course_id` identifica o curso quando aplicável.
+- `request_id` garante idempotência por índice único e operação atómica.
+- A actividade `lead_created` é criada apenas no pedido que efectivamente insere o lead.
+- Rate limiting é reutilizado através do limiter público existente.
+- A confirmação ao interessado comunica apenas recepção e análise; não promete vaga, aprovação, pagamento, início ou resultado financeiro.
+- A notificação interna é best-effort e reutiliza o transporte existente.
+- Nenhum email real foi enviado nesta auditoria.
+- A regressão completa do diagnóstico não pôde ser executada porque os dois ficheiros referidos acima abortam na inicialização sem Supabase.
 
-A implementação está apenas na branch local `feat/academy`. Não foi feito push, pull request, alteração de DNS, configuração externa, migração de produção ou publicação no domínio oficial.
+## G. Frontend e PDFs
 
-## J. Commit
+- Rota `/academy`: verificada no browser sandbox.
+- Navbar desktop: Academy visível.
+- Conteúdo: oito formações, filtros, cartões, módulos e links PDF visíveis.
+- Formulário: campos, consentimento, formação personalizada, estado de envio e mensagens de erro/sucesso implementados.
+- SEO: título, descrição e `/academy` no sitemap.
+- PDFs: oito documentos individuais e catálogo geral validados por integridade e HTTP.
+- ZIP: mantido como artefacto secundário e não apresentado como nona formação.
+- Validação visual desktop: realizada com screenshot/browser.
+- Validação tablet/mobile: pendente; não é declarada como concluída.
 
-Ainda não existe commit da implementação; o commit de referência permanece `1fcc28ad7c2a3aeb56cf342f815607196bcdb3e7`.
+## H. Segurança
 
-## K. Limitações e próximos passos
+Verificações realizadas:
 
-1. Aplicar a migração `009_academy_requests.sql` no ambiente Supabase correcto.
-2. Confirmar as variáveis de produção e o mecanismo de notificação Resend antes de publicar.
-3. Executar os testes da API com variáveis Supabase de teste válidas.
-4. Fazer validação visual em desktop, tablet e telemóvel antes do release.
-5. Rever o pull request e fazer deploy segundo o processo actual.
+- Validação server-side com Zod.
+- Email, nome, mensagem, UUID, consentimento e campos desconhecidos tratados explicitamente.
+- Rejeição de NUL byte antes da persistência.
+- Mensagem limitada a 2.000 caracteres.
+- Rate limiting público existente.
+- Índice e upsert atómico para idempotência.
+- Erros públicos não devolvem stack trace nem segredos.
+- Nenhum endpoint público lista ou expõe leads.
+- Nenhum segredo incluído no Git ou nos artefactos da implementação.
+- Credenciais fornecidas não foram guardadas em ficheiro nem reproduzidas em documentação.
 
-## L. Veredicto final
+Risco pendente: não activar a rota em produção antes de aplicar e verificar a migração no ambiente correcto.
 
-**PASS WITH LIMITATIONS** — a implementação está compilada e utilizável localmente, com os downloads verificados e o fluxo de código integrado. Não é declarada como publicada nem integralmente validada em produção porque a migração Supabase, os testes ligados à base de dados e a validação visual multi-viewport ainda estão pendentes.
+## I. Git e publicação
+
+- Commit Academy existente: `256c082`.
+- Correção de concorrência e testes adicionais ainda não estão commitados nesta auditoria.
+- Push: **não realizado**.
+- Branch remota `origin/feat/academy`: não existente no momento da auditoria.
+- Não houve deploy de produção.
+- Não houve alteração de `master`.
+
+## J. Próximos passos
+
+1. Disponibilizar as credenciais Supabase através de uma referência segura injectável no processo, ou identificar explicitamente um projeto de teste/staging.
+2. Confirmar o ambiente por metadados seguros e aplicar `009_academy_requests.sql` apenas num ambiente de teste autorizado.
+3. Executar a suite API completa com `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY` disponíveis ao processo; validar cenários A–G sem criar dados em produção.
+4. Fazer validação tablet/mobile através de uma ferramenta de screenshot com viewport configurável.
+5. Commitar a correção de concorrência, os testes e este relatório; só depois reavaliar push para `origin/feat/academy`.

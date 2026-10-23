@@ -17,9 +17,7 @@ export async function academyRequestRoutes(fastify: FastifyInstance) {
     const courseId = input.data.courseId || null;
     if (courseId && !COURSE_NAMES[courseId]) return reply.code(400).send({ error: 'Invalid academy course' });
     try {
-      const existing = await repo.getLeadByRequestId(input.data.requestId);
-      if (existing) return reply.code(200).send(existing);
-      const lead = await repo.createLead({
+      const result = await repo.createAcademyLead({
         requestId: input.data.requestId,
         source: 'academy',
         academyCourseId: courseId || undefined,
@@ -28,6 +26,8 @@ export async function academyRequestRoutes(fastify: FastifyInstance) {
         phone: input.data.phone || undefined,
         notes: input.data.message,
       });
+      const lead = result.lead;
+      if (!result.created) return reply.code(200).send(lead);
       await repo.createLeadActivity({ leadId: lead.id, type: 'lead_created', description: 'Pedido de formação criado na Código Binário Academy', createdBy: 'academy' });
       const course = courseId ? COURSE_NAMES[courseId] : 'Formação personalizada';
       notificationService.notifyNewAcademyRequest({ leadId: lead.id, name: lead.name, email: lead.email, phone: lead.phone, course, message: input.data.message, createdAt: lead.createdAt }).catch((error) => request.log.error(error, 'academy internal notification failed'));
