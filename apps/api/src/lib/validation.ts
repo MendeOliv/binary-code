@@ -73,6 +73,18 @@ export const LeadCreateInputSchema = z.object({
 
 export type LeadCreateInput = z.infer<typeof LeadCreateInputSchema>;
 
+/** POST /api/academy-requests (public) */
+export const AcademyRequestSchema = z.object({
+  requestId: z.string().trim().uuid('Invalid requestId'),
+  name: z.string().trim().min(1, 'Name is required').max(MAX_LEAD_FIELD_LENGTH).refine(rejectsNul, NUL_MSG),
+  email: z.string().trim().email('Invalid email').max(MAX_LEAD_FIELD_LENGTH).refine(rejectsNul, NUL_MSG),
+  phone: z.string().trim().max(MAX_LEAD_FIELD_LENGTH).refine(rejectsNul, NUL_MSG).optional().or(z.literal('')),
+  courseId: z.string().trim().max(100).refine(rejectsNul, NUL_MSG).optional(),
+  message: z.string().trim().min(10, 'Message is required').max(2000, 'Message exceeds 2000 characters').refine(rejectsNul, NUL_MSG),
+  privacyAccepted: z.literal(true, { errorMap: () => ({ message: 'Privacy policy must be accepted' }) }),
+}).strict();
+export type AcademyRequestInput = z.infer<typeof AcademyRequestSchema>;
+
 // ──────────────────────────────────────────────────────────────────────────
 // ADMIN / CRM SCHEMAS (FASE 4/5/6)
 // ──────────────────────────────────────────────────────────────────────────

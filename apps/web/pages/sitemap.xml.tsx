@@ -19,6 +19,7 @@ const PUBLIC_PAGES = [
   '/projects',
   '/developers',
   '/diagnostic',
+  '/academy',
   '/privacidade',
   '/termos',
 ];
