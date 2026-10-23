@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { IconClose, IconMenu } from './Icon';
+import ThemeToggle from './ThemeToggle';
 
 const NAV_LINKS = [
   { label: 'Início', href: '/' },
@@ -76,6 +77,7 @@ export default function Navbar() {
 
         {/* CTA + mobile toggle */}
         <div className="flex items-center gap-space-md">
+          <ThemeToggle />
           <Link href="/diagnostic" className="btn-primary hidden md:inline-flex">
             [INICIAR DIAGNÓSTICO →]
           </Link>

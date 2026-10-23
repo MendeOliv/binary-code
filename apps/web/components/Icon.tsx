@@ -52,6 +52,24 @@ export function IconClose({ className }: IconProps) {
   );
 }
 
+/** Material Symbols "light_mode" — switch to light mode. */
+export function IconSun({ className }: IconProps) {
+  return (
+    <svg {...svgProps} className={`${baseClass} ${className ?? ''}`}>
+      <path d="M12 4V2h-1v2h1zm0 18v-2h-1v2h1zM4 11H2v1h2v-1zm18 0h-2v1h2v-1zM5.64 6.35 4.23 4.94l-.71.71 1.41 1.41.71-.71zm14.14 14.14-1.41-1.41-.71.71 1.41 1.41.71-.71zM17.65 6.36l1.41-1.41-.71-.71-1.41 1.41.71.71zM6.35 17.65l-1.41 1.41.71.71 1.41-1.41-.71-.71zM11.5 7A5.5 5.5 0 1 0 11.5 18 5.5 5.5 0 0 0 11.5 7z" />
+    </svg>
+  );
+}
+
+/** Material Symbols "dark_mode" — switch to dark mode. */
+export function IconMoon({ className }: IconProps) {
+  return (
+    <svg {...svgProps} className={`${baseClass} ${className ?? ''}`}>
+      <path d="M20.7 15.3A8.9 8.9 0 0 1 8.7 3.3 9 9 0 1 0 20.7 15.3z" />
+    </svg>
+  );
+}
+
 /** Material Symbols "arrow_forward" — used as the chat send action. */
 export function IconArrowForward({ className }: IconProps) {
   return (
