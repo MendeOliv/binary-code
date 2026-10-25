@@ -42,7 +42,7 @@ export default function AcademyPage() {
       } else {
         setStatus('success'); setName(''); setEmail(''); setPhone(''); setMessage(''); setPrivacy(false);
       }
-    } catch (submissionError) { setStatus('error'); setError('Erro de rede. Tente novamente.'); }
+    } catch { setStatus('error'); setError('Erro de rede. Tente novamente.'); }
   };
   return <>
     <SeoHead title="Código Binário Academy — Formação prática" description={DESCRIPTION} path="/academy" />
