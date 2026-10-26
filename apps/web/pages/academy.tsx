@@ -25,9 +25,24 @@ export default function AcademyPage() {
     setStatus('sending'); setError('');
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE || '/api'}/academy-requests`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ requestId: crypto.randomUUID(), name, email, phone, courseId: custom ? undefined : courseId, message, privacyAccepted: privacy }) });
-      if (!response.ok) throw new Error(response.status === 429 ? 'Demasiadas tentativas. Aguarde e tente novamente.' : 'Não foi possível registar o pedido. Verifique a ligação e tente novamente.');
-      setStatus('success'); setName(''); setEmail(''); setPhone(''); setMessage(''); setPrivacy(false);
-    } catch (submissionError) { setStatus('error'); setError(submissionError instanceof Error ? submissionError.message : 'Não foi possível registar o pedido.'); }
+      if (response.status === 429) {
+        setStatus('error');
+        setError('Demasiadas tentativas. Aguarde um momento e tente novamente.');
+      } else if (!response.ok) {
+        // Try to get a meaningful error message from the API
+        try {
+          const errorData = await response.json();
+          setStatus('error');
+          setError(errorData.error || 'Não foi possível registar o pedido. Verifique a ligação e tente novamente.');
+        } catch {
+          // Response not JSON or parse error - treat as connection/serverside error
+          setStatus('error');
+          setError('Não foi possível registar o pedido. Verifique a ligação e tente novamente.');
+        }
+      } else {
+        setStatus('success'); setName(''); setEmail(''); setPhone(''); setMessage(''); setPrivacy(false);
+      }
+    } catch { setStatus('error'); setError('Erro de rede. Tente novamente.'); }
   };
   return <>
     <SeoHead title="Código Binário Academy — Formação prática" description={DESCRIPTION} path="/academy" />
